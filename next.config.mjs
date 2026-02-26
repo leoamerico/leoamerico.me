@@ -23,6 +23,8 @@ function buildCspValue() {
 }
 
 const nextConfig = {
+  // E1: não expor stack tecnológico via cabeçalho HTTP
+  poweredByHeader: false,
   images: {
     formats: ["image/avif", "image/webp"],
   },
