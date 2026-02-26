@@ -22,7 +22,9 @@
     "audit": "bun run audit:repo && bun run audit:runtime",
     "audit:full": "bun run audit:repo && bun run audit:lexicon && bun run audit:opsec && bun run audit:teardown && bun run audit:infra && bun run audit:runtime && bun run audit:visual",
     "visual:test": "bunx playwright test --grep palette",
-    "visual:update": "bunx playwright test --grep palette --update-snapshots"
+    "visual:update": "bunx playwright test --grep palette --update-snapshots",
+    "seo:gates": "node scripts/seo/seo-gates.mjs",
+    "seo:gates:json": "node scripts/seo/seo-gates.mjs --json"
   },
   "dependencies": {
     "framer-motion": "^12.34.3",
