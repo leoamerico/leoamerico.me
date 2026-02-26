@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "audit:repo": "node scripts/audit/repo-audit.mjs",
+    "audit:runtime": "node scripts/audit/runtime-audit.mjs",
+    "audit": "npm run audit:repo && npm run audit:runtime"
   },
   "dependencies": {
     "framer-motion": "^12.34.3",

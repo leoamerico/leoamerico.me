@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Sora } from "next/font/google";
 import "./globals.css";
 import { SITE } from "@/lib/constants";
+import { PERSON_JSON_LD } from "@/lib/structured-data";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -40,30 +41,6 @@ export const metadata: Metadata = {
   },
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Leo Américo",
-  url: SITE.url,
-  jobTitle: "Arquiteto de Software AI-First",
-  worksFor: {
-    "@type": "Organization",
-    name: "Env Neo Ltda",
-    url: "https://envneo.com.br",
-  },
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Uberlândia",
-    addressRegion: "MG",
-    addressCountry: "BR",
-  },
-  sameAs: [
-    "https://www.linkedin.com/in/leoamericojr",
-    "https://github.com/leoamerico",
-    "https://substack.com/@leoamericojr",
-  ],
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -74,7 +51,7 @@ export default function RootLayout({
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(PERSON_JSON_LD) }}
         />
       </head>
       <body
