@@ -58,7 +58,7 @@ export default function Projects() {
                   <div className="mb-4">
                     <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Diferenciais técnicos</p>
                     <ul className="space-y-1">
-                      {project.features.map((f: string, j: number) => (
+                      {(project.features as string[]).map((f: string, j: number) => (
                         <li key={j} className="text-slate-400 text-sm flex items-start gap-2">
                           <span className="text-cyan-400 mt-0.5">•</span>
                           {f}

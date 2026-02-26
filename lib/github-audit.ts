@@ -66,6 +66,38 @@ async function countCommitsWithMonthly(
   return { total, monthly };
 }
 
+// Get commit activity heatmap for the govevia repo (52 weeks × 7 days)
+// GitHub returns 202 while computing — retry up to 3 times
+async function getGoveiaHeatmap(
+  token: string
+): Promise<Array<{ week: number; days: number[] }>> {
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const res = await fetch(
+      `${GITHUB_API}/repos/${USERNAME}/govevia/stats/commit_activity`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/vnd.github+json",
+          "X-GitHub-Api-Version": "2022-11-28",
+        },
+        next: { revalidate: 3600 },
+      }
+    );
+    if (res.status === 202) {
+      if (attempt < 2) await new Promise((r) => setTimeout(r, 3000));
+      continue;
+    }
+    if (!res.ok) return [];
+    const data = await res.json();
+    if (Array.isArray(data) && data.length > 0) {
+      // Slice to last 13 weeks (~91 days / 90-day window)
+      const last13 = (data as { week: number; days: number[] }[]).slice(-13);
+      return last13.map((w) => ({ week: w.week, days: w.days }));
+    }
+  }
+  return [];
+}
+
 // Get first-line commit messages for a repo
 async function getCommitMessages(
   repo: string,
@@ -177,6 +209,7 @@ export interface AuditReport {
   totalGuards: number;
   repos: RepoAuditData[];
   monthlyActivity: Record<string, number>;
+  goveiaheatmap: Array<{ week: number; days: number[] }>;
 }
 
 export async function generateAuditReport(): Promise<AuditReport | null> {
@@ -282,6 +315,9 @@ export async function generateAuditReport(): Promise<AuditReport | null> {
   // Sort repos by commits desc
   repos.sort((a, b) => b.commits - a.commits);
 
+  // Fetch Govevia daily heatmap (52w × 7d) from GitHub stats API
+  const goveiaheatmap = await getGoveiaHeatmap(token);
+
   return {
     generatedAt: new Date().toISOString(),
     period: label,
@@ -297,5 +333,6 @@ export async function generateAuditReport(): Promise<AuditReport | null> {
     totalGuards,
     repos,
     monthlyActivity,
+    goveiaheatmap,
   };
 }
