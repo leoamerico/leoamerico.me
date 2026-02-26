@@ -131,7 +131,7 @@ export const STACK = {
 };
 
 export const PROJECTS = {
-  title: "Três domínios. Um núcleo.",
+  title: "Dois domínios. Um núcleo.",
   cards: [
     {
       category: "GRP · Gestão Pública · Em produção",
