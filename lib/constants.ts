@@ -31,7 +31,7 @@ export const HERO = {
     "GRP · Govevia — gestão pública",
   ],
   paragraph:
-    "Um núcleo modular AI-first. Dois domínios. O sistema se auto-regula, testa e documenta — a prova está no código ao vivo abaixo.",
+    "Software de gestão que valida regras no fonte, se auto-documenta e evolui sem intervenção manual. Um núcleo modular AI-first, dois domínios — a prova está no código ao vivo abaixo.",
   ctaPrimary: { label: "Ver código ao vivo", href: "#audit" },
   ctaSecondary: {
     label: "Substack",
