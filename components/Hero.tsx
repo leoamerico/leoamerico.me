@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, MessageCircle } from "lucide-react";
+import { ArrowRight, MessageCircle, ExternalLink } from "lucide-react";
 import { HERO } from "@/lib/constants";
 
 function Typewriter({ words }: { words: string[] }) {
@@ -129,14 +129,44 @@ export default function Hero() {
           transition={{ delay: 0.7 }}
           className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl mx-auto"
         >
-          {HERO.metrics.map((metric, i) => (
-            <div key={i} className="glass rounded-2xl p-6 text-center">
-              <div className="text-3xl md:text-4xl font-heading font-bold text-cyan-400 mb-1">
-                {metric.value}
+          {HERO.metrics.map((metric, i) => {
+            const m = metric as {
+              value: string;
+              label: string;
+              source?: string;
+              href?: string;
+              external?: boolean;
+            };
+            const inner = (
+              <>
+                <div className="text-3xl md:text-4xl font-heading font-bold text-cyan-400 mb-1">
+                  {m.value}
+                </div>
+                <div className="text-sm text-slate-300 font-medium mb-1">{m.label}</div>
+                {m.source && (
+                  <div className="flex items-center justify-center gap-1 text-[11px] text-slate-500">
+                    {m.source}
+                    {m.href && <ExternalLink size={9} className="text-cyan-500/60" />}
+                  </div>
+                )}
+              </>
+            );
+            return m.href ? (
+              <a
+                key={i}
+                href={m.href}
+                target={m.external ? "_blank" : "_self"}
+                rel={m.external ? "noopener noreferrer" : undefined}
+                className="glass rounded-2xl p-6 text-center hover:border-cyan-400/40 hover:bg-cyan-400/5 transition-all cursor-pointer group"
+              >
+                {inner}
+              </a>
+            ) : (
+              <div key={i} className="glass rounded-2xl p-6 text-center">
+                {inner}
               </div>
-              <div className="text-sm text-slate-400">{metric.label}</div>
-            </div>
-          ))}
+            );
+          })}
         </motion.div>
       </div>
     </section>

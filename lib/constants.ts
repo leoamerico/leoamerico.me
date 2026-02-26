@@ -40,9 +40,25 @@ export const HERO = {
     href: "https://wa.me/5534984228457",
   },
   metrics: [
-    { value: "15+", label: "anos em gestão pública digital" },
-    { value: "60+", label: "municípios, câmaras e autarquias atendidos" },
-    { value: "70%", label: "redução de papel — Amparo Digital (Sonner Sistemas)" },
+    {
+      value: "15+",
+      label: "anos em gestão pública digital",
+      source: "Desde 2010",
+      href: "#credenciais",
+    },
+    {
+      value: "60+",
+      label: "municípios, câmaras e autarquias atendidos",
+      source: "MG · SP · RS · BA",
+      href: "#resultados",
+    },
+    {
+      value: "70%",
+      label: "redução de papel documentada",
+      source: "Amparo Digital — Sonner Sistemas",
+      href: "https://www.youtube.com/watch?v=Egp92Tqmdok",
+      external: true,
+    },
   ],
 };
 
