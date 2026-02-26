@@ -234,8 +234,64 @@ export const GOVEVIA_STATS = {
   ],
 };
 
+// ---------------------------------------------------------------------------
+// Control Plane — dados para o painel de governança executável
+// Fonte: enforcement-registry.yaml (E1–E13) + ADR-036 (E-META-1..6)
+// ---------------------------------------------------------------------------
+export const CONTROL_PLANE = {
+  title: "Control Plane em Números",
+  subtitle:
+    "Governança executável: toda regra é um gate CI/DB/Runtime, não uma disciplina humana.",
+  lastUpdated: "2026-02",
+
+  // Gráfico 1 — Enforcements por Mecanismo
+  byMechanism: [
+    { label: "ArchUnit (build)",     count: 3,  color: "cyan"    },
+    { label: "DB Trigger (runtime)", count: 3,  color: "emerald" },
+    { label: "GitHub Actions",       count: 2,  color: "violet"  },
+    { label: "Runtime Guard",        count: 3,  color: "amber"   },
+    { label: "Script CI Gate",       count: 2,  color: "cyan"    },
+    { label: "ADR + PR Review",      count: 6,  color: "emerald" },
+  ],
+
+  // Gráfico 2 — Maturidade dos ADRs (fonte: DOC-CATALOG.yaml · fev/2026)
+  adrStatus: [
+    { label: "Accepted/Active", count: 171, color: "emerald" },
+    { label: "Archived",        count: 53,  color: "slate"   },
+    { label: "Deprecated",      count: 4,   color: "amber"   },
+    { label: "Draft",           count: 3,   color: "violet"  },
+  ],
+
+  // Gráfico 3 — Invariantes de migration ativos
+  invariants: [
+    { id: "INV-1", label: "Row-Level Security (RLS)",        adr: "ADR-021", active: true },
+    { id: "INV-3", label: "Rollback declarado",              adr: "ADR-015", active: true },
+    { id: "INV-5", label: "Classificação LGPD",              adr: "ADR-014", active: true },
+    { id: "INV-7", label: "Append-Only (evidence tables)",   adr: "ADR-036", active: true },
+  ],
+
+  // Gráfico 4 — Meta-Enforcements E-META-1..6 (Control Plane, ADR-036)
+  metaEnforcements: [
+    { id: "E-META-1", label: "Singularidade de Autoridade",  implemented: true },
+    { id: "E-META-2", label: "Gates CI-Verificáveis",        implemented: true },
+    { id: "E-META-3", label: "DAG GRP → ERP → ESA",         implemented: true },
+    { id: "E-META-4", label: "truth_source obrigatório",     implemented: true },
+    { id: "E-META-5", label: "Append-Only por Default",      implemented: true },
+    { id: "E-META-6", label: "Rastreabilidade ADR ↔ Código", implemented: true },
+  ],
+
+  // Totais para headline cards
+  totals: {
+    enforcements: 19,   // E1–E13 (13) + E-META-1..6 (6)
+    adrs: 231,          // 171 active + 53 archived + 4 deprecated + 3 draft
+    migrations: 27,
+    invariants: 4,
+    ciGates: 2,         // governance-gates.yml jobs
+    worlds: 3,
+  },
+};
+
 export const CERTIFICATIONS = {
-  title: "Formação & Credenciais",
   items: [
     {
       title: "Membro PMI — Project Management Institute",
