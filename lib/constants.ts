@@ -24,7 +24,7 @@ export const SITE = {
   shortName: "Leo Américo",
   title: "Leo Américo — ERP · GRP",
   description:
-    "Arquitetura modular AI-first em dois domínios: Env Neo (ERP) e Govevia (GRP). Um núcleo. Dois domínios. Produzido por quem opera o sistema.",
+    "Arquitetura modular construída em dois domínios: Env Neo (ERP) e Govevia (GRP). Um núcleo. Dois domínios. Produzido por quem opera o sistema.",
   url: "https://leoamerico.me",
   locale: "pt-BR",
   email: "sou@leoamerico.me",
@@ -47,7 +47,7 @@ export const HERO = {
     "GRP · Govevia — gestão pública",
   ],
   paragraph:
-    "Software de gestão que valida regras no fonte, se auto-documenta e evolui sem intervenção manual. Um núcleo modular AI-first, dois domínios — a prova está no código ao vivo abaixo.",
+    "Software de gestão que valida regras no fonte, se auto-documenta. Um núcleo modular onde o humano define as regras e a arquitetura as executa — a prova está no código ao vivo abaixo.",
   ctaPrimary: { label: "Ver código ao vivo", href: "#audit" },
   ctaSecondary: {
     label: "Substack",
@@ -79,8 +79,8 @@ export const ABOUT = {
   title: "A tese em dois domínios",
   photo: "/photo.jpg",
   paragraphs: [
-    "16 anos operando sistemas de gestão no setor público produziram uma arquitetura: um núcleo modular com validação no fonte, que se auto-regula, testa e documenta. Essa experiência é a origem — não o serviço atual.",
-    "Em 2024 fundei a <a href=\"https://envneo.com\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-cyan-400 hover:text-cyan-300 underline underline-offset-2\">Env Neo Ltda</a> para materializar essa arquitetura em dois domínios: Env Neo (ERP) e Govevia (GRP). A transição de SaaS para IA-first é a condição técnica do que já está rodando.",
+    "16 anos operando sistemas de gestão no setor público produziram uma arquitetura: um núcleo modular com validação no fonte, que testa e documenta as regras que a pessoa decidiu. Essa experiência é a origem — não o serviço atual.",
+    "Em 2024 fundei a <a href=\"https://envneo.com\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-cyan-400 hover:text-cyan-300 underline underline-offset-2\">Env Neo Ltda</a> para materializar essa arquitetura em dois domínios: Env Neo (ERP) e Govevia (GRP). A IA como instrumento de quem opera — não como substituto do que já está rodando.",
     "Bacharel em Sistemas de Informação, membro ativo do PMI.",
   ],
   location: "Uberlândia, MG · Brasil",
@@ -109,7 +109,7 @@ export const EXPERTISE = {
       icon: "Cpu",
       title: "IA como parte da operação",
       description:
-        "Não IA como feature colada em processo quebrado. IA que valida regras no fonte, gera documentação estruturada e se auto-regula como infra — não como camada adicional. A transição de SaaS para IA-first começa com o processo limpo.",
+        "Não IA como feature colada em processo quebrado. IA que executa as regras que o humano definiu no fonte, gera documentação estruturada sob supervisão — não como camada adicional. O processo limpo é o ponto de partida.",
     },
     {
       icon: "TrendingUp",
