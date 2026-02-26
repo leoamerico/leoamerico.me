@@ -24,7 +24,9 @@
     "visual:test": "bunx playwright test --grep palette",
     "visual:update": "bunx playwright test --grep palette --update-snapshots",
     "seo:gates": "node scripts/seo/seo-gates.mjs",
-    "seo:gates:json": "node scripts/seo/seo-gates.mjs --json"
+    "seo:gates:json": "node scripts/seo/seo-gates.mjs --json",
+    "seo:v3": "node scripts/seo/seo-v3-coverage.mjs",
+    "seo:v3:md": "node scripts/seo/seo-v3-coverage.mjs --md"
   },
   "dependencies": {
     "framer-motion": "^12.34.3",

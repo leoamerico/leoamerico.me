@@ -7,7 +7,7 @@
 //   V5  Story Mode                 (Executivo / Editor / Engenheiro)
 // ─────────────────────────────────────────────────────────────────────────────
 import { useState } from "react";
-import type { SeoSnapshot, SeoRoute, SeoGate, SeoField, GateStatus } from "@/lib/seo/types";
+import type { SeoSnapshot, SeoRoute, SeoGate, SeoField, GateStatus, V3CoverageReport } from "@/lib/seo/types";
 
 // ─── Paleta por plano ─────────────────────────────────────────────────────────
 const PLANE_COLOR: Record<string, string> = {
@@ -493,18 +493,155 @@ function V5StoryMode({ snapshot }: { snapshot: SeoSnapshot }) {
   );
 }
 
+// ─── V3 — Cobertura de Conteúdo por Persona/Intent ──────────────────────────
+const SEV_CLASS: Record<string, string> = {
+  P0: "bg-red-900/60 text-red-400 border-red-700",
+  P1: "bg-amber-900/60 text-amber-400 border-amber-700",
+  P2: "bg-slate-800 text-slate-400 border-slate-600",
+};
+const FINDING_LABEL: Record<string, string> = {
+  "thin-content":    "Conteúdo Thin",
+  cannibalization:   "Canibalização",
+  "heading-drift":   "Heading Drift",
+  "promise-drift":   "Promise Drift",
+};
+
+function V3SevBadge({ sev }: { sev: string }) {
+  return (
+    <span className={`px-1.5 py-0.5 rounded border text-[10px] font-mono font-bold ${SEV_CLASS[sev] ?? ""}`}>
+      {sev}
+    </span>
+  );
+}
+
+function V3Content({ v3 }: { v3: V3CoverageReport | undefined }) {
+  if (!v3) return (
+    <div className="text-slate-500 text-sm py-12 text-center">
+      V3 não disponível — recarregue o Atlas.
+    </div>
+  );
+
+  const { units, findings, personaCoverage, summary } = v3;
+
+  return (
+    <div className="space-y-8">
+      {/* Summary strip */}
+      <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
+        {[
+          { label: "Unidades",   value: summary.totalUnits },
+          { label: "Thin",       value: summary.thinCount,              cls: summary.thinCount > 0 ? "text-amber-400" : "text-emerald-400" },
+          { label: "Canibal.",   value: summary.cannibalizationCount,   cls: summary.cannibalizationCount > 0 ? "text-amber-400" : "text-emerald-400" },
+          { label: "P0",         value: summary.p0Count,               cls: summary.p0Count > 0 ? "text-red-400" : "text-emerald-400" },
+          { label: "P1",         value: summary.p1Count,               cls: summary.p1Count > 0 ? "text-amber-400" : "text-emerald-400" },
+          { label: "P2",         value: summary.p2Count,               cls: "text-slate-400" },
+        ].map(s => (
+          <div key={s.label} className="bg-slate-900 border border-slate-800 rounded p-3 text-center">
+            <div className={`text-2xl font-black ${s.cls ?? "text-white"}`}>{s.value}</div>
+            <div className="text-[10px] text-slate-500 mt-0.5">{s.label}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Findings */}
+      {findings.length > 0 && (
+        <div>
+          <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Findings</h3>
+          <div className="space-y-2">
+            {findings.map(f => (
+              <div key={f.id} className="bg-slate-900 border border-slate-800 rounded p-3">
+                <div className="flex items-center gap-2 mb-1">
+                  <V3SevBadge sev={f.severity} />
+                  <span className="text-xs text-slate-300 font-medium">{FINDING_LABEL[f.type] ?? f.type}</span>
+                  <span className="text-[10px] text-slate-600 ml-auto font-mono">{f.units.join(", ")}</span>
+                </div>
+                <p className="text-[11px] text-slate-400 mb-1">{f.evidence}</p>
+                <p className="text-[11px] text-sky-400">{f.recommendation}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Persona coverage */}
+      <div>
+        <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Cobertura por Persona</h3>
+        <div className="overflow-x-auto">
+          <table className="w-full text-xs border-collapse">
+            <thead>
+              <tr className="border-b border-slate-800 text-left text-[10px] text-slate-500">
+                <th className="py-2 pr-4">Persona</th>
+                <th className="py-2 pr-4"># Unidades</th>
+                <th className="py-2 pr-4">Intents</th>
+                <th className="py-2 pr-4">Thin?</th>
+                <th className="py-2">Conflito?</th>
+              </tr>
+            </thead>
+            <tbody>
+              {personaCoverage.map(p => (
+                <tr key={p.persona} className="border-b border-slate-800/50">
+                  <td className="py-2 pr-4 text-slate-200 font-mono">{p.persona}</td>
+                  <td className="py-2 pr-4 text-slate-400">{p.units.length}</td>
+                  <td className="py-2 pr-4 text-slate-500 text-[10px]">{p.intents.join(" · ")}</td>
+                  <td className="py-2 pr-4">{p.hasThinContent ? <span className="text-amber-400">⚠ thin</span> : <span className="text-slate-700">—</span>}</td>
+                  <td className="py-2">{p.hasConflict ? <span className="text-red-400">⚠ conflito</span> : <span className="text-slate-700">—</span>}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Content units */}
+      <div>
+        <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Unidades de Conteúdo</h3>
+        <div className="overflow-x-auto">
+          <table className="w-full text-xs border-collapse">
+            <thead>
+              <tr className="border-b border-slate-800 text-left text-[10px] text-slate-500">
+                <th className="py-2 pr-4">ID</th>
+                <th className="py-2 pr-4">Palavras</th>
+                <th className="py-2 pr-4">H1</th>
+                <th className="py-2 pr-4">H2s</th>
+                <th className="py-2 pr-4">Persona(s)</th>
+                <th className="py-2">Intent</th>
+              </tr>
+            </thead>
+            <tbody>
+              {units.map(u => (
+                <tr key={u.id} className="border-b border-slate-800/50">
+                  <td className="py-2 pr-4 font-mono text-slate-300">{u.id}</td>
+                  <td className={`py-2 pr-4 ${u.wordCount < 60 ? "text-amber-400" : "text-slate-400"}`}>{u.wordCount}</td>
+                  <td className="py-2 pr-4 text-slate-500 text-[10px] max-w-[160px] truncate" title={u.h1[0]}>{u.h1[0] ?? "—"}</td>
+                  <td className="py-2 pr-4 text-slate-600">{u.h2.length}</td>
+                  <td className="py-2 pr-4 text-slate-500 text-[10px]">{u.persona.join(" · ")}</td>
+                  <td className="py-2 text-slate-500 font-mono text-[10px]">{u.intent}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div className="text-[10px] text-slate-700 pt-2">
+        Estratégia: {v3.strategy} · Fonte: {v3.sourceRef} · {new Date(v3.generatedAt).toLocaleString("pt-BR")}
+      </div>
+    </div>
+  );
+}
+
 // ─── TAB navigation ──────────────────────────────────────────────────────────
-type Tab = "v1" | "v2" | "v5" | "gates";
+type Tab = "v1" | "v2" | "v3" | "v5" | "gates";
 
 // ─── Main export ─────────────────────────────────────────────────────────────
 export default function SeoAtlas({ snapshot }: { snapshot: SeoSnapshot }) {
   const [tab, setTab] = useState<Tab>("v2");
 
   const TABS: { id: Tab; label: string }[] = [
-    { id: "v1",    label: "V1 — Rotas"    },
-    { id: "v2",    label: "V2 — Metadados"},
-    { id: "v5",    label: "V5 — Story"    },
-    { id: "gates", label: "Gates"         },
+    { id: "v1",    label: "V1 — Rotas"     },
+    { id: "v2",    label: "V2 — Metadados" },
+    { id: "v3",    label: "V3 — Conteúdo"  },
+    { id: "v5",    label: "V5 — Story"     },
+    { id: "gates", label: "Gates"          },
   ];
 
   return (
@@ -561,15 +698,16 @@ export default function SeoAtlas({ snapshot }: { snapshot: SeoSnapshot }) {
 
       {/* Tab content */}
       <div>
-        {tab === "v1"    && <V1IndexMap    routes={snapshot.routes} />}
-        {tab === "v2"    && <V2MetadataMatrix routes={snapshot.routes} />}
-        {tab === "v5"    && <V5StoryMode   snapshot={snapshot} />}
-        {tab === "gates" && <GatesPanel    gates={snapshot.gates} />}
+        {tab === "v1"    && <V1IndexMap       routes={snapshot.routes} />}
+        {tab === "v2"    && <V2MetadataMatrix  routes={snapshot.routes} />}
+        {tab === "v3"    && <V3Content         v3={snapshot.v3} />}
+        {tab === "v5"    && <V5StoryMode       snapshot={snapshot} />}
+        {tab === "gates" && <GatesPanel        gates={snapshot.gates} />}
       </div>
 
       {/* Footer */}
       <div className="mt-12 border-t border-slate-800 pt-4 text-[10px] text-slate-700">
-        SEO Atlas · três planos: Discovery · Relevance · Performance · gates E-SEO-1..5
+        SEO Atlas · Discovery · Relevance · Performance · V3 Conteúdo · gates E-SEO-1..5
       </div>
     </div>
   );

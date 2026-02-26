@@ -41,12 +41,58 @@ Células: ✅/⚠️/❌ · Drill-down: aponta arquivo de origem.
 
 **Acesso:** `/atlas/seo` → tab "V2 — Metadados"
 
-### V3 — Cobertura de Conteúdo *(backlog)*
+### V3 — Cobertura de Conteúdo por Persona/Intent
 
 Pergunta: *"o conteúdo atende intenção e não compete consigo?"*
 
-- Clusters por persona (Prefeito/Procurador/Auditor/Secretário)
-- Duplicidade semântica, thin content, canibalização
+#### Dual-track
+
+| Track | Fonte | Disponibilidade |
+|---|---|---|
+| **Static** | `lib/constants.ts` → `lib/seo/buildV3Static.ts` | Atlas UI, sempre disponível (serverless) |
+| **Live** | HTML fetch via `scripts/seo/seo-v3-coverage.mjs` | CI/CD, requer servidor rodando |
+
+#### Como rodar o script live
+
+```bash
+bun run build && bun run start -p 3000 &
+bun run seo:v3          # JSON em reports/seo/seo-v3-coverage.json
+bun run seo:v3:md       # Markdown em reports/seo/seo-v3-coverage.md
+# Config:
+npm run seo:v3 -- --url http://localhost:3000 --threshold 300
+```
+
+> `reports/` está no `.gitignore` — os arquivos são artefatos de CI, não commitados.
+
+#### Thresholds
+
+| Track | Thin P1 | Thin P2 |
+|---|---|---|
+| Static (fragmentos de texto) | < 60 palavras | < 120 palavras && sem H2 |
+| Live (HTML body completo) | < threshold (padrão 250w) | < threshold && sem H1 |
+
+#### Personas reconhecidas
+
+`prefeito · secretario · procurador · auditor · controlador · fiscal · cidadao · empresario · gestor · tech · geral`
+
+#### Intents reconhecidos
+
+`hero · sobre · credibilidade · produto-grp · produto-erp · compliance · governanca · stack · capacidades · contato · overview`
+
+#### Findings gerados
+
+| Tipo | Severidade | Critério |
+|---|---|---|
+| `thin-content` | P1/P2 | word count abaixo do threshold |
+| `cannibalization` | P0/P1 | H1 duplicado, assinatura idêntica, H2 sobreposição ≥ 2 |
+| `heading-drift` | P1 | headings não refletem a persona/intent da unidade |
+| `promise-drift` | P1 | título promete X, conteúdo entrega Y |
+
+#### Limitações
+
+- **SPA de rota única:** o site tem apenas `/` indexável; as âncoras (`#sobre`, `#audit`, etc.) são seções da mesma página HTML, não páginas separadas. O script trata cada âncora como ContentUnit independente.
+- **JS-rendered content:** o script usa fetch estático (não Puppeteer); conteúdo renderizado via JS não é capturado pelo track live.
+- **Word counts estáticos:** os fragmentos em `lib/constants.ts` são menores que o HTML completo renderizado — threshold de 60w é calibrado para isso.
 
 ### V4 — Saúde Técnica / CWV *(backlog)*
 

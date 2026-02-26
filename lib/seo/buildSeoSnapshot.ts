@@ -11,6 +11,7 @@ import type {
   SeoSnapshot, SeoRoute, SeoGate, SeoMetrics,
   SeoField, GateStatus,
 } from "./types";
+import { buildV3Static } from "./buildV3Static";
 
 const ROOT   = process.cwd();
 const SITE   = "https://leoamerico.me";
@@ -315,19 +316,22 @@ export async function buildSeoSnapshot(): Promise<SeoSnapshot> {
   const gatesFail = gates.filter(g => g.status === "fail").length;
   const gatesWarn = gates.filter(g => g.status === "warn").length;
 
-  const metrics: SeoMetrics = {
-    totalRoutes:          routes.length,
-    indexableRoutes:      indexableRoutes.length,
-    routesInSitemap:      routes.filter(r => r.inSitemap).length,
-    routesWithTitle:      indexableRoutes.filter(r => r.title.status !== "missing").length,
-    routesWithDescription:indexableRoutes.filter(r => r.description.status !== "missing").length,
-    routesWithOg:         indexableRoutes.filter(r => r.ogImage.status !== "missing").length,
-    routesWithSchema:     indexableRoutes.filter(r => r.schemaTypes.length > 0).length,
-    gatesPass, gatesFail, gatesWarn,
-    healthScore: Math.round(
-      ((gatesPass * 2 + gatesWarn) / (gates.length * 2)) * 100,
-    ),
-  };
+  const [v3, metrics] = await Promise.all([
+    buildV3Static(),
+    Promise.resolve<SeoMetrics>({
+      totalRoutes:          routes.length,
+      indexableRoutes:      indexableRoutes.length,
+      routesInSitemap:      routes.filter(r => r.inSitemap).length,
+      routesWithTitle:      indexableRoutes.filter(r => r.title.status !== "missing").length,
+      routesWithDescription:indexableRoutes.filter(r => r.description.status !== "missing").length,
+      routesWithOg:         indexableRoutes.filter(r => r.ogImage.status !== "missing").length,
+      routesWithSchema:     indexableRoutes.filter(r => r.schemaTypes.length > 0).length,
+      gatesPass, gatesFail, gatesWarn,
+      healthScore: Math.round(
+        ((gatesPass * 2 + gatesWarn) / (gates.length * 2)) * 100,
+      ),
+    }),
+  ]);
 
   return {
     generatedAt: new Date().toISOString(),
@@ -337,5 +341,6 @@ export async function buildSeoSnapshot(): Promise<SeoSnapshot> {
     routes,
     gates,
     metrics,
+    v3,
   };
 }
