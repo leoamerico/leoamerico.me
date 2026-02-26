@@ -1,0 +1,129 @@
+{
+  "meta": {
+    "repo": "leoamerico.me",
+    "branch": "main",
+    "commit": "1877883c3a1cab4a2e0e7390fc4a875e64e4ed83",
+    "generatedAt": "2026-02-26T12:44:08.920Z"
+  },
+  "checks": [
+    {
+      "id": "A1",
+      "severity": "MODERATE",
+      "title": "Foto real publicada (photo.jpg/png/webp) — não placeholder SVG",
+      "evidence": {
+        "files": [
+          "photo.jpg",
+          "photo.svg"
+        ],
+        "hasReal": true,
+        "hasSvg": true
+      },
+      "pass": true
+    },
+    {
+      "id": "A2",
+      "severity": "MODERATE",
+      "title": "robots.ts existe (SEO básico)",
+      "evidence": {
+        "exists": true
+      },
+      "pass": true
+    },
+    {
+      "id": "A3",
+      "severity": "MODERATE",
+      "title": "sitemap.ts existe (SEO básico)",
+      "evidence": {
+        "exists": true
+      },
+      "pass": true
+    },
+    {
+      "id": "A4",
+      "severity": "MODERATE",
+      "title": "JSON-LD (application/ld+json) existe no layout",
+      "evidence": {
+        "file": "app/layout.tsx",
+        "exists": true,
+        "hits": [
+          {
+            "line": 53,
+            "text": "          type=\"application/ld+json\""
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "id": "A5",
+      "severity": "MODERATE",
+      "title": "apple-touch-icon referenciado E arquivo existe",
+      "evidence": {
+        "referencedInLayout": true,
+        "layoutHits": [
+          {
+            "line": 38,
+            "text": "  icons: {"
+          },
+          {
+            "line": 40,
+            "text": "    apple: \"/apple-touch-icon.png\","
+          }
+        ],
+        "fileExists": true
+      },
+      "pass": true
+    },
+    {
+      "id": "B1",
+      "severity": "MODERATE",
+      "title": "Referências a Amparo/Sonner ausentes (risco reputacional/atribuição)",
+      "evidence": {
+        "file": "lib/constants.ts",
+        "exists": true,
+        "matches": [],
+        "total": 0
+      },
+      "pass": true
+    },
+    {
+      "id": "B2",
+      "severity": "MODERATE",
+      "title": "Frase \"PowerPoint\" ausente (ruído de tom)",
+      "evidence": {
+        "file": "lib/constants.ts",
+        "exists": true,
+        "matches": [],
+        "total": 0
+      },
+      "pass": true
+    },
+    {
+      "id": "B3",
+      "severity": "MODERATE",
+      "title": "Claims numéricos sobre entidades externas ausentes — exige remoção ou evidência pública verificável",
+      "evidence": {
+        "file": "lib/constants.ts",
+        "exists": true,
+        "matches": [],
+        "total": 0
+      },
+      "pass": true
+    },
+    {
+      "id": "C1",
+      "severity": "BLOCKER",
+      "title": "Nenhum dado de CPF (valor/campo) no repositório — comentários de remoção são ignorados",
+      "evidence": {
+        "scanned": [
+          "lib/github-audit.ts",
+          "lib/constants.ts",
+          "app/layout.tsx",
+          "app/api/audit/route.ts"
+        ],
+        "hits": []
+      },
+      "pass": true
+    }
+  ]
+}

@@ -365,11 +365,11 @@ export default function Audit() {
               className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-12"
             >
               {[
-                { icon: GitBranch, label: "Commits totais", value: data.totalCommits, color: "text-amber-400" },
-                { icon: BookOpen, label: "ADRs registrados", value: data.totalADRs, color: "text-emerald-400" },
-                { icon: TestTube2, label: "Arquivos de teste", value: data.totalTests, color: "text-blue-400" },
-                { icon: Layers, label: "Ports & Adapters", value: data.totalPortsAdapters, color: "text-rose-400" },
-                { icon: FileCheck, label: "Políticas (POLICY-)", value: data.totalPolicies, color: "text-violet-400" },
+                { icon: GitBranch, label: "Commits totais",         sublabel: "pushes registrados no repositório",                      value: data.totalCommits,       color: "text-amber-400" },
+                { icon: BookOpen,  label: "ADRs registrados",        sublabel: "decisões arquiteturais documentadas no código",          value: data.totalADRs,          color: "text-emerald-400" },
+                { icon: TestTube2, label: "Arquivos de teste",        sublabel: "cobertura automatizada da regra de negócio",             value: data.totalTests,         color: "text-blue-400" },
+                { icon: Layers,    label: "Ports & Adapters",         sublabel: "interfaces de entrada/saída isoladas da lógica central",  value: data.totalPortsAdapters, color: "text-rose-400" },
+                { icon: FileCheck, label: "Políticas (POLICY-)",      sublabel: "regras de negócio verificáveis declaradas no código",    value: data.totalPolicies,      color: "text-violet-400" },
               ].map((m, i) => (
                 <div
                   key={i}
@@ -380,6 +380,7 @@ export default function Audit() {
                     {m.value.toLocaleString("pt-BR")}
                   </div>
                   <div className="text-[11px] text-slate-500 mt-1">{m.label}</div>
+                  <div className="text-[10px] text-slate-600 mt-0.5 leading-tight">{m.sublabel}</div>
                 </div>
               ))}
             </motion.div>

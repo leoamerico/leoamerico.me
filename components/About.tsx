@@ -37,9 +37,11 @@ export default function About() {
             </h2>
             <div className="space-y-4 mb-6">
               {ABOUT.paragraphs.map((p, i) => (
-                <p key={i} className="text-slate-400 text-base md:text-lg leading-relaxed">
-                  {p}
-                </p>
+                <p
+                  key={i}
+                  className="text-slate-400 text-base md:text-lg leading-relaxed"
+                  dangerouslySetInnerHTML={{ __html: p }}
+                />
               ))}
             </div>
 

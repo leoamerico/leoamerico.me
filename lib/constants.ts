@@ -79,8 +79,8 @@ export const ABOUT = {
   title: "A tese em dois domínios",
   photo: "/photo.jpg",
   paragraphs: [
-    "15 anos operando sistemas de gestão no setor público produziram uma arquitetura: um núcleo modular com validação no fonte, que se auto-regula, testa e documenta. Essa experiência é a origem — não o serviço atual.",
-    "Em 2024 fundei a Env Neo Ltda para materializar essa arquitetura em dois domínios: Env Neo (ERP) e Govevia (GRP). A transição de SaaS para IA-first é a condição técnica do que já está rodando.",
+    "16 anos operando sistemas de gestão no setor público produziram uma arquitetura: um núcleo modular com validação no fonte, que se auto-regula, testa e documenta. Essa experiência é a origem — não o serviço atual.",
+    "Em 2024 fundei a <a href=\"https://envneo.com\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-cyan-400 hover:text-cyan-300 underline underline-offset-2\">Env Neo Ltda</a> para materializar essa arquitetura em dois domínios: Env Neo (ERP) e Govevia (GRP). A transição de SaaS para IA-first é a condição técnica do que já está rodando.",
     "Bacharel em Sistemas de Informação, membro ativo do PMI.",
   ],
   location: "Uberlândia, MG · Brasil",
