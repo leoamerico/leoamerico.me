@@ -247,6 +247,34 @@ checks.push({
 });
 
 checks.push({
+  id: "D4",
+  severity: "BLOCKER",
+  title: "Ferramenta visual oficial: @playwright/test presente e nenhum concorrente (cypress/puppeteer/jest-screenshot) em package.json",
+  evidence: (() => {
+    const p = "package.json";
+    if (!exists(p)) return { file: p, exists: false };
+    const raw = read(p);
+    let pkg;
+    try { pkg = JSON.parse(raw); } catch { return { parseError: true }; }
+    const allDeps = { ...pkg.dependencies, ...pkg.devDependencies };
+    const hasPlaywright = !!allDeps["@playwright/test"];
+    const forbidden = ["cypress", "puppeteer", "jest-image-snapshot", "jest-screenshot", "playwright-firefox", "webdriverio"]
+      .filter((d) => !!allDeps[d]);
+    return { hasPlaywright, forbidden, playwrightVersion: allDeps["@playwright/test"] || null };
+  })(),
+  pass: (() => {
+    const p = "package.json";
+    if (!exists(p)) return false;
+    let pkg;
+    try { pkg = JSON.parse(read(p)); } catch { return false; }
+    const allDeps = { ...pkg.dependencies, ...pkg.devDependencies };
+    const hasPlaywright = !!allDeps["@playwright/test"];
+    const hasForbidden = ["cypress", "puppeteer", "jest-image-snapshot", "jest-screenshot"].some((d) => !!allDeps[d]);
+    return hasPlaywright && !hasForbidden;
+  })(),
+});
+
+checks.push({
   id: "D3",
   severity: "MODERATE",
   title: 'Nome canônico R8 — nenhum display name isolado "Leonardo" em constants.ts (usar sempre "Leo Américo")',

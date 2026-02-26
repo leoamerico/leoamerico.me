@@ -7,14 +7,16 @@
     "bun": ">=1.0.0"
   },
   "scripts": {
-    "preinstall": "node -e \"const ua=process.env.npm_config_user_agent||'';if(!ua.startsWith('bun')){process.stderr.write('\\n\u274c Use bun, not npm/yarn/pnpm.\\n Run: bun install\\n\\n');process.exit(1)}\"",
+    "preinstall": "node -e \"const ua=process.env.npm_config_user_agent||'';if(!ua.startsWith('bun')){process.stderr.write('\\n❌ Use bun, not npm/yarn/pnpm.\\n Run: bun install\\n\\n');process.exit(1)}\"",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "audit:repo": "node scripts/audit/repo-audit.mjs",
     "audit:runtime": "node scripts/audit/runtime-audit.mjs",
-    "audit": "bun run audit:repo && bun run audit:runtime"
+    "audit:visual": "node scripts/audit/visual-audit.mjs",
+    "audit": "bun run audit:repo && bun run audit:runtime",
+    "audit:full": "bun run audit:repo && bun run audit:runtime && bun run audit:visual"
   },
   "dependencies": {
     "framer-motion": "^12.34.3",
@@ -25,6 +27,7 @@
     "react-icons": "^5.5.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.58.2",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
