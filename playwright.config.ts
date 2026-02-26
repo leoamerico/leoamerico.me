@@ -7,18 +7,23 @@
 import { defineConfig } from "@playwright/test";
 
 export default defineConfig({
-  // Diretório de testes (se algum teste unitário for adicionado no futuro)
   testDir: "./scripts/audit",
   testMatch: "**/*.spec.ts",
+  snapshotDir: "./tests/__snapshots__",
 
-  // Reporter — gera relatório HTML nativo do Playwright para testes spec
   reporter: [
     ["list"],
     ["html", { outputFolder: "reports/playwright-html", open: "never" }],
   ],
 
-  // Timeout conservador para CI/CD
   timeout: 60_000,
+
+  webServer: {
+    command: "npm run build && npm run start -- -p 3000",
+    url: "http://127.0.0.1:3000",
+    reuseExistingServer: !process.env.CI,
+    timeout: 180_000,
+  },
 
   use: {
     // Ferramenta canônica: Chromium
@@ -43,6 +48,7 @@ export default defineConfig({
       name: "dark",
       use: {
         colorScheme:       "dark",
+        reducedMotion:     "reduce",
         viewport:          { width: 1440, height: 900 },
         deviceScaleFactor: 2,
       },
@@ -51,6 +57,7 @@ export default defineConfig({
       name: "light",
       use: {
         colorScheme:       "light",
+        reducedMotion:     "reduce",
         viewport:          { width: 1440, height: 900 },
         deviceScaleFactor: 2,
       },
@@ -58,7 +65,8 @@ export default defineConfig({
     {
       name: "system",
       use: {
-        // Sem forçar colorScheme — usa preferência real do ambiente de execução
+        colorScheme:       "no-preference",
+        reducedMotion:     "reduce",
         viewport:          { width: 1440, height: 900 },
         deviceScaleFactor: 2,
       },

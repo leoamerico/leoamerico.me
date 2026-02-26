@@ -11,5 +11,6 @@ User-agent: *
 Allow: /
 Disallow: /ceo/
 Disallow: /api/ceo/
+Disallow: /__visual/
 
 Sitemap: https://leoamerico.me/sitemap.xml

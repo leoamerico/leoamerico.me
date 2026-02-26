@@ -10,7 +10,7 @@ export default function robots(): MetadataRoute.Robots {
         // ENFORCEMENT gate I2: área soberana /ceo/ nunca indexada.
         // Qualquer alteração aqui requer confirmação de que /ceo/ permanece no Disallow.
         // Gate automatizado: bun run audit:infra → I2.
-        disallow: ["/ceo/", "/api/ceo/"],
+        disallow: ["/ceo/", "/api/ceo/", "/__visual/"],
       },
     ],
     sitemap: `${SITE_URL}/sitemap.xml`,
