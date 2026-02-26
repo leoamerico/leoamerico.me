@@ -1,0 +1,15 @@
+# robots.txt — leoamerico.me
+# Env Neo Ltda · CNPJ 36.207.211/0001-47
+#
+# ENFORCEMENT:
+#   /ceo/** nunca indexado — área soberana sem presença pública.
+#   Qualquer agente (humano ou IA) que altere este arquivo deve
+#   confirmar que /ceo/ permanece no Disallow após a edição.
+#   Gate automatizado: bun run audit:infra → I2.
+
+User-agent: *
+Allow: /
+Disallow: /ceo/
+Disallow: /api/ceo/
+
+Sitemap: https://leoamerico.me/sitemap.xml

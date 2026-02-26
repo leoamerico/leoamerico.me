@@ -18,8 +18,9 @@
     "audit:opsec": "node scripts/audit/opsec-audit.mjs",
     "audit:lexicon": "node scripts/audit/lexicon-audit.mjs",
     "audit:teardown": "node scripts/audit/teardown-audit.mjs",
+    "audit:infra": "node scripts/audit/infra-audit.mjs",
     "audit": "bun run audit:repo && bun run audit:runtime",
-    "audit:full": "bun run audit:repo && bun run audit:lexicon && bun run audit:opsec && bun run audit:teardown && bun run audit:runtime && bun run audit:visual"
+    "audit:full": "bun run audit:repo && bun run audit:lexicon && bun run audit:opsec && bun run audit:teardown && bun run audit:infra && bun run audit:runtime && bun run audit:visual"
   },
   "dependencies": {
     "framer-motion": "^12.34.3",
