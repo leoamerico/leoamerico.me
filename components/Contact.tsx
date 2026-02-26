@@ -49,9 +49,16 @@ export default function Contact() {
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            action={`mailto:sou@leoamerico.me`}
-            method="POST"
-            encType="text/plain"
+            onSubmit={(e) => {
+              e.preventDefault();
+              const form = e.currentTarget;
+              const name = (form.elements.namedItem("name") as HTMLInputElement).value;
+              const email = (form.elements.namedItem("email") as HTMLInputElement).value;
+              const message = (form.elements.namedItem("message") as HTMLTextAreaElement).value;
+              const subject = encodeURIComponent(`Contato de ${name}`);
+              const body = encodeURIComponent(`Nome: ${name}\nE-mail: ${email}\n\n${message}`);
+              window.location.href = `mailto:sou@leoamerico.me?subject=${subject}&body=${body}`;
+            }}
             className="space-y-4"
           >
             <div>

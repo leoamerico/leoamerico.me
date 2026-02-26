@@ -46,7 +46,7 @@ export const HERO = {
 
 export const ABOUT = {
   title: "Quem é o Leo Américo",
-  photo: "/photo.jpg",
+  photo: "/photo.svg",
   text: "Profissional com 15 anos de experiência em implantação de sistemas de Gestão de Recursos Públicos (GRP) e transformação digital em municípios, câmaras e autarquias. Fundador da Envneo e Govevia, atua como Cloud Solutions Architect especializado em migração de dados, arquitetura de soluções e gestão de mudança organizacional.",
   location: "Uberlândia, MG · Brasil",
   remote: "Remoto",
@@ -155,9 +155,13 @@ export const CERTIFICATIONS = {
   items: [
     {
       title: "PMP — Project Management Professional",
-      org: "PMI",
+      org: "PMI · Member ID: Ativo",
       link: "https://community.pmi.org/profile/leoamericojr",
       status: "active",
+      docs: [
+        { label: "Certificado PMI", href: "/pmi/pmi-member-certificate.pdf" },
+        { label: "Cartão Membro", href: "/pmi/pmi-member-card.pdf" },
+      ],
     },
     {
       title: "AWS Solutions Architect Professional",

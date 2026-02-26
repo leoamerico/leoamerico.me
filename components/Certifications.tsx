@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Award, GraduationCap, BookOpen } from "lucide-react";
+import { Award, GraduationCap, BookOpen, FileDown } from "lucide-react";
 import { CERTIFICATIONS } from "@/lib/constants";
 
 const statusIcon: Record<string, React.ElementType> = {
@@ -56,6 +56,22 @@ export default function Certifications() {
                   <span className="text-xs text-slate-600">
                     {item.status}
                   </span>
+                )}
+                {item.docs && item.docs.length > 0 && (
+                  <div className="flex flex-wrap justify-center gap-2 mt-3 pt-3 border-t border-slate-700/30">
+                    {item.docs.map((doc: { label: string; href: string }, j: number) => (
+                      <a
+                        key={j}
+                        href={doc.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-slate-800/60 text-[10px] text-slate-400 hover:text-cyan-400 hover:bg-slate-800 transition-all"
+                      >
+                        <FileDown size={10} />
+                        {doc.label}
+                      </a>
+                    ))}
+                  </div>
                 )}
               </motion.div>
             );
