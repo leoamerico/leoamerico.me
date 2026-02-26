@@ -16,7 +16,7 @@ const sora = Sora({
 });
 
 export const metadata: Metadata = {
-  title: SITE.title,
+  title: "Leo Américo",
   description: SITE.description,
   metadataBase: new URL(SITE.url),
   openGraph: {
