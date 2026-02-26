@@ -8,7 +8,7 @@ export const SITE = {
   shortName: "Leo Américo",
   title: "Leonardo Américo — Consultor de Sistemas para Gestão Pública",
   description:
-    "Implantação de sistemas GRP, conformidade com Tribunais de Contas e transformação digital para o setor público municipal.",
+    "Implantação de sistemas de gestão pública, conformidade com Tribunais de Contas e transformação digital para o setor público municipal.",
   url: "https://leoamerico.me",
   locale: "pt-BR",
   email: "sou@leoamerico.me",
@@ -29,7 +29,7 @@ export const HERO = {
   roles: [
     "Consultor de Sistemas para Gestão Pública",
     "Transformação Digital Municipal",
-    "Implantação de Sistemas GRP",
+    "Implantação de Sistemas de Gestão Pública",
   ],
   paragraph:
     "Implantação de sistemas de gestão, migração de dados e conformidade com Tribunais de Contas. Foco em soluções que funcionam no dia a dia da prefeitura.",
@@ -41,7 +41,7 @@ export const HERO = {
   metrics: [
     { value: "2010", label: "atuando em gestão pública digital" },
     { value: "MG/SP", label: "municípios atendidos entre Minas e São Paulo" },
-    { value: "GRP", label: "implantação e migração de sistemas" },
+    { value: "TC", label: "conformidade com Tribunais de Contas" },
   ],
 };
 
@@ -49,7 +49,7 @@ export const ABOUT = {
   title: "Quem é o Leo",
   photo: "/photo.svg",
   paragraphs: [
-    "Trabalho com gestão pública desde 2010. Participei de implantações de sistemas de gestão (GRP) em municípios de Minas Gerais e São Paulo, incluindo migração de dados e capacitação de equipes.",
+    "Trabalho com gestão pública desde 2010. Participei de implantações de sistemas de gestão pública em municípios de Minas Gerais e São Paulo, incluindo migração de dados e capacitação de equipes.",
     "Minha especialidade é o ponto onde tecnologia encontra a realidade da prefeitura: migração de dados legados, adequação a exigências do TCE e TCU, e sistemas que os servidores conseguem usar no dia a dia.",
     "Sou fundador da ENV-NEO LTDA, empresa de tecnologia que desenvolve a Govevia — plataforma de governança executável para administração municipal. Bacharel em Sistemas de Informação e membro do PMI.",
   ],
@@ -65,9 +65,9 @@ export const EXPERTISE = {
   cards: [
     {
       icon: "Building2",
-      title: "Implantação de Sistemas GRP",
+      title: "Implantação de Sistemas de Gestão Pública",
       description:
-        "Implantação completa de sistemas de Gestão de Recursos Públicos — do levantamento de processos à migração de dados e capacitação da equipe. Foco em continuidade: o sistema funciona depois que o consultor vai embora.",
+        "Implantação completa de sistemas de gestão pública municipal — do levantamento de processos à migração de dados e capacitação da equipe. Foco em continuidade: o sistema funciona depois que o consultor vai embora.",
     },
     {
       icon: "ShieldCheck",
@@ -138,7 +138,7 @@ export const PROJECTS: { title: string; cards: ProjectCard[] } = {
       category: "Implantação consultiva · Sonner Sistemas",
       title: "Digitalização de serviços públicos — Amparo, SP",
       description:
-        "Participei como membro da equipe técnica na implantação de sistema GRP conduzida pela Sonner Sistemas em município paulista. O projeto envolveu digitalização de serviços ao cidadão, migração de dados e automação de processos com BPMN 2.0.",
+        "Participei como membro da equipe técnica na implantação de sistema de gestão pública conduzida pela Sonner Sistemas em município paulista. O projeto envolveu digitalização de serviços ao cidadão, migração de dados e automação de processos com BPMN 2.0.",
       impact:
         "Resultados incluíram redução significativa no uso de papel e no tempo de atendimento — documentados e divulgados pela Sonner Sistemas.",
       features: null,
@@ -195,7 +195,7 @@ export const CERTIFICATIONS = {
     {
       title: "PMP — Project Management Professional",
       org: "PMI · Membro ativo · Certificação em andamento",
-      detail: "Experiência em projetos municipais de implantação GRP",
+      detail: "Experiência em projetos municipais de implantação de sistemas",
       link: "https://community.pmi.org/profile/leoamericojr",
       status: "active",
     },

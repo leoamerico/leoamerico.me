@@ -59,7 +59,7 @@ const jsonLd = {
   },
   knowsAbout: [
     "Gestão Pública Digital",
-    "Implantação de Sistemas GRP",
+    "Implantação de Sistemas de Gestão Pública",
     "Transformação Digital",
   ],
 };
