@@ -14,6 +14,7 @@ import {
   TestTube2,
   Layers,
 } from "lucide-react";
+import type { ModuleStat } from "@/lib/github-audit";
 
 interface RepoData {
   name: string;
@@ -47,6 +48,80 @@ interface AuditData {
   repos: RepoData[];
   monthlyActivity: Record<string, number>;
   goveiaheatmap: Array<{ week: number; days: number[] }>;
+  modules: ModuleStat[];
+}
+
+// Architectural layer colours for module chart
+const LAYER_BAR: Record<string, string> = {
+  "Domínio":       "bg-violet-500",
+  "Aplicação":     "bg-cyan-500",
+  "Infraestrutura":"bg-amber-500",
+  "Adapters":      "bg-rose-500",
+  "Governança":    "bg-emerald-500",
+  "Testes":        "bg-blue-500",
+  "Outros":        "bg-slate-500",
+};
+
+function ModuleBubbles({ modules }: { modules: ModuleStat[] }) {
+  if (!modules || modules.length === 0) return null;
+  const sorted = [...modules].sort((a, b) => b.lines - a.lines).slice(0, 15);
+  const maxLines = Math.max(...sorted.map((m) => m.lines), 1);
+
+  return (
+    <div className="glass rounded-2xl p-6 mb-12">
+      <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
+        <div>
+          <h3 className="text-base font-heading font-semibold text-white mb-1">
+            Módulos — camada e volume
+          </h3>
+          <p className="text-xs text-slate-500">
+            Top módulos por linhas estimadas · coloração por camada arquitetural
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-3">
+          {Object.entries(LAYER_BAR).map(([layer, cls]) => (
+            <span key={layer} className="flex items-center gap-1.5 text-[10px] text-slate-400">
+              <span className={`w-2.5 h-2.5 rounded-full ${cls} opacity-70`} />
+              {layer}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        {sorted.map((mod, i) => {
+          const pct = (mod.lines / maxLines) * 100;
+          const barCls = LAYER_BAR[mod.layer] ?? "bg-slate-500";
+          return (
+            <div key={mod.name} className="flex items-center gap-3">
+              <span className="text-[10px] text-slate-600 w-5 text-right shrink-0">{i + 1}</span>
+              <span
+                className="text-xs text-slate-300 w-28 shrink-0 truncate"
+                title={mod.name}
+              >
+                {mod.name}
+              </span>
+              <div className="flex-1 bg-slate-800/60 rounded-full h-5 overflow-hidden">
+                <motion.div
+                  initial={{ width: 0 }}
+                  whileInView={{ width: `${pct}%` }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.04, duration: 0.5, ease: "easeOut" }}
+                  className={`h-full rounded-full ${barCls} opacity-80`}
+                />
+              </div>
+              <span className="text-[10px] text-slate-500 w-20 text-right shrink-0">
+                ~{mod.lines.toLocaleString("pt-BR")} ln
+              </span>
+              <span className="text-[10px] text-slate-700 w-8 text-right shrink-0">
+                {mod.files}f
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
 }
 
 // Countdown hook
@@ -308,6 +383,17 @@ export default function Audit() {
                 </div>
               ))}
             </motion.div>
+
+            {/* Module bar chart */}
+            {data.modules && data.modules.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                <ModuleBubbles modules={data.modules} />
+              </motion.div>
+            )}
 
             {/* Last activity */}
             {data.repos[0]?.lastActivity && (

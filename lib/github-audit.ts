@@ -143,6 +143,71 @@ async function getFilesByPattern(
     .map((f: { path: string }) => f.path);
 }
 
+// Classify a file path into an architectural layer
+function classifyLayer(path: string): string {
+  const p = path.toLowerCase();
+  if (/\/test\/|\.test\.|spec\.|test\.java/i.test(p)) return "Testes";
+  if (/\/domain\/|\/entity\/|\/valueobject\/|\/aggregate\/|\/event\//i.test(p)) return "Domínio";
+  if (/\/application\/|\/usecase\/|\/service\//i.test(p)) return "Aplicação";
+  if (/\/infrastructure\/|\/repository\/|\/persistence\//i.test(p)) return "Infraestrutura";
+  if (/\/adapter\/|\/port\/|\/interface\/|\/rest\/|\/controller\/|\/dto\/|\/web\//i.test(p)) return "Adapters";
+  if (/policy-|adr-|\/governance\//i.test(p)) return "Governança";
+  return "Outros";
+}
+
+export interface ModuleStat {
+  name: string;       // module / top-level directory name
+  layer: string;      // architectural layer
+  files: number;      // number of source files
+  bytes: number;      // total size in bytes
+  lines: number;      // estimated lines (bytes / 40)
+}
+
+// Fetch the full tree and aggregate per top-level module
+async function getGoveiaModules(
+  repo: string,
+  branch: string,
+  token: string
+): Promise<ModuleStat[]> {
+  const data = await ghFetch(
+    `/repos/${USERNAME}/${repo}/git/trees/${branch}?recursive=1`,
+    token
+  );
+  if (!data || !data.tree) return [];
+
+  const map = new Map<string, { files: number; bytes: number; layers: Record<string, number> }>();
+
+  for (const entry of data.tree as { path: string; type: string; size?: number }[]) {
+    if (entry.type !== "blob") continue;
+    // Only count Java and TypeScript/JavaScript source files
+    if (!/\.(java|ts|tsx|js|jsx)$/i.test(entry.path)) continue;
+
+    const topDir = entry.path.split("/")[0] ?? "root";
+    const existing = map.get(topDir) ?? { files: 0, bytes: 0, layers: {} };
+    existing.files++;
+    existing.bytes += entry.size ?? 0;
+    const layer = classifyLayer(entry.path);
+    existing.layers[layer] = (existing.layers[layer] ?? 0) + 1;
+    map.set(topDir, existing);
+  }
+
+  // Determine dominant layer for each module
+  return Array.from(map.entries())
+    .filter(([, v]) => v.files >= 2) // skip trivial single-file dirs
+    .map(([name, v]) => {
+      const dominant = Object.entries(v.layers).sort((a, b) => b[1] - a[1])[0]?.[0] ?? "Outros";
+      return {
+        name,
+        layer: dominant,
+        files: v.files,
+        bytes: v.bytes,
+        lines: Math.round(v.bytes / 40),
+      };
+    })
+    .sort((a, b) => b.bytes - a.bytes)
+    .slice(0, 20); // top 20 modules
+}
+
 // ============================================================================
 // PUBLIC API — called from the API route
 // ============================================================================
@@ -183,6 +248,7 @@ export interface AuditReport {
   repos: RepoAuditData[];
   monthlyActivity: Record<string, number>;
   goveiaheatmap: Array<{ week: number; days: number[] }>;
+  modules: ModuleStat[];
 }
 
 export async function generateAuditReport(): Promise<AuditReport | null> {
@@ -207,6 +273,7 @@ export async function generateAuditReport(): Promise<AuditReport | null> {
     guardCount,
     totalFiles,
     goveiaheatmap,
+    modules,
   ] = await Promise.all([
     countCommitsWithMonthly(REPO, since, until, token),
     getLastActivity(REPO, token),
@@ -217,6 +284,7 @@ export async function generateAuditReport(): Promise<AuditReport | null> {
     countFilesByPattern(REPO, branch, /Guard\.java|Guard\.ts/i, token),
     countFilesByPattern(REPO, branch, /./i, token),
     getGoveiaHeatmap(token),
+    getGoveiaModules(REPO, branch, token),
   ]);
 
   // Pre-build 12-month keys so chart always has all months (even zeros)
@@ -262,5 +330,6 @@ export async function generateAuditReport(): Promise<AuditReport | null> {
     repos: [repo],
     monthlyActivity,
     goveiaheatmap,
+    modules,
   };
 }

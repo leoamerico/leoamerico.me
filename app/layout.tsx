@@ -36,7 +36,32 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
   },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Leonardo Américo José Ribeiro",
+  url: SITE.url,
+  jobTitle: "Arquiteto de Software AI-First",
+  worksFor: {
+    "@type": "Organization",
+    name: "Env Neo Ltda",
+    url: "https://envneo.com.br",
+  },
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Uberlândia",
+    addressRegion: "MG",
+    addressCountry: "BR",
+  },
+  sameAs: [
+    "https://www.linkedin.com/in/leoamericojr",
+    "https://github.com/leoamerico",
+    "https://substack.com/@leoamericojr",
+  ],
 };
 
 export default function RootLayout({
@@ -46,6 +71,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className="dark">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body
         className={`${inter.variable} ${sora.variable} font-sans antialiased bg-slate-950 text-slate-100`}
       >

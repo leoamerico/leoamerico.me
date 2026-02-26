@@ -4,6 +4,7 @@ import About from "@/components/About";
 import Expertise from "@/components/Expertise";
 import Stack from "@/components/Stack";
 import Projects from "@/components/Projects";
+import GoveiaStats from "@/components/GoveiaStats";
 import Certifications from "@/components/Certifications";
 import Diploma from "@/components/Diploma";
 import Audit from "@/components/Audit";
@@ -20,6 +21,7 @@ export default function Home() {
         <Expertise />
         <Stack />
         <Projects />
+        <GoveiaStats />
         <Certifications />
         <Diploma />
         <Audit />

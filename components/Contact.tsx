@@ -51,7 +51,7 @@ export default function Contact() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
         >
           <a
-            href="https://wa.me/5534984228457"
+            href={CONTACT.links.find((l) => l.icon === "MessageCircle")?.href ?? "https://wa.me/5534984228457"}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold transition-all hover:shadow-lg hover:shadow-amber-500/25"

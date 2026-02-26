@@ -185,6 +185,54 @@ export const PROJECTS = {
   ],
 };
 
+export const GOVEVIA_STATS = {
+  title: "Govevia em números",
+  subtitle:
+    "Capacidades da plataforma GRP verificáveis no repositório privado.",
+  compliance: [
+    {
+      label: "LAI — Lei de Acesso à Informação",
+      year: "Lei 12.527 / 2011",
+      note: "Controles de transparência pública implementados como regra técnica",
+    },
+    {
+      label: "LGPD — Lei Geral de Proteção de Dados",
+      year: "Lei 13.709 / 2018",
+      note: "Políticas de privacidade e consentimento no fonte, não em documentos",
+    },
+  ],
+  metrics: [
+    {
+      value: "7",
+      label: "Módulos integrados",
+      sublabel: "Orçamento · Tributário · RH · Protocolo · Patrimônio · Contratos · Transparência",
+      visual: "modules",
+      color: "cyan",
+    },
+    {
+      value: "12",
+      label: "Capacidades canônicas",
+      sublabel: "Operações de domínio com regra declarativa, testada e auditável",
+      visual: "dots",
+      color: "emerald",
+    },
+    {
+      value: "12",
+      label: "Personas atendidas",
+      sublabel: "Prefeito · Secretário · Fiscal · Contador · Jurídico · Cidadão e mais",
+      visual: "personas",
+      color: "violet",
+    },
+    {
+      value: "100%",
+      label: "Trilha auditável",
+      sublabel: "Toda operação registrada com hash · timestamp · usuário responsável",
+      visual: "ring",
+      color: "amber",
+    },
+  ],
+};
+
 export const CERTIFICATIONS = {
   title: "Formação & Credenciais",
   items: [
