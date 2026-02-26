@@ -36,13 +36,14 @@ async function ghFetch(path: string, token: string) {
   return res.json();
 }
 
-// Count commits across all pages for a repo in the period
-async function countCommits(
+// Count commits AND collect monthly buckets in a single pass
+async function countCommitsWithMonthly(
   repo: string,
   since: string,
   until: string,
   token: string
-): Promise<number> {
+): Promise<{ total: number; monthly: Record<string, number> }> {
+  const monthly: Record<string, number> = {};
   let total = 0;
   let page = 1;
   while (page <= 20) {
@@ -51,11 +52,18 @@ async function countCommits(
       token
     );
     if (!data || !Array.isArray(data) || data.length === 0) break;
-    total += data.length;
+    for (const c of data) {
+      const date: string = c?.commit?.author?.date || c?.commit?.committer?.date || "";
+      if (date) {
+        const key = date.slice(0, 7); // "YYYY-MM"
+        monthly[key] = (monthly[key] || 0) + 1;
+      }
+      total++;
+    }
     if (data.length < 100) break;
     page++;
   }
-  return total;
+  return { total, monthly };
 }
 
 // Get first-line commit messages for a repo
@@ -198,7 +206,7 @@ export async function generateAuditReport(): Promise<AuditReport | null> {
     (r) => !r.fork && new Date(r.pushed_at) >= new Date(since)
   );
 
-  // 2. Audit each active repo
+  // 2. Audit each active repo — collect commits + monthly buckets in one pass
   const repos: RepoAuditData[] = [];
   let totalCommits = 0;
   let totalADRs = 0;
@@ -207,10 +215,24 @@ export async function generateAuditReport(): Promise<AuditReport | null> {
   let totalPortsAdapters = 0;
   let totalGuards = 0;
 
+  // Pre-build 12-month keys so chart always has all months (even zeros)
+  const monthlyActivity: Record<string, number> = {};
+  const now2 = new Date();
+  for (let i = 11; i >= 0; i--) {
+    const d = new Date(now2.getFullYear(), now2.getMonth() - i, 1);
+    const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+    monthlyActivity[key] = 0;
+  }
+
   for (const r of allRepos as RawRepo[]) {
     const branch = r.default_branch || "main";
-    const commits = await countCommits(r.name, since, until, token);
-    if (commits === 0) continue; // skip truly inactive
+    const { total: commits, monthly } = await countCommitsWithMonthly(r.name, since, until, token);
+    if (commits === 0) continue;
+
+    // Merge monthly counts into global chart
+    for (const [k, v] of Object.entries(monthly)) {
+      if (k in monthlyActivity) monthlyActivity[k] += v;
+    }
 
     const [lastActivity, recentMessages, adrFiles, policyFiles, testCount, portAdapterCount, guardCount, totalFiles] =
       await Promise.all([
@@ -248,33 +270,6 @@ export async function generateAuditReport(): Promise<AuditReport | null> {
     totalGuards += guardCount;
 
     repos.push(repo);
-  }
-
-  // 3. Monthly activity for the primary repo (govevia)
-  const monthlyActivity: Record<string, number> = {};
-  const now = new Date();
-  for (let i = 11; i >= 0; i--) {
-    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
-    const monthKey = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
-    const mStart = new Date(d.getFullYear(), d.getMonth(), 1).toISOString();
-    const mEnd = new Date(d.getFullYear(), d.getMonth() + 1, 1).toISOString();
-
-    let monthTotal = 0;
-    for (const repo of repos) {
-      const data = await ghFetch(
-        `/repos/${USERNAME}/${repo.name}/commits?since=${mStart}&until=${mEnd}&per_page=1`,
-        token
-      );
-      // Quick count: just check if page 1 has data, then count
-      if (data && Array.isArray(data) && data.length > 0) {
-        const fullData = await ghFetch(
-          `/repos/${USERNAME}/${repo.name}/commits?since=${mStart}&until=${mEnd}&per_page=100`,
-          token
-        );
-        monthTotal += fullData?.length || 0;
-      }
-    }
-    monthlyActivity[monthKey] = monthTotal;
   }
 
   // Sort repos by commits desc
