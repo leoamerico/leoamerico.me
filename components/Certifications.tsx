@@ -45,12 +45,12 @@ export default function Certifications() {
                 {item.link ? (
                   <a
                     href={item.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    target={item.link.startsWith("#") ? "_self" : "_blank"}
+                    rel={item.link.startsWith("#") ? undefined : "noopener noreferrer"}
                     className="text-xs text-cyan-400 hover:text-cyan-300 transition-colors"
                     aria-label={`Ver ${item.title}`}
                   >
-                    Ver perfil →
+                    {item.link.startsWith("#") ? "Ver diploma →" : "Ver perfil →"}
                   </a>
                 ) : (
                   <span className="text-xs text-slate-600">

@@ -19,12 +19,11 @@ export default function About() {
           {/* Photo */}
           <div className="flex justify-center">
             <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-2 border-cyan-400/20 shadow-2xl shadow-cyan-500/10">
-              {/* Substitua /photo.jpg pela foto real */}
               <Image
                 src={ABOUT.photo}
-                alt={`Foto de ${ABOUT.title}`}
+                alt="Leonardo Américo José Ribeiro"
                 fill
-                className="object-cover"
+                className="object-cover object-top"
                 sizes="(max-width: 768px) 256px, 320px"
                 priority
               />

@@ -46,13 +46,12 @@ export const HERO = {
 
 export const ABOUT = {
   title: "Quem é o Leo Américo",
-  // Substitua pelo caminho da foto real (ex: "/photo.jpg")
-  photo: "/photo.svg",
+  photo: "/photo.jpg",
   text: "Profissional com 15 anos de experiência em implantação de sistemas de Gestão de Recursos Públicos (GRP) e transformação digital em municípios, câmaras e autarquias. Fundador da Envneo e Govevia, atua como Cloud Solutions Architect especializado em migração de dados, arquitetura de soluções e gestão de mudança organizacional.",
   location: "Uberlândia, MG · Brasil",
   remote: "Remoto",
   education: [
-    "Bacharel em Sistemas de Informação",
+    "Bacharel em Sistemas de Informação — Faculdade CNEC Unaí (2010)",
     "Publicidade e Propaganda — IESB (2004)",
   ],
 };
@@ -168,8 +167,8 @@ export const CERTIFICATIONS = {
     },
     {
       title: "Bacharel em Sistemas de Informação",
-      org: "Graduação",
-      link: null,
+      org: "Faculdade CNEC Unaí (2010)",
+      link: "#diploma",
       status: "Concluído",
     },
     {
@@ -217,6 +216,26 @@ export const CONTACT = {
       icon: "Globe",
     },
   ],
+};
+
+export const DIPLOMA = {
+  title: "Diploma Digital",
+  degree: "Bacharel em Sistemas de Informação",
+  course: "Sistemas de Informação",
+  degreeType: "Bacharelado · Modalidade Presencial",
+  institution: "Faculdade CNEC Unaí",
+  institutionLocation: "Unaí, MG · Código MEC: 1070",
+  registrar: "Universidade Tuiuti do Paraná",
+  registrarLocation: "Curitiba, PR · Código MEC: 355",
+  conclusionDate: "18 de dezembro de 2010",
+  graduationDate: "31 de maio de 2011",
+  registrationDate: "04 de dezembro de 2023",
+  bookNumber: "3",
+  registrationNumber: "10554",
+  validationCode: "1070.355.640eebc868a1",
+  verifyUrl: "https://diplomadigital.mec.gov.br/",
+  pdfUrl: "/diploma/diploma-sistemas-informacao.pdf",
+  xmlUrl: "/diploma/diploma-sistemas-informacao.xml",
 };
 
 export const FOOTER = {
