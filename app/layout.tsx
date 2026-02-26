@@ -35,8 +35,33 @@ export const metadata: Metadata = {
     images: [SITE.ogImage],
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: "/icon.svg",
   },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Leonardo Américo José Ribeiro",
+  jobTitle: "Consultor de Sistemas para Gestão Pública",
+  url: SITE.url,
+  sameAs: [
+    "https://www.linkedin.com/in/leoamericojr",
+    "https://github.com/leoamerico",
+  ],
+  worksFor: {
+    "@type": "Organization",
+    name: "ENV-NEO LTDA",
+  },
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: "Faculdade CNEC Unaí",
+  },
+  knowsAbout: [
+    "Gestão Pública Digital",
+    "Implantação de Sistemas GRP",
+    "Transformação Digital",
+  ],
 };
 
 export default function RootLayout({
@@ -49,6 +74,10 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${sora.variable} font-sans antialiased bg-slate-950 text-slate-100`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         {children}
       </body>
     </html>

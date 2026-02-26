@@ -55,6 +55,7 @@ export default function Contact() {
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold transition-all hover:shadow-lg hover:shadow-amber-500/25"
+            aria-label="Falar no WhatsApp (abre em nova aba)"
           >
             <MessageCircle size={18} />
             Falar no WhatsApp
@@ -63,6 +64,7 @@ export default function Contact() {
           <a
             href={CONTACT.links.find((l) => l.label === "E-mail")?.href ?? "mailto:sou@leoamerico.me"}
             className="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-slate-700 text-slate-300 hover:border-cyan-400 hover:text-cyan-400 transition-all"
+            aria-label="Enviar e-mail"
           >
             <Mail size={18} />
             Enviar e-mail

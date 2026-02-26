@@ -151,6 +151,18 @@ export interface RepoAuditData {
   totalFiles: number;
 }
 
+// Redact sensitive fields from private repos before public exposure
+function redactPrivateRepo(repo: RepoAuditData): RepoAuditData {
+  if (!repo.isPrivate) return repo;
+  return {
+    ...repo,
+    name: `private-repo-${repo.name.length}`,
+    description: "",
+    recentMessages: [],
+    adrFiles: [],
+  };
+}
+
 export interface AuditReport {
   generatedAt: string;
   period: string;
@@ -280,6 +292,9 @@ export async function generateAuditReport(): Promise<AuditReport | null> {
   // Sort repos by commits desc
   repos.sort((a, b) => b.commits - a.commits);
 
+  // Redact private repo data before public exposure
+  const safeRepos = repos.map(redactPrivateRepo);
+
   return {
     generatedAt: new Date().toISOString(),
     period: label,
@@ -292,7 +307,7 @@ export async function generateAuditReport(): Promise<AuditReport | null> {
     totalTests,
     totalPortsAdapters,
     totalGuards,
-    repos,
+    repos: safeRepos,
     monthlyActivity,
   };
 }

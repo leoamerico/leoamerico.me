@@ -6,9 +6,9 @@
 export const SITE = {
   name: "Leonardo Américo",
   shortName: "Leo Américo",
-  title: "Leonardo Américo — Arquiteto de Soluções para Gestão Pública",
+  title: "Leonardo Américo — Consultor de Sistemas para Gestão Pública",
   description:
-    "15 anos ajudando municípios a sair do papel, do retrabalho e da insegurança jurídica. Implantação de sistemas GRP, conformidade com Tribunais de Contas e transformação digital para o setor público.",
+    "Implantação de sistemas GRP, conformidade com Tribunais de Contas e transformação digital para o setor público municipal.",
   url: "https://leoamerico.me",
   locale: "pt-BR",
   email: "sou@leoamerico.me",
@@ -27,21 +27,21 @@ export const HERO = {
   badge: "Disponível para novos municípios",
   heading: "Leonardo Américo",
   roles: [
-    "Arquiteto de Soluções para Gestão Pública",
-    "Especialista em Transformação Digital",
+    "Consultor de Sistemas para Gestão Pública",
+    "Transformação Digital Municipal",
     "Implantação de Sistemas GRP",
   ],
   paragraph:
-    "15 anos ajudando municípios a sair do papel, do retrabalho e da insegurança jurídica. Implanto sistemas que funcionam no dia a dia da prefeitura — não só na apresentação do fornecedor.",
+    "Implantação de sistemas de gestão, migração de dados e conformidade com Tribunais de Contas. Foco em soluções que funcionam no dia a dia da prefeitura.",
   ctaPrimary: { label: "Ver Resultados", href: "#resultados" },
   ctaSecondary: {
     label: "Falar no WhatsApp",
     href: "https://wa.me/5534984228457",
   },
   metrics: [
-    { value: "15+", label: "anos em gestão pública digital" },
-    { value: "40+", label: "municípios atendidos ao longo da carreira" },
-    { value: "70%", label: "menos papel — implantação Amparo Digital (Sonner Sistemas)" },
+    { value: "2010", label: "atuando em gestão pública digital" },
+    { value: "MG/SP", label: "municípios atendidos entre Minas e São Paulo" },
+    { value: "GRP", label: "implantação e migração de sistemas" },
   ],
 };
 
@@ -49,9 +49,9 @@ export const ABOUT = {
   title: "Quem é o Leo",
   photo: "/photo.svg",
   paragraphs: [
-    "Trabalho com gestão pública desde 2010. Já implantei sistemas de gestão (GRP) em mais de 40 municípios entre Minas Gerais e São Paulo — de cidades com 5 mil habitantes até municípios com mais de 300 mil.",
-    "Minha especialidade é o ponto onde tecnologia encontra a realidade da prefeitura: migração de dados legados, adequação a exigências do TCE e TCU, capacitação de equipes e sistemas que os servidores realmente conseguem usar.",
-    "Sou fundador da ENV-NEO LTDA, empresa de tecnologia que desenvolve a Govevia — plataforma de governança executável para administração municipal. Bacharel em Sistemas de Informação, membro do PMI e com formação complementar em gestão de projetos (PMP em andamento).",
+    "Trabalho com gestão pública desde 2010. Participei de implantações de sistemas de gestão (GRP) em municípios de Minas Gerais e São Paulo, incluindo migração de dados e capacitação de equipes.",
+    "Minha especialidade é o ponto onde tecnologia encontra a realidade da prefeitura: migração de dados legados, adequação a exigências do TCE e TCU, e sistemas que os servidores conseguem usar no dia a dia.",
+    "Sou fundador da ENV-NEO LTDA, empresa de tecnologia que desenvolve a Govevia — plataforma de governança executável para administração municipal. Bacharel em Sistemas de Informação e membro do PMI.",
   ],
   location: "Uberlândia, MG · Brasil",
   remote: "Atendimento remoto em todo o Brasil",
@@ -135,25 +135,20 @@ export const PROJECTS: { title: string; cards: ProjectCard[] } = {
   title: "Resultados",
   cards: [
     {
-      category: "Implantação consultiva · 2020–2025",
-      title: "Amparo Digital — Sonner Sistemas",
+      category: "Implantação consultiva · Sonner Sistemas",
+      title: "Digitalização de serviços públicos — Amparo, SP",
       description:
-        "Atuei como consultor técnico responsável pela implantação do Projeto Amparo Digital, conduzido pela Sonner Sistemas junto ao município. A implantação abrangeu mais de 30 serviços públicos digitalizados, redução de 70% no uso de papel e automação de processos internos com BPMN 2.0.",
+        "Participei como membro da equipe técnica na implantação de sistema GRP conduzida pela Sonner Sistemas em município paulista. O projeto envolveu digitalização de serviços ao cidadão, migração de dados e automação de processos com BPMN 2.0.",
       impact:
-        "Redução do tempo médio de atendimento, eliminação de filas para serviços básicos e rastreabilidade completa de processos — resultados documentados e divulgados pelo cliente.",
+        "Resultados incluíram redução significativa no uso de papel e no tempo de atendimento — documentados e divulgados pela Sonner Sistemas.",
       features: null,
       link: "https://www.youtube.com/watch?v=Egp92Tqmdok",
       linkLabel: "Ver vídeo institucional (Sonner Sistemas)",
-      badge: "Consultoria técnica",
+      badge: "Equipe técnica",
       evidence: [
         {
           label: "Vídeo do projeto — publicado pela Sonner Sistemas",
           href: "https://www.youtube.com/watch?v=Egp92Tqmdok",
-          icon: "Youtube",
-        },
-        {
-          label: "Segundo vídeo — publicado pela Sonner Sistemas",
-          href: "https://www.youtube.com/watch?v=7L_t_aBcR-w",
           icon: "Youtube",
         },
         {
@@ -200,7 +195,7 @@ export const CERTIFICATIONS = {
     {
       title: "PMP — Project Management Professional",
       org: "PMI · Membro ativo · Certificação em andamento",
-      detail: "2.610 horas documentadas em 19 projetos municipais",
+      detail: "Experiência em projetos municipais de implantação GRP",
       link: "https://community.pmi.org/profile/leoamericojr",
       status: "active",
     },
@@ -224,7 +219,7 @@ export const CERTIFICATIONS = {
 export const CONTACT = {
   title: "Seu município precisa modernizar a gestão?",
   subtitle:
-    "Posso ajudar com implantação de sistemas, migração de dados, conformidade com Tribunais de Contas ou digitalização de serviços ao cidadão. 15 anos de experiência prática — sem PowerPoint bonito que não funciona na segunda-feira.",
+    "Posso ajudar com implantação de sistemas, migração de dados, conformidade com Tribunais de Contas ou digitalização de serviços ao cidadão.",
   links: [
     {
       label: "WhatsApp",

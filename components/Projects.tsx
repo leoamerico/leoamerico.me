@@ -83,6 +83,7 @@ export default function Projects() {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-2 text-xs text-slate-400 hover:text-white transition-colors group/ev"
+                          aria-label={`${ev.label} (abre em nova aba)`}
                         >
                           {ev.icon === "Youtube" && <Youtube size={13} className="text-red-400 shrink-0" />}
                           {ev.icon === "Linkedin" && <Linkedin size={13} className="text-blue-400 shrink-0" />}

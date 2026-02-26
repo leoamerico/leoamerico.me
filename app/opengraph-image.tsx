@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Leonardo Américo — Arquiteto de Soluções para Gestão Pública";
+export const alt = "Leonardo Américo — Consultor de Sistemas para Gestão Pública";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -47,7 +47,7 @@ export default async function Image() {
               fontWeight: 500,
             }}
           >
-            Arquiteto de Soluções · Gestão Pública · Transformação Digital
+            Consultor de Sistemas · Gestão Pública · Transformação Digital
           </div>
           <div
             style={{

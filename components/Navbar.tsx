@@ -20,6 +20,7 @@ export default function Navbar() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
+      aria-label="Menu principal"
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
           ? "glass shadow-lg shadow-cyan-500/5"
@@ -63,6 +64,8 @@ export default function Navbar() {
             className="md:hidden text-slate-300 hover:text-white"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label={mobileOpen ? "Fechar menu" : "Abrir menu"}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
           >
             {mobileOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -73,6 +76,7 @@ export default function Navbar() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
+            id="mobile-menu"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
@@ -94,6 +98,7 @@ export default function Navbar() {
                 href="#contato"
                 onClick={() => setMobileOpen(false)}
                 className="block text-center font-medium px-5 py-2 rounded-full border border-amber-400 text-amber-400 hover:bg-amber-400/10 transition-all"
+                aria-label="Fale comigo"
               >
                 Fale comigo
               </a>

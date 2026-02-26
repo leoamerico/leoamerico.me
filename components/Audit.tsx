@@ -177,7 +177,7 @@ export default function Audit() {
           {error && (
             <span className="text-red-400">
               {error} —{" "}
-              <button onClick={fetchData} className="underline hover:text-red-300">
+              <button onClick={fetchData} className="underline hover:text-red-300" aria-label="Tentar carregar dados novamente">
                 tentar novamente
               </button>
             </span>
@@ -224,7 +224,7 @@ export default function Audit() {
               <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-6">
                 Atividade Mensal — Todos os Repositórios
               </h3>
-              <div className="flex items-end gap-1 sm:gap-2 h-40">
+              <div className="flex items-end gap-1 sm:gap-2 h-40" role="img" aria-label={`Gráfico de atividade mensal: ${months.map(([m, c]) => `${m}: ${c} commits`).join(", ")}`}>
                 {months.map(([month, count]) => {
                   const height = Math.max((count / maxCommits) * 100, 2);
                   const label = month.split("-")[1] + "/" + month.split("-")[0].slice(2);
@@ -240,7 +240,7 @@ export default function Audit() {
                         className="w-full rounded-t bg-gradient-to-t from-cyan-500/60 to-cyan-400/80 group-hover:from-amber-500/60 group-hover:to-amber-400/80 transition-all duration-300 min-h-[2px]"
                         style={{ height: `${height}%` }}
                       />
-                      <span className="text-[9px] text-slate-600 hidden sm:block">
+                      <span className="text-[9px] text-slate-400 hidden sm:block">
                         {label}
                       </span>
                     </div>
@@ -280,7 +280,7 @@ export default function Audit() {
                           {repo.name}
                         </h4>
                       </div>
-                      <span className="text-xs text-slate-600">
+                      <span className="text-xs text-slate-400">
                         {repo.isPrivate ? "privado" : "público"}
                       </span>
                     </div>
@@ -323,7 +323,7 @@ export default function Audit() {
 
                     {/* Last activity */}
                     {repo.lastActivity && (
-                      <div className="text-[10px] text-slate-600 flex items-center gap-1">
+                      <div className="text-[10px] text-slate-400 flex items-center gap-1">
                         <Clock size={10} />
                         Última atividade: {formatDate(repo.lastActivity)}
                       </div>
@@ -332,7 +332,7 @@ export default function Audit() {
                     {/* Recent commit messages */}
                     {repo.recentMessages.length > 0 && (
                       <div className="mt-3 pt-3 border-t border-slate-800/50">
-                        <p className="text-[10px] text-slate-600 mb-1.5 uppercase tracking-wider">
+                        <p className="text-[10px] text-slate-400 mb-1.5 uppercase tracking-wider">
                           Commits recentes
                         </p>
                         <div className="space-y-1 max-h-24 overflow-y-auto">
@@ -358,7 +358,7 @@ export default function Audit() {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              className="mt-12 text-center text-[11px] text-slate-600"
+              className="mt-12 text-center text-[11px] text-slate-400"
             >
               <ShieldCheck size={12} className="inline mr-1 text-emerald-400/50" />
               Dados obtidos via API REST oficial do GitHub (api.github.com).
