@@ -47,7 +47,7 @@ export default function Contact() {
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            action={`mailto:leo@leoamerico.me`}
+            action={`mailto:sou@leoamerico.me`}
             method="POST"
             encType="text/plain"
             className="space-y-4"

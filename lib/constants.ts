@@ -46,7 +46,6 @@ export const HERO = {
 
 export const ABOUT = {
   title: "Quem é o Leo Américo",
-  // Substitua pela URL real da foto
   // Substitua pelo caminho da foto real (ex: "/photo.jpg")
   photo: "/photo.svg",
   text: "Profissional com 15 anos de experiência em implantação de sistemas de Gestão de Recursos Públicos (GRP) e transformação digital em municípios, câmaras e autarquias. Fundador da Envneo e Govevia, atua como Cloud Solutions Architect especializado em migração de dados, arquitetura de soluções e gestão de mudança organizacional.",
