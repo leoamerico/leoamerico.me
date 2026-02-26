@@ -9,6 +9,16 @@
 # testing
 /coverage
 
+# audit reports — artefatos gerados, não pertencem ao histórico
+/reports/
+
+# playwright — artefatos de teste visual
+/playwright-report/
+/test-results/
+
+# package-lock.json — projeto usa bun, lock canônico é bun.lock
+package-lock.json
+
 # next.js
 /.next/
 /out/
