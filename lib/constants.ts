@@ -35,6 +35,7 @@ export const NAV_LINKS = [
   { label: "Sobre", href: "#sobre" },
   { label: "Plataformas", href: "#resultados" },
   { label: "Código ao vivo", href: "#audit" },
+  { label: "ESA Atlas", href: "/atlas/matrix" },
   { label: "Govevia", href: "https://govevia.com.br" },
   { label: "Contato", href: "#contato" },
 ];
