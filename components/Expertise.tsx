@@ -2,27 +2,23 @@
 
 import { motion } from "framer-motion";
 import {
-  Cloud,
   Building2,
-  ClipboardCheck,
-  Layers,
-  Code2,
-  Cpu,
+  ShieldCheck,
+  Monitor,
+  Database,
 } from "lucide-react";
 import { EXPERTISE } from "@/lib/constants";
 
 const iconMap: Record<string, React.ElementType> = {
-  Cloud,
   Building2,
-  ClipboardCheck,
-  Layers,
-  Code2,
-  Cpu,
+  ShieldCheck,
+  Monitor,
+  Database,
 };
 
 export default function Expertise() {
   return (
-    <section id="expertise" className="py-24 md:py-32">
+    <section id="servicos" className="py-24 md:py-32">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -33,9 +29,9 @@ export default function Expertise() {
           {EXPERTISE.title}
         </motion.h2>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 gap-6">
           {EXPERTISE.cards.map((card, i) => {
-            const Icon = iconMap[card.icon] || Cloud;
+            const Icon = iconMap[card.icon] || Building2;
             return (
               <motion.div
                 key={i}

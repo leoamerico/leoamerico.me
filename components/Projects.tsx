@@ -6,7 +6,7 @@ import { PROJECTS } from "@/lib/constants";
 
 export default function Projects() {
   return (
-    <section id="projetos" className="py-24 md:py-32">
+    <section id="resultados" className="py-24 md:py-32">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -45,9 +45,29 @@ export default function Projects() {
                 <h3 className="font-heading font-semibold text-lg text-white mb-3">
                   {project.title}
                 </h3>
-                <p className="text-slate-400 text-sm leading-relaxed mb-4 flex-1">
+                <p className="text-slate-400 text-sm leading-relaxed mb-4">
                   {project.description}
                 </p>
+                {project.impact && (
+                  <div className="mb-4">
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Impacto</p>
+                    <p className="text-slate-300 text-sm leading-relaxed">{project.impact}</p>
+                  </div>
+                )}
+                {project.features && (
+                  <div className="mb-4">
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Diferenciais técnicos</p>
+                    <ul className="space-y-1">
+                      {project.features.map((f: string, j: number) => (
+                        <li key={j} className="text-slate-400 text-sm flex items-start gap-2">
+                          <span className="text-cyan-400 mt-0.5">•</span>
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                <div className="flex-1" />
                 {project.link && (
                   <a
                     href={project.link}
@@ -56,7 +76,7 @@ export default function Projects() {
                     className="inline-flex items-center gap-1.5 text-sm text-cyan-400 hover:text-cyan-300 transition-colors"
                     aria-label={`Ver ${project.title}`}
                   >
-                    Ver projeto <ExternalLink size={14} />
+                    {project.linkLabel || "Ver projeto"} <ExternalLink size={14} />
                   </a>
                 )}
               </div>

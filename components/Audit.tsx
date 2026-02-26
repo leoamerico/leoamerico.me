@@ -129,9 +129,17 @@ export default function Audit() {
             <Activity size={16} className={loading ? "animate-pulse" : ""} />
             Dados ao vivo via GitHub API
           </div>
-          <h2 className="font-heading font-bold text-3xl md:text-4xl text-white mb-2">
-            Produção Verificável
-          </h2>
+          <div className="flex flex-col items-center justify-center gap-2 mb-2">
+            <div className="flex items-center gap-2">
+              <h2 className="font-heading font-bold text-3xl md:text-4xl text-white">
+                Produção Verificável
+              </h2>
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-400 text-xs font-semibold ml-2">
+                <ShieldCheck size={14} className="text-emerald-400" />
+                Verificado via GitHub API
+              </span>
+            </div>
+          </div>
           <p className="text-slate-400 text-base md:text-lg max-w-2xl mx-auto">
             Métricas extraídas em tempo real dos repositórios via API oficial do GitHub.
             Todo dado é verificável. Nenhum código-fonte é exposto.

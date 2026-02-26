@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Linkedin } from "lucide-react";
+import { ArrowRight, MessageCircle } from "lucide-react";
 import { HERO } from "@/lib/constants";
 
 function Typewriter({ words }: { words: string[] }) {
@@ -117,7 +117,7 @@ export default function Hero() {
             className="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-slate-700 text-slate-300 hover:border-cyan-400 hover:text-cyan-400 transition-all"
             aria-label={HERO.ctaSecondary.label}
           >
-            <Linkedin size={18} />
+            <MessageCircle size={18} />
             {HERO.ctaSecondary.label}
           </a>
         </motion.div>

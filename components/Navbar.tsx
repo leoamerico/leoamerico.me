@@ -43,6 +43,7 @@ export default function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
+                {...(link.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                 className="text-sm text-slate-300 hover:text-cyan-400 transition-colors"
               >
                 {link.label}
@@ -82,6 +83,7 @@ export default function Navbar() {
                 <a
                   key={link.href}
                   href={link.href}
+                  {...(link.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                   onClick={() => setMobileOpen(false)}
                   className="block text-slate-300 hover:text-cyan-400 transition-colors py-2"
                 >

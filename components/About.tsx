@@ -37,9 +37,13 @@ export default function About() {
             <h2 className="font-heading font-bold text-3xl md:text-4xl text-white mb-6">
               {ABOUT.title}
             </h2>
-            <p className="text-slate-400 text-base md:text-lg leading-relaxed mb-6">
-              {ABOUT.text}
-            </p>
+            <div className="space-y-4 mb-6">
+              {ABOUT.paragraphs.map((p, i) => (
+                <p key={i} className="text-slate-400 text-base md:text-lg leading-relaxed">
+                  {p}
+                </p>
+              ))}
+            </div>
 
             {/* Tags */}
             <div className="flex flex-wrap gap-3 mb-6">

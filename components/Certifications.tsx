@@ -23,7 +23,7 @@ export default function Certifications() {
           {CERTIFICATIONS.title}
         </motion.h2>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {CERTIFICATIONS.items.map((item, i) => {
             const Icon = statusIcon[item.status] || Award;
             return (
@@ -41,7 +41,10 @@ export default function Certifications() {
                 <h3 className="font-heading font-semibold text-white mb-1 text-sm">
                   {item.title}
                 </h3>
-                <p className="text-slate-500 text-xs mb-3">{item.org}</p>
+                <p className="text-slate-500 text-xs mb-1">{item.org}</p>
+                {item.detail && (
+                  <p className="text-cyan-400/70 text-xs font-medium mb-3">{item.detail}</p>
+                )}
                 {item.link ? (
                   <a
                     href={item.link}
