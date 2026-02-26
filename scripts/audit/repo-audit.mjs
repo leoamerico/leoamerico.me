@@ -211,6 +211,40 @@ checks.push({
   })(),
 });
 
+// C2: Constitutional AI — Primazia Humana
+// Baseado em: Anthropic Constitutional AI (output must conform to a declared
+// constitution of principles), Google DeepMind Model Spec (behavioral constraints
+// as hard rules, not guidelines).
+//
+// Detecta formulações que subordinam o humano à máquina em texto público
+// de qualquer dos arquivos display do repositório principal.
+// Linhas de comentário são excluídas para evitar falso positivo em documentação.
+{
+  const CONSTITUTION_VIOLATION_RE = /\b(AI-first|IA-first|AI first|IA first|evolui sem interven[çc][aã]o|sem interven[çc][aã]o (humana|manual)|se auto-regula|auto-governa|decide (sozinho|sem humano)|IA que decide|sistema decide|zero interven[çc][aã]o)\b/i;
+  const pubFiles = [
+    "lib/constants.ts",
+    "app/page.tsx",
+    "app/layout.tsx",
+  ];
+  const evidence = (() => {
+    const hits = [];
+    for (const p of pubFiles) {
+      if (!exists(p)) continue;
+      const m = linesWith(p, CONSTITUTION_VIOLATION_RE)
+        .filter(({ text }) => !text.trimStart().startsWith("//") && !text.trimStart().startsWith("*"));
+      if (m.length) hits.push({ file: p, matches: m.slice(0, 10) });
+    }
+    return { scanned: pubFiles, hits };
+  })();
+  checks.push({
+    id: "C2",
+    severity: "BLOCKER",
+    title: "Axioma Constitucional — nenhuma formulação subordina humano à máquina em texto público (Machina custodit. Homo gubernat.)",
+    evidence,
+    pass: evidence.hits.length === 0,
+  });
+}
+
 // D. Brand enforcement — tokens e nome canônico
 checks.push({
   id: "D1",

@@ -326,7 +326,78 @@ Caravaggio (Leo Américo, presença humana):
   #d97706  → âmbar quente. A carne iluminada. Presença da pessoa.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ARQUITETURA DE IA — REFINAMENTOS DOS GRANDES PLAYERS
+(aplicados ao ecossistema Env Neo)
+
+  ANTHROPIC — Constitutional AI
+  ─────────────────────────────
+  Todo output do agente é avaliado contra uma constituição de
+  princípios antes de ser commitado. A constituição Env Neo é:
+
+    C1. Nunca há PII (CPF, dados pessoais) no código-fonte público.
+    C2. Nenhuma formulação subordina o humano à máquina. [C2 gate]
+    C3. Toda cor tem arqueologia de pintor. [D1/D2 gates]
+    C4. Todo número tem link de evidência verificável. [B3 gate]
+    C5. OPSEC: capacidade pública, mecanismo privado. [E-gates]
+    C6. Terminologia canônica do léxico. Proibidos não passam. [V-gates]
+    C7. Teardown completo ao fim de cada entrega. [F-gates]
+
+  Qualquer output que viole Ci é descartado e reescrito, não editado.
+  A constituição não é negociável por contexto ou conveniência.
+
+  OPENAI — Operator Protocol (scope declaration)
+  ───────────────────────────────────────────────
+  Antes de iniciar qualquer sessão de trabalho, o agente DECLARA:
+
+    SCOPE: [qual arquivo / qual feature / qual site]
+    INVARIANTS: [o que não pode mudar]
+    EXIT CRITERIA: [como saber quando a entrega está concluída]
+    ROLLBACK: [como desfazer se algo der errado: git revert <hash>]
+
+  Nunca iniciar trabalho sem escopo declarado.
+  Nunca encerrar sessão sem exit criteria verificados.
+
+  GOOGLE DEEPMIND — Model Spec (reversibility criterion)
+  ───────────────────────────────────────────────────────
+  Toda ação do agente deve ser reversível sem perda de estado.
+  Critérios:
+
+    → Cada mudança é um commit atômico com mensagem descritiva.
+    → Nenhum commit mistura refactor + feature + fix.
+    → O estado do repo após a entrega deve ser auditável por
+      qualquer engenheiro sem contexto de sessão.
+    → O TEARDOWN GATE (F-series) é a verificação de estado terminal.
+
+  META — Open Audit Trail
+  ───────────────────────
+  Todo artefato gerado em sessão tem rastreabilidade completa:
+    → Qual agente produziu (commit author)
+    → Qual princípio fundamenta a decisão (commit message referencia
+      o gate, axioma ou regra: "C2", "R7", "E1", etc.)
+    → Qual output foi descartado antes do commit (não registrado,
+      mas o agente deve documentar na mensagem o que foi rejeitado
+      e por qual constituição violated)
+
+  MICROSOFT / GITHUB COPILOT — Workspace Hygiene
+  ───────────────────────────────────────────────
+  O workspace canônico é um estado, não um arquivo.
+  Regras de higiene do workspace:
+
+    → Nunca criar arquivo fora da estrutura estabelecida sem
+      justificativa no commit.
+    → Nunca deixar TODO/FIXME com marcador de agente. [F2 gate]
+    → O .gitignore cobre todos os artefatos gerados. [F3 gate]
+    → A pipeline de audit é a assinatura do workspace —
+      se `bun run audit:full` falha, o estado não é canônico.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 O CICLO DE EXECUÇÃO (para cada mudança em qualquer dos três sites)
+
+  SCOPE   — declare antes de iniciar (OpenAI Operator Protocol):
+             "Vou alterar [arquivo/feature/site].
+              Invariantes: [o que não pode mudar].
+              Exit criteria: [como saber que terminei].
+              Rollback: git revert [hash anterior]."
 
   QUAERE  — qual é a raiz humana desta decisão?
              Qual pintor? Qual axioma? Qual evidência de Leo Américo?
@@ -342,11 +413,22 @@ O CICLO DE EXECUÇÃO (para cada mudança em qualquer dos três sites)
              SVG. CSS. Componente. Número com link. Não descrição — código.
 
   PROBA   — prove antes de commitar.
-             bun run audit:repo   → 13 checks estáticos (A–D series)
-             bun run audit:opsec  → 5 checks OPSEC (E series) — ver abaixo
-             bun run build        → zero erros TypeScript
-             bun run audit:runtime → 5 checks HTTP (quando aplicável)
+             bun run audit:repo      → 14 checks estáticos (A–D + C2)
+             bun run audit:lexicon   → V-series vocabulário canônico
+             bun run audit:opsec     → E-series OPSEC/MITRE/ISO27001
+             bun run audit:teardown  → F-series cleanup (ghost code)
+             bun run build           → zero erros TypeScript
+             bun run audit:runtime   → 5 checks HTTP (quando aplicável)
              R1–R8 passando.
+             SCOPE exit criteria verificados.
+             Working directory limpo (F7 clean).
+
+  TEARDOWN — após commitar, antes de encerrar a sessão.
+             bun run audit:teardown → confirmar F1–F7 passando
+             git status             → working directory limpo
+             Nenhum arquivo temporário de implementação no repo.
+             Nenhum TODO/FIXME de agente no código.
+             A entrega é um estado, não um processo em andamento.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 PROTOCOLO OPSEC — RISCO COMERCIAL E ESPIONAGEM INDUSTRIAL

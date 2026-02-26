@@ -1,0 +1,193 @@
+# docs/brand/lexicon.yml
+# ════════════════════════════════════════════════════════════════════════════
+# LÉXICO CANÔNICO ENV NEO — Dicionário de Termos com Enforcement
+# ════════════════════════════════════════════════════════════════════════════
+#
+# PROPÓSITO:
+#   Todo termo usado nos três sites (leoamerico.me · envneo.com · govevia.com.br)
+#   tem uma forma canônica única. Sinônimos livres são proibidos porque:
+#
+#   (1) Terminologia inconsistente é o vetor de ruído mais comum em produtos
+#       enterprise — o cliente não sabe o que está comprando.
+#   (2) O vocabulário carrega a arqueologia: o termo certo comunica a profundidade
+#       e o princípio por trás. O sinônimo livre perde essa camada.
+#   (3) Enforcement automático garante que nenhum agente (humano ou IA) introduza
+#       regressão terminológica sem detecção imediata.
+#
+# ESTRUTURA:
+#   term:        forma canônica (como deve aparecer)
+#   scope:       quais sites usam este termo no display público
+#   forbidden:   termos proibidos — não podem aparecer em display text dos sites
+#   rationale:   por que o termo canônico é este e não outro
+#   severity:    BLOCKER (visível no produto) | MODERATE (docs/copy) | INFO (nota)
+#
+# NOTA DE ESCOPO:
+#   O gate verifica apenas texto de display público (constants.ts, page.tsx,
+#   content/*.yml, registry/*.yml). Documentação técnica interna e comentários
+#   de código são excluídos do enforcement.
+#
+# ════════════════════════════════════════════════════════════════════════════
+
+version: "1.0"
+updated: "2026-02-26"
+owner: "Leo Américo · Env Neo Ltda"
+
+terms:
+
+  # ── IDENTIDADE PESSOAL ───────────────────────────────────────────────────
+
+  - term: "Leo Américo"
+    scope: [leoamerico.me, envneo.com, govevia.com.br]
+    severity: BLOCKER
+    rationale: |
+      Nome canônico público. "Leonardo" isolado apaga o sobrenome de identidade.
+      "leoamericojr" é handle técnico, nunca display name.
+    forbidden:
+      - "Leonardo"           # isolado como display name
+      - "leoamericojr"       # handle técnico, não display
+      - "Leo Americo"        # sem acento — erro gráfico e de identidade
+      - "L. Américo"         # abreviação não autorizada
+
+  # ── HOLDING E PRODUTOS ───────────────────────────────────────────────────
+
+  - term: "Env Neo"
+    scope: [leoamerico.me, envneo.com, govevia.com.br]
+    severity: BLOCKER
+    rationale: |
+      Nome da holding com espaço. "EnvNeo" (sem espaço) é variante técnica
+      aceitável apenas em nomes de pacote/código. "Env Neo AI" coloca IA como
+      adjetivo da holding — viola o princípio de primazia humana.
+    forbidden:
+      - "Env Neo AI"         # IA como adjetivo da holding
+      - "EnvNeo AI"          # idem
+      - "env-neo"            # kebab-case como display text
+
+  - term: "Govevia"
+    scope: [leoamerico.me, envneo.com, govevia.com.br]
+    severity: BLOCKER
+    rationale: |
+      Nome próprio do produto GRP. Sem variações de capitalização ou sufixos.
+    forbidden:
+      - "GovEvia"            # capitalização errada
+      - "Govevia AI"         # IA como adjetivo do produto
+      - "govevia"            # minúsculo em display text
+
+  # ── ARQUITETURA DE PRODUTO ───────────────────────────────────────────────
+
+  - term: "kernel do Govevia"
+    scope: [leoamerico.me, govevia.com.br]
+    severity: MODERATE
+    rationale: |
+      Referência ao módulo central em texto público. O nome interno do artefato
+      ("govevia-kernel") é informação de implementação — não pertence ao display.
+    forbidden:
+      - "govevia-kernel"     # E2: nome interno de artefato (OPSEC)
+      - "Govevia Kernel"     # capitalização errada em inglês
+
+  - term: "núcleo técnico"
+    scope: [leoamerico.me, envneo.com, govevia.com.br]
+    severity: MODERATE
+    rationale: |
+      Referência ao componente compartilhado entre ERP e GRP em texto público.
+    forbidden:
+      - "shared-kernel"      # E2: nome interno de artefato (OPSEC)
+      - "shared kernel"      # idem em inglês não-formatado
+
+  - term: "Conformidade por Arquitetura"
+    scope: [envneo.com, govevia.com.br]
+    severity: MODERATE
+    rationale: |
+      Princípio fundador: a regra impossível de violar, não o checklist.
+      Frases que vendem compliance como feature e não como invariante arquitetural
+      são as que o gate captura — não o uso legítimo do vocabulário regulatório.
+    forbidden:
+      - "compliance automatizado"  # vende compliance como feature de automação
+      - "solução de compliance"    # enquadra o produto como checklist externo
+      - "adequação normativa"      # genérico sem invariante — apaga a dimensão estrutural
+      - "aderência regulatória"    # passivo — não captura que a regra é imposta pela arquitetura
+
+  - term: "Trilha Auditável"
+    scope: [leoamerico.me, envneo.com, govevia.com.br]
+    severity: MODERATE
+    rationale: |
+      O produto audita de forma ativa e verificável. "Log" é rastro passivo
+      sem semântica de auditoria. "Histórico" é armazenamento, não evidência.
+    forbidden:
+      - "log de auditoria"   # "log" é rastro passivo — sem semântica de prova
+      - "histórico"          # armazenamento, não evidência verificável
+      - "registro simples"   # apaga a dimensão criptográfica
+
+  - term: "Invariante Executável"
+    scope: [envneo.com, govevia.com.br]
+    severity: MODERATE
+    rationale: |
+      Regra com mecanismo de imposição automático. "Best practice" e "guideline"
+      são sugestões — sem o mecanismo de imposição, não é invariante.
+    forbidden:
+      - "best practice"      # sugestão sem imposição
+      - "boa prática"        # idem em português
+      - "guideline"          # idem
+      - "convenção"          # convenção pode ser ignorada — invariante não
+
+  - term: "Autoridade por Obra"
+    scope: [envneo.com, leoamerico.me]
+    severity: MODERATE
+    rationale: |
+      Legitimidade proporcional a artefatos verificáveis — não a cargo ou título.
+      "Expertise" (inglês) perde a dimensão de obra física inspecionável.
+    forbidden:
+      - "expertise"          # palavra-ônibus sem âncora em obra verificável
+      - "seniority"          # hierarquia de tempo, não de obra
+      - "anos de experiência" # tempo ≠ obra verificável
+
+  # ── PRINCÍPIO DE PRIMAZIA HUMANA ─────────────────────────────────────────
+
+  - term: "IA como instrumento"
+    scope: [leoamerico.me, envneo.com, govevia.com.br]
+    severity: BLOCKER
+    rationale: |
+      Enquadramento correto da IA: ferramenta sob supervisão humana.
+      Qualquer formulação que posicione IA como sujeito autônomo ou como
+      eixo de referência viola o axioma fundador Machina custodit. Homo gubernat.
+    forbidden:
+      - "AI-first"           # IA como eixo — viola primazia humana
+      - "IA-first"           # idem em português
+      - "AI first"           # idem sem hífen
+      - "evolui sem intervenção manual" # agência autônoma da máquina
+      - "se auto-regula"     # máquina como sujeito governante
+      - "sem intervenção humana" # negação explícita da primazia
+      - "IA que decide"      # decisão pertence ao humano
+
+  - term: "o humano define as regras"
+    scope: [leoamerico.me, envneo.com, govevia.com.br]
+    severity: BLOCKER
+    rationale: |
+      A agência pertence ao humano. A arquitetura executa o que o humano decidiu.
+    forbidden:
+      - "o sistema decide"   # sistema como agente decisor
+      - "automático sem revisão" # cadeia sem humano
+      - "zero intervenção"   # negação da presença humana
+
+  # ── QUALIDADE E MÉTODO ───────────────────────────────────────────────────
+
+  - term: "validação no fonte"
+    scope: [leoamerico.me, envneo.com, govevia.com.br]
+    severity: MODERATE
+    rationale: |
+      A regra é testada onde vive — no código-fonte, não em camada adicional.
+      "Validação em tempo de execução" ou "runtime validation" são mais fracos:
+      não implicam que a regra está no fonte como contrato.
+    forbidden:
+      - "runtime validation" # não implica que está no fonte
+      - "validação em tempo de execução" # idem
+      - "verificação posterior" # apaga que é estrutural
+
+  - term: "Soberania Incondicional"
+    scope: [envneo.com]
+    severity: MODERATE
+    rationale: |
+      Independência de terceiros sem exceções. "Autonomia" é mais fraca
+      (pode ser parcial). "Self-hosted" (inglês) perde a dimensão principiológica.
+    forbidden:
+      - "self-hosted"        # técnico — perde a dimensão de princípio
+      - "independência parcial" # soberania não admite "parcial"
