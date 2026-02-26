@@ -42,7 +42,7 @@ export const HERO = {
   metrics: [
     { value: "15+", label: "anos em gestão pública digital" },
     { value: "40+", label: "prefeituras, câmaras e autarquias" },
-    { value: "70%", label: "menos papel — Projeto Amparo Digital" },
+    { value: "70%", label: "menos papel — implantação Amparo Digital (Sonner Sistemas)" },
   ],
 };
 
@@ -117,29 +117,29 @@ export const PROJECTS = {
   title: "Resultados",
   cards: [
     {
-      category: "Caso real · 2020–2025",
-      title: "Projeto Amparo Digital",
+      category: "Implantação consultiva · 2020–2025",
+      title: "Amparo Digital — Sonner Sistemas",
       description:
-        "Digitalização de mais de 30 serviços públicos municipais com redução de 70% no uso de papel. Implantação de aplicativo cidadão premiado regionalmente e automação de processos internos com BPMN 2.0.",
+        "Atuei como consultor técnico responsável pela implantação do Projeto Amparo Digital, conduzido pela Sonner Sistemas junto ao município. A implantação abrangeu mais de 30 serviços públicos digitalizados, redução de 70% no uso de papel e automação de processos internos com BPMN 2.0.",
       impact:
-        "Redução de tempo médio de atendimento, eliminação de filas para serviços básicos e rastreabilidade completa de processos.",
+        "Redução do tempo médio de atendimento, eliminação de filas para serviços básicos e rastreabilidade completa de processos — resultados documentados e divulgados pelo cliente.",
       features: null,
       link: "https://www.youtube.com/watch?v=Egp92Tqmdok",
-      linkLabel: "Ver vídeo do projeto",
-      badge: "Case de Sucesso",
+      linkLabel: "Ver vídeo institucional (Sonner Sistemas)",
+      badge: "Consultoria técnica",
       evidence: [
         {
-          label: "Vídeo institucional — Amparo Digital",
+          label: "Vídeo do projeto — publicado pela Sonner Sistemas",
           href: "https://www.youtube.com/watch?v=Egp92Tqmdok",
           icon: "Youtube",
         },
         {
-          label: "Segundo vídeo — Amparo Digital",
+          label: "Segundo vídeo — publicado pela Sonner Sistemas",
           href: "https://www.youtube.com/watch?v=7L_t_aBcR-w",
           icon: "Youtube",
         },
         {
-          label: "Post Sonner Sistemas no LinkedIn",
+          label: "Validação pública — post da Sonner Sistemas no LinkedIn",
           href: "https://www.linkedin.com/posts/sonner-sistemas_sonner-transformaaexaetodigital-caseamparo-activity-7378549132732469248-ek0Y",
           icon: "Linkedin",
         },
