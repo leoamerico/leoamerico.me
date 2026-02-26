@@ -17,7 +17,7 @@ export const SITE = {
 
 export const NAV_LINKS = [
   { label: "Sobre", href: "#sobre" },
-  { label: "O que resolvo", href: "#servicos" },
+  { label: "O que faço", href: "#servicos" },
   { label: "Resultados", href: "#resultados" },
   { label: "Produção técnica", href: "#audit" },
   { label: "Govevia", href: "https://govevia.com" },
@@ -33,7 +33,7 @@ export const HERO = {
     "15 anos implantando sistemas em prefeituras",
   ],
   paragraph:
-    "Trabalho com transformação digital no setor público desde 2010. Se você precisa saber com quem está negociando antes de fechar qualquer contrato — este site existe para isso.",
+    "Trabalho com transformação digital no setor público desde 2010. Este site existe para que clientes e parceiros possam conhecer minha trajetória, os projetos em que estive envolvido e verificar as informações antes de qualquer conversa.",
   ctaPrimary: { label: "Ver Resultados", href: "#resultados" },
   ctaSecondary: {
     label: "Falar no WhatsApp",
@@ -50,8 +50,8 @@ export const ABOUT = {
   title: "Quem é Leo Américo",
   photo: "/photo.svg",
   paragraphs: [
-    "Desde 2010 trabalho com a realidade das prefeituras — não com a versão de apresentação. Já estive em mais de 60 municípios entre MG, SP, RS e BA, implantando sistemas onde o problema real era migração de dados legados, adequação ao TCE, resistência das equipes e dependência de planilhas.",
-    "Em 2024 fundei a Govevia, uma plataforma de gestão pública construída a partir dessa vivência. Não é mais uma solução genérica adaptada para o setor público — é construída de dentro para fora, para os problemas que eu vi se repetir em dezenas de implantações.",
+    "Trabalho com a realidade das prefeituras desde 2010. Já atuei em mais de 60 municípios entre MG, SP, RS e BA — implantando sistemas, migrando bases legadas, adequando processos ao TCE e apoiando equipes na transição.",
+    "Em 2024 fundei a Govevia, uma plataforma de gestão pública desenvolvida com base nessa experiência acumulada em campo.",
     "Bacharel em Sistemas de Informação e membro ativo do PMI, com 2.610 horas documentadas em 19 projetos municipais.",
   ],
   location: "Uberlândia, MG · Brasil",
@@ -62,31 +62,31 @@ export const ABOUT = {
 };
 
 export const EXPERTISE = {
-  title: "O que resolvo",
+  title: "O que faço",
   cards: [
     {
       icon: "Building2",
-      title: "Sistemas que funcionam depois que o consultor vai embora",
+      title: "Implantação de sistemas GRP",
       description:
-        "Implantação de sistemas GRP com transferência real de conhecimento para a equipe. Migração de dados legados, adequação ao TCE e acompanhamento pós-implantação — não só a entrega do acesso.",
+        "Condução do processo completo de implantação — levantamento, migração de dados, adequação ao TCE e capacitação da equipe. O objetivo é que o município opere de forma autônoma após a entrega.",
     },
     {
       icon: "ShieldCheck",
-      title: "Conformidade que não é só no papel",
+      title: "Conformidade e controle",
       description:
-        "Trilhas de auditoria, controle de acesso por perfil, isolamento de dados por município e adequação a LGPD e Tribunais de Contas. Arquitetura que sobrevive à fiscalização.",
+        "Trilhas de auditoria, controle de acesso por perfil e adequação a LGPD e Tribunais de Contas. Estrutura que suporta fiscalização sem depender de ajustes emergenciais.",
     },
     {
       icon: "Monitor",
-      title: "Serviços digitais que o cidadão consegue usar",
+      title: "Digitalização de serviços ao cidadão",
       description:
-        "Digitalização do atendimento com redução mensurável de prazo e papel. Protocolo, alvará, IPTU, nota fiscal — processos que hoje dependem de fila e papel passam a funcionar online.",
+        "Implantação de serviços online com redução mensurável de prazo e papel. Protocolo, alvará, IPTU, nota fiscal — processos que passam a funcionar de forma integrada e rastreável.",
     },
     {
       icon: "Database",
-      title: "Migração sem perder histórico",
+      title: "Migração de dados legados",
       description:
-        "Transferência de bases legadas (Oracle, SQL Server, sistemas próprios) para ambientes modernos, sem interrupção da operação municipal e sem apagar o histórico que o TCE pode pedir amanhã.",
+        "Transferência de bases históricas (Oracle, SQL Server, sistemas próprios) para ambientes modernos, sem interrupção da operação e preservando o histórico que os órgãos de controle podem solicitar.",
     },
   ],
 };
@@ -200,9 +200,9 @@ export const CERTIFICATIONS = {
 };
 
 export const CONTACT = {
-  title: "Vamos conversar?",
+  title: "Entre em contato",
   subtitle:
-    "Se você chegou até aqui querendo entender com quem está negociando — espero ter respondido. Para qualquer conversa sobre projetos, parcerias ou a Govevia, estou nos canais abaixo.",
+    "Para projetos, parcerias ou dúvidas sobre a Govevia — estou disponível pelos canais abaixo.",
   links: [
     {
       label: "WhatsApp",
