@@ -126,6 +126,15 @@ async function getFilesByPattern(
 // PUBLIC API — called from the API route
 // ============================================================================
 
+interface RawRepo {
+  name: string;
+  description: string | null;
+  private: boolean;
+  default_branch: string;
+  pushed_at: string;
+  fork: boolean;
+}
+
 export interface RepoAuditData {
   name: string;
   description: string;
@@ -168,17 +177,25 @@ export async function generateAuditReport(): Promise<AuditReport | null> {
 
   const { since, until, label } = getPeriod();
 
-  // 1. List repos
-  const reposRaw = await ghFetch(
-    `/users/${USERNAME}/repos?per_page=100&sort=pushed&type=all`,
-    token
-  );
-  if (!reposRaw) return null;
+  // 1. List ALL repos (public + private) using authenticated /user/repos endpoint
+  // Uses pagination to handle accounts with more than 100 repos
+  const reposRaw: RawRepo[] = [];
+  let page = 1;
+  while (page <= 20) {
+    const batch = await ghFetch(
+      `/user/repos?per_page=100&sort=pushed&page=${page}&affiliation=owner`,
+      token
+    );
+    if (!batch || !Array.isArray(batch) || batch.length === 0) break;
+    reposRaw.push(...(batch as RawRepo[]));
+    if (batch.length < 100) break;
+    page++;
+  }
+  if (reposRaw.length === 0) return null;
 
-  // Filter repos with activity in period
+  // Filter repos with activity in period (exclude forks)
   const allRepos = reposRaw.filter(
-    (r: { pushed_at: string }) =>
-      new Date(r.pushed_at) >= new Date(since)
+    (r) => !r.fork && new Date(r.pushed_at) >= new Date(since)
   );
 
   // 2. Audit each active repo
@@ -190,7 +207,7 @@ export async function generateAuditReport(): Promise<AuditReport | null> {
   let totalPortsAdapters = 0;
   let totalGuards = 0;
 
-  for (const r of allRepos) {
+  for (const r of allRepos as RawRepo[]) {
     const branch = r.default_branch || "main";
     const commits = await countCommits(r.name, since, until, token);
     if (commits === 0) continue; // skip truly inactive
@@ -208,9 +225,9 @@ export async function generateAuditReport(): Promise<AuditReport | null> {
       ]);
 
     const repo: RepoAuditData = {
-      name: r.name,
-      description: r.description || "",
-      isPrivate: r.private,
+      name: r.name as string,
+      description: (r.description as string) || "",
+      isPrivate: r.private as boolean,
       commits,
       lastActivity,
       recentMessages,
