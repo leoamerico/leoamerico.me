@@ -222,12 +222,17 @@ export default function Audit() {
               viewport={{ once: true }}
               className="glass rounded-2xl p-6 mb-12"
             >
-              <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-6">
+              <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-1">
                 Atividade Mensal — Todos os Repositórios
               </h3>
+              {months.length > 0 && (
+                <p className="text-xs text-slate-600 mb-6">
+                  pico: <span className="text-cyan-400 font-semibold">{maxCommits} commits</span> · total 12 meses: <span className="text-cyan-400 font-semibold">{months.reduce((a, [, v]) => a + v, 0)}</span>
+                </p>
+              )}
               <div className="flex items-end gap-1 sm:gap-2 h-40">
                 {months.map(([month, count]) => {
-                  const height = Math.max((count / maxCommits) * 100, 2);
+                  const height = count > 0 ? Math.max((count / maxCommits) * 100, 4) : 0;
                   const label = month.split("-")[1] + "/" + month.split("-")[0].slice(2);
                   return (
                     <div
@@ -235,12 +240,16 @@ export default function Audit() {
                       className="flex-1 flex flex-col items-center gap-1 group"
                     >
                       <span className="text-[10px] text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity">
-                        {count}
+                        {count > 0 ? count : ""}
                       </span>
-                      <div
-                        className="w-full rounded-t bg-gradient-to-t from-cyan-500/60 to-cyan-400/80 group-hover:from-amber-500/60 group-hover:to-amber-400/80 transition-all duration-300 min-h-[2px]"
-                        style={{ height: `${height}%` }}
-                      />
+                      {count > 0 ? (
+                        <div
+                          className="w-full rounded-t bg-gradient-to-t from-cyan-500/60 to-cyan-400/80 group-hover:from-amber-500/60 group-hover:to-amber-400/80 transition-all duration-300"
+                          style={{ height: `${height}%` }}
+                        />
+                      ) : (
+                        <div className="w-full flex-1 border-b border-dashed border-slate-700/40" />
+                      )}
                       <span className="text-[9px] text-slate-600 hidden sm:block">
                         {label}
                       </span>
