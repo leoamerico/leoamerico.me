@@ -6,9 +6,9 @@
 export const SITE = {
   name: "Leonardo Américo",
   shortName: "Leo Américo",
-  title: "Leonardo Américo — ERP · GRP · ERA",
+  title: "Leonardo Américo — ERP · GRP",
   description:
-    "Arquitetura modular AI-first em três domínios: Env Neo (ERP), Govevia (GRP) e Envlive (ERA). Um núcleo. Três instâncias. Produzido por quem opera o sistema.",
+    "Arquitetura modular AI-first em dois domínios: Env Neo (ERP) e Govevia (GRP). Um núcleo. Dois domínios. Produzido por quem opera o sistema.",
   url: "https://leoamerico.me",
   locale: "pt-BR",
   email: "sou@leoamerico.me",
@@ -29,10 +29,9 @@ export const HERO = {
   roles: [
     "ERP · Env Neo — gestão empresarial",
     "GRP · Govevia — gestão pública",
-    "ERA · Envlive — corretagem e agenciamento",
   ],
   paragraph:
-    "Um núcleo modular AI-first. Três instâncias de domínio. O sistema se auto-regula, testa e documenta — a prova está no código ao vivo abaixo.",
+    "Um núcleo modular AI-first. Dois domínios. O sistema se auto-regula, testa e documenta — a prova está no código ao vivo abaixo.",
   ctaPrimary: { label: "Ver código ao vivo", href: "#audit" },
   ctaSecondary: {
     label: "Substack",
@@ -40,9 +39,9 @@ export const HERO = {
   },
   metrics: [
     {
-      value: "3",
+      value: "2",
       label: "domínios. Um núcleo.",
-      source: "ERP · GRP · ERA",
+      source: "ERP · GRP",
       href: "#resultados",
     },
     {
@@ -61,11 +60,11 @@ export const HERO = {
 };
 
 export const ABOUT = {
-  title: "A tese em três domínios",
+  title: "A tese em dois domínios",
   photo: "/photo.svg",
   paragraphs: [
     "15 anos operando sistemas de gestão no setor público produziram uma arquitetura: um núcleo modular com validação no fonte, que se auto-regula, testa e documenta. Essa experiência é a origem — não o serviço atual.",
-    "Em 2024 fundei a Env Neo Ltda para materializar essa arquitetura em três instâncias: Env Neo (ERP), Govevia (GRP) e Envlive (ERA multi-agentes). A transição de SaaS para IA-first é a condição técnica do que já está rodando.",
+    "Em 2024 fundei a Env Neo Ltda para materializar essa arquitetura em dois domínios: Env Neo (ERP) e Govevia (GRP). A transição de SaaS para IA-first é a condição técnica do que já está rodando.",
     "Bacharel em Sistemas de Informação, membro ativo do PMI.",
   ],
   location: "Uberlândia, MG · Brasil",
@@ -160,27 +159,11 @@ export const PROJECTS = {
         "API com validação no fonte",
         "Controle de acesso por perfil e organização",
         "Documentação gerada como saída operacional",
-        "Compartilha shared-kernel com GRP e ERA",
+        "Compartilha shared-kernel com GRP",
       ],
       link: "https://envneo.com.br",
       linkLabel: "envneo.com.br",
       badge: "ERP",
-    },
-    {
-      category: "ERA · Multi-Agentes · Corretagem e Agenciamento",
-      title: "Envlive",
-      description:
-        "Credenciamento, engajamento e ciclos de contrato entre empresas e profissionais. A mesma lógica de auditoria e controle do ERP e GRP aplicada a agenciamento — com IA para match, proposta e avaliação.",
-      impact: null,
-      features: [
-        "Agenciamento multi-agente com ciclo rastreable",
-        "Credenciamento com validação e auditoria",
-        "Integração via shared-kernel",
-        "IA aplicada a match e avaliação de agentes",
-      ],
-      link: null,
-      linkLabel: null,
-      badge: "ERA",
     },
   ],
 };
