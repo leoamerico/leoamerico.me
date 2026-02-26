@@ -6,9 +6,9 @@
 export const SITE = {
   name: "Leonardo Américo",
   shortName: "Leo Américo",
-  title: "Leonardo Américo — Gestão Pública Digital",
+  title: "Leonardo Américo — ERP · GRP · ERA",
   description:
-    "Gestão pública digital em prática desde 2010. 60+ municípios, 2.610 horas documentadas no PMI, fundador da Govevia. Escreve no Substack sobre o que aprende em campo.",
+    "Arquitetura modular AI-first em três domínios: Env Neo (ERP), Govevia (GRP) e Envlive (ERA). Um núcleo. Três instâncias. Produzido por quem opera o sistema.",
   url: "https://leoamerico.me",
   locale: "pt-BR",
   email: "sou@leoamerico.me",
@@ -17,10 +17,9 @@ export const SITE = {
 
 export const NAV_LINKS = [
   { label: "Sobre", href: "#sobre" },
-  { label: "Prática", href: "#servicos" },
-  { label: "Trabalho", href: "#resultados" },
-  { label: "Produção técnica", href: "#audit" },
-  { label: "Govevia", href: "https://govevia.com" },
+  { label: "Plataformas", href: "#resultados" },
+  { label: "Código ao vivo", href: "#audit" },
+  { label: "Govevia", href: "https://govevia.com.br" },
   { label: "Contato", href: "#contato" },
 ];
 
@@ -28,47 +27,46 @@ export const HERO = {
   badge: "Uberlândia, MG · Brasil",
   heading: "Leonardo Américo",
   roles: [
-    "Gestão pública digital em prática desde 2010",
-    "Fundador da Govevia",
-    "Escreve sobre o que aprende em campo",
+    "ERP · Env Neo — gestão empresarial",
+    "GRP · Govevia — gestão pública",
+    "ERA · Envlive — corretagem e agenciamento",
   ],
   paragraph:
-    "60+ municípios em MG, SP, RS e BA. 2.610 horas documentadas no PMI. O que aprendo está publicado no Substack e no GitHub.",
-  ctaPrimary: { label: "Substack", href: "https://substack.com/@leoamericojr" },
+    "Um núcleo modular AI-first. Três instâncias de domínio. O sistema se auto-regula, testa e documenta — a prova está no código ao vivo abaixo.",
+  ctaPrimary: { label: "Ver código ao vivo", href: "#audit" },
   ctaSecondary: {
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/in/leoamericojr",
+    label: "Substack",
+    href: "https://substack.com/@leoamericojr",
   },
   metrics: [
     {
-      value: "15+",
-      label: "anos em gestão pública digital",
-      source: "Desde 2010",
-      href: "#credenciais",
-    },
-    {
-      value: "60+",
-      label: "municípios, câmaras e autarquias atendidos",
-      source: "MG · SP · RS · BA",
+      value: "3",
+      label: "domínios. Um núcleo.",
+      source: "ERP · GRP · ERA",
       href: "#resultados",
     },
     {
-      value: "70%",
-      label: "redução de papel documentada",
-      source: "Amparo Digital — Sonner Sistemas",
-      href: "https://www.youtube.com/watch?v=Egp92Tqmdok",
-      external: true,
+      value: "88+",
+      label: "entidades JPA no govevia-kernel",
+      source: "Verificado → Produção Técnica",
+      href: "#audit",
+    },
+    {
+      value: "178+",
+      label: "casos de uso implementados",
+      source: "Java · arquitetura hexagonal",
+      href: "#audit",
     },
   ],
 };
 
 export const ABOUT = {
-  title: "Quem é Leo Américo",
+  title: "A tese em três domínios",
   photo: "/photo.svg",
   paragraphs: [
-    "Trabalho com prefeituras desde 2010. Implantei sistemas em mais de 60 municípios entre MG, SP, RS e BA — migrando bases legadas, adequando processos ao TCE, documentando o que funcionou e o que não funcionou.",
-    "Em 2024 fundei a Govevia, uma plataforma de gestão pública construída a partir dessa experiência de campo.",
-    "Bacharel em Sistemas de Informação e membro ativo do PMI, com 2.610 horas documentadas em 19 projetos municipais.",
+    "15 anos operando sistemas de gestão no setor público produziram uma arquitetura: um núcleo modular com validação no fonte, que se auto-regula, testa e documenta. Essa experiência é a origem — não o serviço atual.",
+    "Em 2024 fundei a Env Neo Ltda para materializar essa arquitetura em três instâncias: Env Neo (ERP), Govevia (GRP) e Envlive (ERA multi-agentes). A transição de SaaS para IA-first é a condição técnica do que já está rodando.",
+    "Bacharel em Sistemas de Informação, membro ativo do PMI.",
   ],
   location: "Uberlândia, MG · Brasil",
   remote: "Brasil",
@@ -78,115 +76,111 @@ export const ABOUT = {
 };
 
 export const EXPERTISE = {
-  title: "Prática",
+  title: "O que consigo recuperar antes que se perca",
   cards: [
     {
-      icon: "Building2",
-      title: "Implantação de sistemas GRP",
+      icon: "Archive",
+      title: "Lógica de negócio antes da migração",
       description:
-        "Atuei em mais de 60 implantações de sistemas de gestão pública. O padrão encontrado: dados fragmentados, bases legadas sem documentação, equipes sem treinamento formal. O que aprendi nesse ciclo está publicado.",
+        "Sistemas legados guardam regras que nenhum documento registrou. Quando a empresa troca de plataforma — ou adota IA — essa lógica desaparece junto. Estruturo e transponho antes da perda: processos, validações, políticas e dependências ocultas viram arquitetura verificável.",
     },
     {
-      icon: "ShieldCheck",
-      title: "Conformidade com Tribunais de Contas",
+      icon: "FileCode",
+      title: "Processo como contrato técnico",
       description:
-        "Adequação de processos às exigências do TCE em múltiplos estados — MG, SP, RS e BA. Cada estado tem suas próprias regras. O acerto aqui vem de conhecer as diferenças na prática, não no papel.",
+        "O que hoje é um documento Word ou uma planilha de RH vira BPMN, ADR ou POLÍTICA no fonte. A regra deixa de viver na cabeça de quem sabe — e passa a ser testada, auditada e documentada automaticamente pelo próprio sistema.",
     },
     {
-      icon: "Monitor",
-      title: "Digitalização de serviços públicos",
+      icon: "Cpu",
+      title: "IA como parte da operação",
       description:
-        "Protocolo, alvará, IPTU, nota fiscal eletrônica — processos que na maioria das prefeituras ainda dependem de papel e fila. A experiência mais documentada nessa área é o Projeto Amparo Digital (Sonner Sistemas).",
+        "Não IA como feature colada em processo quebrado. IA que valida regras no fonte, gera documentação estruturada e se auto-regula como infra — não como camada adicional. A transição de SaaS para IA-first começa com o processo limpo.",
     },
     {
-      icon: "Database",
-      title: "Migração de bases legadas",
+      icon: "TrendingUp",
+      title: "Digitalização orientada a resultado",
       description:
-        "Oracle, SQL Server, sistemas proprietários sem documentação — esse é o estado real da maioria das prefeituras ao trocar de sistema. Trabalhei com esse tipo de migração em dezenas de municípios.",
+        "O mesmo ciclo que estruturou gestão pública em 60+ municípios — rastreabilidade, controle por perfil, trilha de auditoria — agora aplicado a empresas privadas que querem usar IA como aliada, não como experimento.",
     },
   ],
 };
 
 export const STACK = {
-  title: "Como construo",
+  title: "Como o núcleo é construído",
   groups: [
     {
-      title: "Infraestrutura",
-      techs: ["AWS", "GCP", "Oracle Cloud", "Docker", "Linux"],
+      title: "Domínio",
+      techs: ["Java 21", "Arquitetura Hexagonal", "DDD", "CQRS"],
     },
     {
       title: "Dados",
-      techs: ["PostgreSQL", "Oracle DB"],
+      techs: ["PostgreSQL", "Row-Level Security", "Oracle DB"],
     },
     {
-      title: "Plataforma",
-      techs: ["Java", "React", "Next.js", "Node.js"],
+      title: "Infra",
+      techs: ["AWS", "GCP", "Oracle Cloud", "Docker"],
     },
     {
-      title: "Processos",
-      techs: ["BPMN 2.0"],
+      title: "Frontends",
+      techs: ["Next.js", "React", "Node.js"],
+    },
+    {
+      title: "Qualidade",
+      techs: ["BPMN 2.0", "ADR", "POLICY-", "ArchUnit"],
     },
   ],
 };
 
 export const PROJECTS = {
-  title: "Trabalho",
+  title: "Três domínios. Um núcleo.",
   cards: [
     {
-      category: "Implantação consultiva · 2020–2025",
-      title: "Amparo Digital — Sonner Sistemas",
+      category: "GRP · Gestão Pública · Em produção",
+      title: "Govevia",
       description:
-        "Atuei como consultor técnico na implantação do Projeto Amparo Digital, conduzido pela Sonner Sistemas. Segundo os dados divulgados pela Sonner Sistemas, o projeto abrangeu mais de 30 serviços públicos digitalizados e reduziu em 70% o uso de papel, com automação de processos internos via BPMN 2.0.",
-      impact:
-        "Redução do tempo médio de atendimento e eliminação de filas para serviços básicos — resultados documentados e publicados pela Sonner Sistemas nos vídeos e post abaixo.",
-      features: null,
-      link: "https://www.youtube.com/watch?v=Egp92Tqmdok",
-      linkLabel: "Ver vídeo institucional (Sonner Sistemas)",
-      badge: "Consultoria técnica",
-      evidence: [
-        {
-          label: "Vídeo do projeto — publicado pela Sonner Sistemas",
-          href: "https://www.youtube.com/watch?v=Egp92Tqmdok",
-          icon: "Youtube",
-        },
-        {
-          label: "Segundo vídeo — publicado pela Sonner Sistemas",
-          href: "https://www.youtube.com/watch?v=7L_t_aBcR-w",
-          icon: "Youtube",
-        },
-        {
-          label: "Validação pública — post da Sonner Sistemas no LinkedIn",
-          href: "https://www.linkedin.com/posts/sonner-sistemas_sonner-transformaaexaetodigital-caseamparo-activity-7378549132732469248-ek0Y",
-          icon: "Linkedin",
-        },
-      ],
-    },
-    {
-      category: "Plataforma própria · Em operação",
-      title: "Govevia — Plataforma de Gestão Pública",
-      description:
-        "Plataforma de Gestão de Recursos Públicos desenvolvida a partir de 15 anos de experiência em campo. Construída para resolver os problemas reais que encontrei em dezenas de implantações: dados fragmentados, falta de rastreabilidade, dependência de planilhas e risco de não-conformidade.",
+        "Obrigações normativas (TCE, LGPD, transparência) transformadas em controles técnicos verificáveis. Multi-tenant com Row-Level Security por município. Trilhas de auditoria com verificação criptográfica. Desenvolvida pela Env Neo Ltda.",
       impact: null,
       features: [
-        "Isolamento de dados por município (multi-tenant com Row-Level Security)",
-        "Trilhas de auditoria com verificação criptográfica",
-        "Conformidade nativa com exigências de Tribunais de Contas",
-        "Arquitetura em nuvem com alta disponibilidade",
+        "88 entidades JPA no govevia-kernel",
+        "178+ casos de uso implementados",
+        "Arquitetura hexagonal com ArchUnit",
+        "ADRs e POLICYs como estrutura do código",
       ],
-      link: "https://govevia.com",
-      linkLabel: "Conhecer a Govevia",
-      badge: "Em operação",
+      link: "https://govevia.com.br",
+      linkLabel: "govevia.com.br",
+      badge: "GRP",
     },
     {
-      category: "Serviço de consultoria",
-      title: "Arquitetura Cloud para o Setor Público",
+      category: "ERP · Gestão Empresarial",
+      title: "Env Neo",
       description:
-        "Migração e modernização de infraestrutura de TI para prefeituras que precisam sair de servidores locais, reduzir custos com licenciamento e ganhar segurança. Trabalho com AWS, GCP e Oracle Cloud.",
+        "Núcleo de gestão empresarial com a mesma base modular do GRP. Processos, contratos, documentos e fluxos financeiros com validação declarativa no fonte. Env Neo Ltda, CNPJ 36.207.211/0001-47.",
       impact: null,
-      features: null,
+      features: [
+        "API com validação no fonte",
+        "Controle de acesso por perfil e organização",
+        "Documentação gerada como saída operacional",
+        "Compartilha shared-kernel com GRP e ERA",
+      ],
+      link: "https://envneo.com.br",
+      linkLabel: "envneo.com.br",
+      badge: "ERP",
+    },
+    {
+      category: "ERA · Multi-Agentes · Corretagem e Agenciamento",
+      title: "Envlive",
+      description:
+        "Credenciamento, engajamento e ciclos de contrato entre empresas e profissionais. A mesma lógica de auditoria e controle do ERP e GRP aplicada a agenciamento — com IA para match, proposta e avaliação.",
+      impact: null,
+      features: [
+        "Agenciamento multi-agente com ciclo rastreable",
+        "Credenciamento com validação e auditoria",
+        "Integração via shared-kernel",
+        "IA aplicada a match e avaliação de agentes",
+      ],
       link: null,
       linkLabel: null,
-      badge: "Consultoria",
+      badge: "ERA",
     },
   ],
 };
@@ -197,7 +191,7 @@ export const CERTIFICATIONS = {
     {
       title: "Membro PMI — Project Management Institute",
       org: "PMI · Membro ativo verificável",
-      detail: "2.610 horas documentadas em 19 projetos municipais — base para elegibilidade PMP",
+      detail: "Membro ativo com experiência documentada em projetos de sistema — base para elegibilidade PMP",
       link: "https://community.pmi.org/profile/leoamericojr",
       status: "active",
       docs: [

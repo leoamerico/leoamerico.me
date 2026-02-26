@@ -69,11 +69,11 @@ export default function Projects() {
                 )}
                 <div className="flex-1" />
                 {/* Evidence links */}
-                {(project as { evidence?: { label: string; href: string; icon: string }[] }).evidence && (
+                {((project as unknown) as { evidence?: { label: string; href: string; icon: string }[] }).evidence && (
                   <div className="mb-4">
                     <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Evidências externas</p>
                     <div className="flex flex-col gap-1.5">
-                      {(project as { evidence: { label: string; href: string; icon: string }[] }).evidence.map((ev, k) => (
+                      {((project as unknown) as { evidence: { label: string; href: string; icon: string }[] }).evidence.map((ev, k) => (
                         <a
                           key={k}
                           href={ev.href}

@@ -9,7 +9,6 @@ import {
   Clock,
   Activity,
   Lock,
-  Globe,
   RefreshCw,
   BookOpen,
   TestTube2,
@@ -283,20 +282,19 @@ export default function Audit() {
 
         {data && (
           <>
-            {/* Metric cards */}
+            {/* Govevia KPI cards */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-12"
+              className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-12"
             >
               {[
-                { icon: GitBranch, label: "Repositórios Ativos", value: data.activeRepos, color: "text-cyan-400" },
-                { icon: Activity, label: "Commits (12m)", value: data.totalCommits, color: "text-amber-400" },
-                { icon: BookOpen, label: "ADRs Registrados", value: data.totalADRs, color: "text-emerald-400" },
-                { icon: FileCheck, label: "Políticas (POLICY-)", value: data.totalPolicies, color: "text-violet-400" },
-                { icon: TestTube2, label: "Arquivos de Teste", value: data.totalTests, color: "text-blue-400" },
+                { icon: GitBranch, label: "Commits totais", value: data.totalCommits, color: "text-amber-400" },
+                { icon: BookOpen, label: "ADRs registrados", value: data.totalADRs, color: "text-emerald-400" },
+                { icon: TestTube2, label: "Arquivos de teste", value: data.totalTests, color: "text-blue-400" },
                 { icon: Layers, label: "Ports & Adapters", value: data.totalPortsAdapters, color: "text-rose-400" },
+                { icon: FileCheck, label: "Políticas (POLICY-)", value: data.totalPolicies, color: "text-violet-400" },
               ].map((m, i) => (
                 <div
                   key={i}
@@ -311,6 +309,17 @@ export default function Audit() {
               ))}
             </motion.div>
 
+            {/* Last activity */}
+            {data.repos[0]?.lastActivity && (
+              <div className="flex items-center justify-center gap-2 text-xs text-slate-500 mb-10">
+                <Lock size={11} className="text-amber-400/70" />
+                <span className="text-amber-400/70 font-medium">govevia</span>
+                <span>·</span>
+                <Clock size={11} />
+                <span>Última atividade: {formatDate(data.repos[0].lastActivity)}</span>
+              </div>
+            )}
+
             {/* Govevia heatmap — 90 days */}
             {data.goveiaheatmap && data.goveiaheatmap.length > 0 && (
               <motion.div
@@ -321,110 +330,6 @@ export default function Audit() {
                 <GoveiaHeatmap weeks={data.goveiaheatmap} />
               </motion.div>
             )}
-
-            {/* Repos grid */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-6">
-                Repositórios Ativos no Período
-              </h3>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {data.repos.map((repo, i) => (
-                  <motion.div
-                    key={repo.name}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.05 }}
-                    className="glass rounded-xl p-5 hover:border-cyan-400/20 transition-all"
-                  >
-                    {/* Repo header */}
-                    <div className="flex items-start justify-between mb-3">
-                      <div className="flex items-center gap-2">
-                        {repo.isPrivate ? (
-                          <Lock size={14} className="text-amber-400" />
-                        ) : (
-                          <Globe size={14} className="text-emerald-400" />
-                        )}
-                        <h4 className="font-heading font-semibold text-white text-sm">
-                          {repo.name}
-                        </h4>
-                      </div>
-                      <span className="text-xs text-slate-600">
-                        {repo.isPrivate ? "privado" : "público"}
-                      </span>
-                    </div>
-
-                    {repo.description && (
-                      <p className="text-xs text-slate-500 mb-3">{repo.description}</p>
-                    )}
-
-                    {/* Metrics row */}
-                    <div className="flex flex-wrap gap-2 mb-3">
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-slate-800/60 text-[10px] text-cyan-400">
-                        <GitBranch size={10} />
-                        {repo.commits} commits
-                      </span>
-                      {repo.adrCount > 0 && (
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-slate-800/60 text-[10px] text-emerald-400">
-                          <BookOpen size={10} />
-                          {repo.adrCount} ADRs
-                        </span>
-                      )}
-                      {repo.testCount > 0 && (
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-slate-800/60 text-[10px] text-blue-400">
-                          <TestTube2 size={10} />
-                          {repo.testCount} testes
-                        </span>
-                      )}
-                      {repo.portAdapterCount > 0 && (
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-slate-800/60 text-[10px] text-rose-400">
-                          <Layers size={10} />
-                          {repo.portAdapterCount} ports/adapters
-                        </span>
-                      )}
-                      {repo.policyCount > 0 && (
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-slate-800/60 text-[10px] text-violet-400">
-                          <ShieldCheck size={10} />
-                          {repo.policyCount} policies
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Last activity */}
-                    {repo.lastActivity && (
-                      <div className="text-[10px] text-slate-600 flex items-center gap-1">
-                        <Clock size={10} />
-                        Última atividade: {formatDate(repo.lastActivity)}
-                      </div>
-                    )}
-
-                    {/* Recent commit messages */}
-                    {repo.recentMessages.length > 0 && (
-                      <div className="mt-3 pt-3 border-t border-slate-800/50">
-                        <p className="text-[10px] text-slate-600 mb-1.5 uppercase tracking-wider">
-                          Commits recentes
-                        </p>
-                        <div className="space-y-1 max-h-24 overflow-y-auto">
-                          {repo.recentMessages.slice(0, 5).map((msg, j) => (
-                            <p
-                              key={j}
-                              className="text-[11px] text-slate-400 truncate"
-                              title={msg}
-                            >
-                              <span className="text-cyan-400/50">›</span> {msg}
-                            </p>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
 
             {/* Disclaimer */}
             <motion.div

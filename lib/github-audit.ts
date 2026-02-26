@@ -98,25 +98,6 @@ async function getGoveiaHeatmap(
   return [];
 }
 
-// Get first-line commit messages for a repo
-async function getCommitMessages(
-  repo: string,
-  since: string,
-  until: string,
-  token: string,
-  maxMessages = 30
-): Promise<string[]> {
-  const data = await ghFetch(
-    `/repos/${USERNAME}/${repo}/commits?since=${since}&until=${until}&per_page=${maxMessages}`,
-    token
-  );
-  if (!data || !Array.isArray(data)) return [];
-  return data.map(
-    (c: { commit: { message: string } }) =>
-      c.commit.message.split("\n")[0]
-  );
-}
-
 // Get latest commit date for a repo
 async function getLastActivity(
   repo: string,
@@ -166,14 +147,6 @@ async function getFilesByPattern(
 // PUBLIC API — called from the API route
 // ============================================================================
 
-interface RawRepo {
-  name: string;
-  description: string | null;
-  private: boolean;
-  default_branch: string;
-  pushed_at: string;
-  fork: boolean;
-}
 
 export interface RepoAuditData {
   name: string;
@@ -220,36 +193,31 @@ export async function generateAuditReport(): Promise<AuditReport | null> {
   }
 
   const { since, until, label } = getPeriod();
+  const REPO = "govevia";
+  const branch = "main";
 
-  // 1. List ALL repos (public + private) using authenticated /user/repos endpoint
-  // Uses pagination to handle accounts with more than 100 repos
-  const reposRaw: RawRepo[] = [];
-  let page = 1;
-  while (page <= 20) {
-    const batch = await ghFetch(
-      `/user/repos?per_page=100&sort=pushed&page=${page}&affiliation=owner`,
-      token
-    );
-    if (!batch || !Array.isArray(batch) || batch.length === 0) break;
-    reposRaw.push(...(batch as RawRepo[]));
-    if (batch.length < 100) break;
-    page++;
-  }
-  if (reposRaw.length === 0) return null;
-
-  // Filter repos with activity in period (exclude forks)
-  const allRepos = reposRaw.filter(
-    (r) => !r.fork && new Date(r.pushed_at) >= new Date(since)
-  );
-
-  // 2. Audit each active repo — collect commits + monthly buckets in one pass
-  const repos: RepoAuditData[] = [];
-  let totalCommits = 0;
-  let totalADRs = 0;
-  let totalPolicies = 0;
-  let totalTests = 0;
-  let totalPortsAdapters = 0;
-  let totalGuards = 0;
+  // Fetch all govevia metrics in parallel
+  const [
+    { total: commits, monthly },
+    lastActivity,
+    adrFiles,
+    policyFiles,
+    testCount,
+    portAdapterCount,
+    guardCount,
+    totalFiles,
+    goveiaheatmap,
+  ] = await Promise.all([
+    countCommitsWithMonthly(REPO, since, until, token),
+    getLastActivity(REPO, token),
+    getFilesByPattern(REPO, branch, /ADR-|adr-/i, token),
+    getFilesByPattern(REPO, branch, /POLICY-|policy-/i, token),
+    countFilesByPattern(REPO, branch, /test\.|spec\.|Test\.java/i, token),
+    countFilesByPattern(REPO, branch, /\/port\/|Port\.java|\/adapter\//i, token),
+    countFilesByPattern(REPO, branch, /Guard\.java|Guard\.ts/i, token),
+    countFilesByPattern(REPO, branch, /./i, token),
+    getGoveiaHeatmap(token),
+  ]);
 
   // Pre-build 12-month keys so chart always has all months (even zeros)
   const monthlyActivity: Record<string, number> = {};
@@ -259,79 +227,39 @@ export async function generateAuditReport(): Promise<AuditReport | null> {
     const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
     monthlyActivity[key] = 0;
   }
-
-  for (const r of allRepos as RawRepo[]) {
-    const branch = r.default_branch || "main";
-    const { total: commits, monthly } = await countCommitsWithMonthly(r.name, since, until, token);
-    if (commits === 0) continue;
-
-    // Merge monthly counts into global chart
-    for (const [k, v] of Object.entries(monthly)) {
-      if (k in monthlyActivity) monthlyActivity[k] += v;
-    }
-
-    const [lastActivity, recentMessages, adrFiles, policyFiles, testCount, portAdapterCount, guardCount, totalFiles] =
-      await Promise.all([
-        getLastActivity(r.name, token),
-        getCommitMessages(r.name, since, until, token, 15),
-        getFilesByPattern(r.name, branch, /ADR-|adr-/i, token),
-        getFilesByPattern(r.name, branch, /POLICY-|policy-/i, token),
-        countFilesByPattern(r.name, branch, /test\.|spec\.|Test\.java/i, token),
-        countFilesByPattern(r.name, branch, /\/port\/|Port\.java|\/adapter\//i, token),
-        countFilesByPattern(r.name, branch, /Guard\.java|Guard\.ts/i, token),
-        countFilesByPattern(r.name, branch, /./i, token),
-      ]);
-
-    const isPrivate = r.private as boolean;
-    const repo: RepoAuditData = {
-      name: r.name as string,
-      // Never expose description or file paths of private repos
-      description: isPrivate ? "" : ((r.description as string) || ""),
-      isPrivate,
-      commits,
-      lastActivity,
-      // Never expose commit messages of private repos (may contain sensitive info)
-      recentMessages: isPrivate ? [] : recentMessages,
-      adrCount: adrFiles.length,
-      // Never expose internal file paths of private repos
-      adrFiles: isPrivate ? [] : adrFiles.map((f: string) => f.split("/").pop() || f),
-      policyCount: policyFiles.length,
-      testCount,
-      portAdapterCount,
-      guardCount,
-      totalFiles,
-    };
-
-    totalCommits += commits;
-    totalADRs += repo.adrCount;
-    totalPolicies += repo.policyCount;
-    totalTests += testCount;
-    totalPortsAdapters += portAdapterCount;
-    totalGuards += guardCount;
-
-    repos.push(repo);
+  for (const [k, v] of Object.entries(monthly)) {
+    if (k in monthlyActivity) monthlyActivity[k] += v;
   }
 
-  // Sort repos by commits desc
-  repos.sort((a, b) => b.commits - a.commits);
-
-  // Fetch Govevia daily heatmap (52w × 7d) from GitHub stats API
-  const goveiaheatmap = await getGoveiaHeatmap(token);
+  const repo: RepoAuditData = {
+    name: REPO,
+    description: "",  // private repo — never expose description
+    isPrivate: true,
+    commits,
+    lastActivity,
+    recentMessages: [],  // private repo — never expose commit messages
+    adrCount: adrFiles.length,
+    adrFiles: [],        // private repo — never expose file paths
+    policyCount: policyFiles.length,
+    testCount,
+    portAdapterCount,
+    guardCount,
+    totalFiles,
+  };
 
   return {
     generatedAt: new Date().toISOString(),
     period: label,
     author: "Leonardo Américo José Ribeiro",
-    // CPF is NEVER returned in the API response — PII must not be exposed publicly
-    totalRepos: reposRaw.length,
-    activeRepos: repos.length,
-    totalCommits,
-    totalADRs,
-    totalPolicies,
-    totalTests,
-    totalPortsAdapters,
-    totalGuards,
-    repos,
+    totalRepos: 1,
+    activeRepos: 1,
+    totalCommits: commits,
+    totalADRs: adrFiles.length,
+    totalPolicies: policyFiles.length,
+    totalTests: testCount,
+    totalPortsAdapters: portAdapterCount,
+    totalGuards: guardCount,
+    repos: [repo],
     monthlyActivity,
     goveiaheatmap,
   };

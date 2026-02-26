@@ -2,18 +2,18 @@
 
 import { motion } from "framer-motion";
 import {
-  Building2,
-  ShieldCheck,
-  Monitor,
-  Database,
+  Archive,
+  FileCode,
+  Cpu,
+  TrendingUp,
 } from "lucide-react";
 import { EXPERTISE } from "@/lib/constants";
 
 const iconMap: Record<string, React.ElementType> = {
-  Building2,
-  ShieldCheck,
-  Monitor,
-  Database,
+  Archive,
+  FileCode,
+  Cpu,
+  TrendingUp,
 };
 
 export default function Expertise() {
@@ -31,7 +31,7 @@ export default function Expertise() {
 
         <div className="grid sm:grid-cols-2 gap-6">
           {EXPERTISE.cards.map((card, i) => {
-            const Icon = iconMap[card.icon] || Building2;
+            const Icon = iconMap[card.icon] || Archive;
             return (
               <motion.div
                 key={i}
