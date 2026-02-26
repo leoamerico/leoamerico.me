@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ExternalLink, Youtube, Linkedin } from "lucide-react";
-import { PROJECTS } from "@/lib/constants";
+import { PROJECTS, type ProjectCard } from "@/lib/constants";
 
 export default function Projects() {
   return (
@@ -18,7 +18,7 @@ export default function Projects() {
         </motion.h2>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {PROJECTS.cards.map((project, i) => (
+          {PROJECTS.cards.map((project: ProjectCard, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 30 }}
@@ -58,7 +58,7 @@ export default function Projects() {
                   <div className="mb-4">
                     <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Diferenciais técnicos</p>
                     <ul className="space-y-1">
-                      {(project.features as string[]).map((f: string, j: number) => (
+                      {project.features.map((f: string, j: number) => (
                         <li key={j} className="text-slate-400 text-sm flex items-start gap-2">
                           <span className="text-cyan-400 mt-0.5">•</span>
                           {f}
@@ -69,11 +69,11 @@ export default function Projects() {
                 )}
                 <div className="flex-1" />
                 {/* Evidence links */}
-                {((project as unknown) as { evidence?: { label: string; href: string; icon: string }[] }).evidence && (
+                {project.evidence && (
                   <div className="mb-4">
                     <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Evidências externas</p>
                     <div className="flex flex-col gap-1.5">
-                      {((project as unknown) as { evidence: { label: string; href: string; icon: string }[] }).evidence.map((ev, k) => (
+                      {project.evidence.map((ev, k) => (
                         <a
                           key={k}
                           href={ev.href}

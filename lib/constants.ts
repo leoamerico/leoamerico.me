@@ -3,6 +3,18 @@
 // Edite este arquivo para atualizar conteúdo sem mexer nos componentes.
 // ============================================================================
 
+export interface ProjectCard {
+  category: string;
+  title: string;
+  description: string;
+  impact: string | null;
+  features: string[];
+  link: string | null;
+  linkLabel: string | null;
+  badge: string;
+  evidence?: { label: string; href: string; icon: string }[];
+}
+
 export const SITE = {
   name: "Leonardo Américo",
   shortName: "Leo Américo",
@@ -130,7 +142,7 @@ export const STACK = {
   ],
 };
 
-export const PROJECTS = {
+export const PROJECTS: { title: string; cards: ProjectCard[] } = {
   title: "Dois domínios. Um núcleo.",
   cards: [
     {
