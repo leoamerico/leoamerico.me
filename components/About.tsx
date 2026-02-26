@@ -27,8 +27,6 @@ export default function About() {
                 sizes="(max-width: 768px) 256px, 320px"
                 priority
               />
-              {/* Fallback gradient quando imagem não existe */}
-              <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-blue-600/20" />
             </div>
           </div>
 

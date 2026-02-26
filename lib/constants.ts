@@ -61,7 +61,7 @@ export const HERO = {
 
 export const ABOUT = {
   title: "A tese em dois domínios",
-  photo: "/photo.svg",
+  photo: "/photo.jpg",
   paragraphs: [
     "15 anos operando sistemas de gestão no setor público produziram uma arquitetura: um núcleo modular com validação no fonte, que se auto-regula, testa e documenta. Essa experiência é a origem — não o serviço atual.",
     "Em 2024 fundei a Env Neo Ltda para materializar essa arquitetura em dois domínios: Env Neo (ERP) e Govevia (GRP). A transição de SaaS para IA-first é a condição técnica do que já está rodando.",
