@@ -342,10 +342,58 @@ O CICLO DE EXECUÇÃO (para cada mudança em qualquer dos três sites)
              SVG. CSS. Componente. Número com link. Não descrição — código.
 
   PROBA   — prove antes de commitar.
-             bun run audit:repo   → 9 checks estáticos
+             bun run audit:repo   → 13 checks estáticos (A–D series)
+             bun run audit:opsec  → 5 checks OPSEC (E series) — ver abaixo
              bun run build        → zero erros TypeScript
              bun run audit:runtime → 5 checks HTTP (quando aplicável)
              R1–R8 passando.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PROTOCOLO OPSEC — RISCO COMERCIAL E ESPIONAGEM INDUSTRIAL
+
+  Methodology: OPSEC 5-step (US DoD NSDD-298) + MITRE ATT&CK
+               + ISO 27001:2022 A.5.12 + NIST SP 800-53 RA-3
+
+  PRINCÍPIO FUNDAMENTAL (OPSEC passo 1 — Identifique a Informação Crítica):
+  Leo Américo deve ser reconhecido como autoridade em sistemas enterprise.
+  Autoridade = demonstrar CAPACIDADE, nunca expor MECANISMO.
+  O que a plataforma FAZ → público.
+  Como a plataforma FAZ internamente → restrito.
+
+  GATES E-SERIES (automatizados em scripts/audit/opsec-audit.mjs):
+
+  E1  Version Fingerprinting [MITRE T1592.002]
+      ✗  "Java 21"            →  ✓  "Java LTS"
+      ✗  "PostgreSQL 15"      →  ✓  "PostgreSQL"
+      ✗  "Next.js 14.2"       →  ✓  "Next.js"
+      Razão: versão exata habilita CVE lookup direcionado ao seu stack.
+
+  E2  Internal Artifact Disclosure [MITRE T1591]
+      ✗  "govevia-kernel"     →  ✓  "kernel do Govevia"
+      ✗  "shared-kernel"      →  ✓  "núcleo técnico compartilhado"
+      Razão: nome interno de módulo/repo revela mapa de bounded contexts.
+      Concorrente reconstrói a arquitetura pelo nome dos artefatos.
+
+  E3  Infrastructure Enumeration [MITRE T1591.002]
+      ✗  AWS + GCP + Oracle Cloud + Docker (4 providers juntos)
+      ✓  AWS + GCP + Docker  (≤ 2 cloud providers nomeados, + categorias)
+      Razão: enumeração completa = mapa de spear-phishing.
+      Attacker sabe exatamente qual suporte impersonar.
+
+  E4  Implementation Blueprint [MITRE T1593]
+      ✗  "event store append-only em PostgreSQL + hash chain + Object Lock"
+      ✓  "trilha criptográfica imutável verificável por qualquer auditor"
+      Razão: descrever o mecanismo interno de features de segurança
+      entrega uma especificação arquitetural gratuita ao concorrente.
+
+  E5  Methodology IP Exposure [ISO 27001 A.5.12] — INFO, não bloqueia
+      O glossário (content/terms/*.yml) é metodologia IP exposta.
+      Decisão consciente do fundador — criar .opsec-ip-accepted para
+      documentar a escolha de open methodology.
+
+  REGRA DE OURO:
+  "Mostre a profundidade do poço.
+   Não mostre como o poço foi escavado."
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 O QUE NUNCA FAZER

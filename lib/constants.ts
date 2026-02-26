@@ -62,7 +62,7 @@ export const HERO = {
     },
     {
       value: "88",
-      label: "entidades JPA no govevia-kernel",
+      label: "entidades JPA no kernel do Govevia",
       source: "Verificado → Produção Técnica",
       href: "#audit",
     },
@@ -125,7 +125,7 @@ export const STACK = {
   groups: [
     {
       title: "Domínio",
-      techs: ["Java 21", "Arquitetura Hexagonal", "DDD", "CQRS"],
+      techs: ["Java LTS", "Arquitetura Hexagonal", "DDD", "CQRS"],
     },
     {
       title: "Dados",
@@ -133,7 +133,7 @@ export const STACK = {
     },
     {
       title: "Infra",
-      techs: ["AWS", "GCP", "Oracle Cloud", "Docker"],
+      techs: ["AWS", "GCP", "Docker"],
     },
     {
       title: "Frontends",
@@ -156,7 +156,7 @@ export const PROJECTS: { title: string; cards: ProjectCard[] } = {
         "Obrigações normativas (TCE, LGPD, transparência) transformadas em controles técnicos verificáveis. Multi-tenant com Row-Level Security por município. Trilhas de auditoria com verificação criptográfica. Desenvolvida pela Env Neo Ltda.",
       impact: null,
       features: [
-        "88 entidades JPA no govevia-kernel",
+        "88 entidades JPA no kernel do Govevia",
         "178 casos de uso implementados",
         "Arquitetura hexagonal com ArchUnit",
         "ADRs e POLICYs como estrutura do código",
@@ -175,7 +175,7 @@ export const PROJECTS: { title: string; cards: ProjectCard[] } = {
         "API com validação no fonte",
         "Controle de acesso por perfil e organização",
         "Documentação gerada como saída operacional",
-        "Compartilha shared-kernel com GRP",
+        "Compartilha núcleo técnico com GRP",
       ],
       link: "https://envneo.com.br",
       linkLabel: "envneo.com.br",
