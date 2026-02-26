@@ -202,8 +202,13 @@ export const CONTACT = {
       icon: "BookOpen",
     },
     {
+      label: "WhatsApp",
+      href: "https://wa.me/5534984228457",
+      icon: "MessageCircle",
+    },
+    {
       label: "E-mail",
-      href: "mailto:leo@leoamerico.me",
+      href: "mailto:sou@leoamerico.me",
       icon: "Mail",
     },
     {

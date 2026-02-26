@@ -7,6 +7,7 @@ import {
   Mail,
   Globe,
   BookOpen,
+  MessageCircle,
   Send,
 } from "lucide-react";
 import { CONTACT } from "@/lib/constants";
@@ -17,6 +18,7 @@ const iconMap: Record<string, React.ElementType> = {
   Mail,
   Globe,
   BookOpen,
+  MessageCircle,
 };
 
 export default function Contact() {
