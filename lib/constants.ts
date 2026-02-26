@@ -20,7 +20,6 @@ export const NAV_LINKS = [
   { label: "O que eu faço", href: "#servicos" },
   { label: "Resultados", href: "#resultados" },
   { label: "Produção", href: "#audit" },
-  { label: "Govevia", href: "https://govevia.com.br" },
   { label: "Contato", href: "#contato" },
 ];
 
@@ -52,7 +51,7 @@ export const ABOUT = {
   paragraphs: [
     "Trabalho com gestão pública desde 2010. Já implantei sistemas de gestão (GRP) em mais de 40 municípios entre Minas Gerais e São Paulo — de cidades com 5 mil habitantes até municípios com mais de 300 mil.",
     "Minha especialidade é o ponto onde tecnologia encontra a realidade da prefeitura: migração de dados legados, adequação a exigências do TCE e TCU, capacitação de equipes e sistemas que os servidores realmente conseguem usar.",
-    "Sou fundador da Govevia, uma plataforma de gestão pública construída a partir dessa experiência de campo. Bacharel em Sistemas de Informação, membro do PMI e com formação complementar em gestão de projetos (PMP em andamento).",
+    "Sou fundador da ENV-NEO LTDA, empresa de tecnologia que desenvolve a Govevia — plataforma de governança executável para administração municipal. Bacharel em Sistemas de Informação, membro do PMI e com formação complementar em gestão de projetos (PMP em andamento).",
   ],
   location: "Uberlândia, MG · Brasil",
   remote: "Atendimento remoto em todo o Brasil",
@@ -165,7 +164,7 @@ export const PROJECTS: { title: string; cards: ProjectCard[] } = {
       ],
     },
     {
-      category: "Plataforma própria · Em operação",
+      category: "Plataforma própria · Em desenvolvimento",
       title: "Govevia — Plataforma de governança executável para administração municipal brasileira",
       description:
         "Plataforma de governança executável desenvolvida a partir de experiência prática em gestão pública municipal. Construída para resolver problemas reais: dados fragmentados, falta de rastreabilidade, dependência de planilhas e risco de não-conformidade.",
@@ -178,7 +177,7 @@ export const PROJECTS: { title: string; cards: ProjectCard[] } = {
       ],
       link: "https://govevia.com.br",
       linkLabel: "Conhecer a Govevia",
-      badge: "Em operação",
+      badge: "Em desenvolvimento",
       company: "Desenvolvido pela ENV-NEO LTDA",
     },
     {
