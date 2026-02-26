@@ -61,13 +61,13 @@ export const HERO = {
       href: "#resultados",
     },
     {
-      value: "88+",
+      value: "88",
       label: "entidades JPA no govevia-kernel",
       source: "Verificado → Produção Técnica",
       href: "#audit",
     },
     {
-      value: "178+",
+      value: "178",
       label: "casos de uso implementados",
       source: "Java · arquitetura hexagonal",
       href: "#audit",
@@ -115,7 +115,7 @@ export const EXPERTISE = {
       icon: "TrendingUp",
       title: "Digitalização orientada a resultado",
       description:
-        "O mesmo ciclo que estruturou gestão pública em 60+ municípios — rastreabilidade, controle por perfil, trilha de auditoria — agora aplicado a empresas privadas que querem usar IA como aliada, não como experimento.",
+        "O mesmo ciclo aplicado na gestão pública municipal — rastreabilidade, controle por perfil, trilha de auditoria — agora disponível para empresas privadas que querem usar IA como aliada, não como experimento.",
     },
   ],
 };
@@ -157,7 +157,7 @@ export const PROJECTS: { title: string; cards: ProjectCard[] } = {
       impact: null,
       features: [
         "88 entidades JPA no govevia-kernel",
-        "178+ casos de uso implementados",
+        "178 casos de uso implementados",
         "Arquitetura hexagonal com ArchUnit",
         "ADRs e POLICYs como estrutura do código",
       ],

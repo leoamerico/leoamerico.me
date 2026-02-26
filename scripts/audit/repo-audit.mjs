@@ -109,60 +109,79 @@ checks.push({
   })(),
 });
 
-// B. Conteúdo controverso / claims não verificáveis (não falha build, mas precisa decisão)
+// B. Conteúdo controverso / claims sem evidência pública — GATES REAIS (exit 1 se encontrar)
 checks.push({
   id: "B1",
   severity: "MODERATE",
-  title: "Referências a Amparo/Sonner presentes (risco reputacional/atribuição)",
+  title: "Referências a Amparo/Sonner ausentes (risco reputacional/atribuição)",
   evidence: (() => {
     const p = "lib/constants.ts";
     if (!exists(p)) return { file: p, exists: false };
     const hits = linesWith(p, /Amparo|Sonner/i);
     return { file: p, exists: true, matches: hits.slice(0, 20), total: hits.length };
   })(),
-  pass: true, // auditoria reporta; decisão editorial vem depois.
+  pass: (() => {
+    const p = "lib/constants.ts";
+    if (!exists(p)) return true;
+    return linesWith(p, /Amparo|Sonner/i).length === 0;
+  })(),
 });
 
 checks.push({
   id: "B2",
   severity: "MODERATE",
-  title: 'Frase "PowerPoint" presente (tom/posicionamento)',
+  title: 'Frase "PowerPoint" ausente (ruído de tom)',
   evidence: (() => {
     const p = "lib/constants.ts";
     if (!exists(p)) return { file: p, exists: false };
     const hits = linesWith(p, /PowerPoint/i);
     return { file: p, exists: true, matches: hits.slice(0, 20), total: hits.length };
   })(),
-  pass: true,
+  pass: (() => {
+    const p = "lib/constants.ts";
+    if (!exists(p)) return true;
+    return linesWith(p, /PowerPoint/i).length === 0;
+  })(),
 });
 
+// B3: detecta claims numéricos sobre ENTIDADES EXTERNAS (municípios, cidades, clientes,
+// empresas, projetos externos) — padrão: dígitos seguidos de + em contexto de terceiros.
+// NÃO flagra métricas internas de código (entidades JPA, casos de uso, etc.).
 checks.push({
   id: "B3",
   severity: "MODERATE",
-  title: "Claim numérico de municípios no constants.ts (exige evidência pública ou remoção/neutralização)",
+  title: "Claims numéricos sobre entidades externas ausentes — exige remoção ou evidência pública verificável",
   evidence: (() => {
     const p = "lib/constants.ts";
     if (!exists(p)) return { file: p, exists: false };
-    const hits = linesWith(p, /\b\d+\+\b|\b40\+\b|\b60\+\b/i);
+    const hits = linesWith(p, /\d+\+\s*(munic[íi]p|cidade|cliente|empresa|projeto|organiza|contrato|organ)/i);
     return { file: p, exists: true, matches: hits.slice(0, 30), total: hits.length };
   })(),
-  pass: true,
+  pass: (() => {
+    const p = "lib/constants.ts";
+    if (!exists(p)) return true;
+    return linesWith(p, /\d+\+\s*(munic[íi]p|cidade|cliente|empresa|projeto|organiza|contrato|organ)/i).length === 0;
+  })(),
 });
 
 // C. Segurança/privacidade (falha se achar PII óbvia)
-// C1: CPF — queremos detectar VALORES (campo com dado ou número formatado),
-//     não comentários que documentam a remoção. Linhas que começam com // são excluídas.
+// C1: CPF — detecta:
+//   (a) CPF formatado: 000.000.000-00
+//   (b) Sequência de 11 dígitos em arquivos ts/tsx/md/json (possível CPF bruto)
+//   (c) Campo cpf com valor atribuído
+// Linhas de comentário (// ou *) são excluídas para evitar falso positivo
+// em comentários que documentam a remoção intencional do dado.
 function cpfLines(p) {
   const content = read(p);
   const lines = content.split(/\r?\n/);
   const out = [];
   for (let i = 0; i < lines.length; i++) {
     const trimmed = lines[i].trimStart();
-    if (trimmed.startsWith("//") || trimmed.startsWith("*")) continue; // comentário
-    // CPF número formatado (000.000.000-00) OU campo com valor `cpf: "..."` / `cpf =`
+    if (trimmed.startsWith("//") || trimmed.startsWith("*")) continue;
     const isCpfData =
-      /\d{3}\.\d{3}\.\d{3}-\d{2}/.test(lines[i]) ||
-      /["']?cpf["']?\s*[:=]\s*["'`]/.test(lines[i]);
+      /\d{3}\.\d{3}\.\d{3}-\d{2}/.test(lines[i]) ||       // formatado
+      /["']?cpf["']?\s*[:=]\s*["'`]/.test(lines[i]) ||     // campo com valor
+      /(?<![\d])\d{11}(?![\d])/.test(lines[i]);             // 11 dígitos seguidos
     if (isCpfData) out.push({ line: i + 1, text: lines[i] });
   }
   return out;
