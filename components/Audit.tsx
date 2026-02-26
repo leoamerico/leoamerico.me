@@ -222,40 +222,117 @@ export default function Audit() {
               viewport={{ once: true }}
               className="glass rounded-2xl p-6 mb-12"
             >
-              <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-1">
-                Atividade Mensal — Todos os Repositórios
-              </h3>
-              {months.length > 0 && (
-                <p className="text-xs text-slate-600 mb-6">
-                  pico: <span className="text-cyan-400 font-semibold">{maxCommits} commits</span> · total 12 meses: <span className="text-cyan-400 font-semibold">{months.reduce((a, [, v]) => a + v, 0)}</span>
-                </p>
-              )}
-              <div className="flex items-end gap-1 sm:gap-2 h-40">
-                {months.map(([month, count]) => {
-                  const height = count > 0 ? Math.max((count / maxCommits) * 100, 4) : 0;
-                  const label = month.split("-")[1] + "/" + month.split("-")[0].slice(2);
-                  return (
-                    <div
-                      key={month}
-                      className="flex-1 flex flex-col items-center gap-1 group"
-                    >
-                      <span className="text-[10px] text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity">
-                        {count > 0 ? count : ""}
-                      </span>
-                      {count > 0 ? (
-                        <div
-                          className="w-full rounded-t bg-gradient-to-t from-cyan-500/60 to-cyan-400/80 group-hover:from-amber-500/60 group-hover:to-amber-400/80 transition-all duration-300"
-                          style={{ height: `${height}%` }}
-                        />
-                      ) : (
-                        <div className="w-full flex-1 border-b border-dashed border-slate-700/40" />
-                      )}
-                      <span className="text-[9px] text-slate-600 hidden sm:block">
-                        {label}
-                      </span>
+              {/* Chart header */}
+              <div className="flex flex-wrap items-start justify-between gap-4 mb-8">
+                <div>
+                  <h3 className="text-base font-heading font-semibold text-white mb-1">
+                    Atividade Mensal
+                  </h3>
+                  <p className="text-xs text-slate-500">Commits em todos os repositórios · últimos 12 meses</p>
+                </div>
+                {months.length > 0 && (
+                  <div className="flex gap-6">
+                    <div className="text-right">
+                      <div className="text-2xl font-heading font-bold text-cyan-400">
+                        {months.reduce((a, [, v]) => a + v, 0).toLocaleString("pt-BR")}
+                      </div>
+                      <div className="text-[10px] text-slate-500 uppercase tracking-wider">total commits</div>
                     </div>
-                  );
-                })}
+                    <div className="text-right">
+                      <div className="text-2xl font-heading font-bold text-amber-400">
+                        {maxCommits.toLocaleString("pt-BR")}
+                      </div>
+                      <div className="text-[10px] text-slate-500 uppercase tracking-wider">pico mensal</div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-2xl font-heading font-bold text-emerald-400">
+                        {Math.round(months.reduce((a, [, v]) => a + v, 0) / Math.max(months.filter(([, v]) => v > 0).length, 1)).toLocaleString("pt-BR")}
+                      </div>
+                      <div className="text-[10px] text-slate-500 uppercase tracking-wider">média/mês ativo</div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Chart body */}
+              <div className="relative">
+                {/* Horizontal grid lines */}
+                {[100, 75, 50, 25].map((pct) => (
+                  <div
+                    key={pct}
+                    className="absolute w-full border-t border-slate-800/60 flex items-center"
+                    style={{ bottom: `${pct}%`, top: "auto" }}
+                  >
+                    <span className="text-[9px] text-slate-700 -translate-y-2 pr-1 w-6 text-right shrink-0">
+                      {Math.round((pct / 100) * maxCommits)}
+                    </span>
+                  </div>
+                ))}
+
+                {/* Bars */}
+                <div className="flex items-end gap-1.5 sm:gap-2.5 h-52 pl-7">
+                  {months.map(([month, count], idx) => {
+                    const pct = count > 0 ? Math.max((count / maxCommits) * 100, 3) : 0;
+                    const label = month.split("-")[1] + "/" + month.split("-")[0].slice(2);
+                    const isPeak = count === maxCommits && count > 0;
+                    const isRecent = idx >= months.length - 3;
+                    return (
+                      <motion.div
+                        key={month}
+                        initial={{ opacity: 0, scaleY: 0 }}
+                        whileInView={{ opacity: 1, scaleY: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: idx * 0.05, duration: 0.4, ease: "easeOut" }}
+                        style={{ transformOrigin: "bottom" }}
+                        className="flex-1 flex flex-col items-center gap-1 group cursor-default"
+                      >
+                        {/* Count label — always visible for non-zero */}
+                        <span className={`text-[10px] font-semibold transition-all ${count > 0 ? (isPeak ? "text-amber-400" : isRecent ? "text-cyan-300" : "text-slate-500 group-hover:text-slate-300") : "text-transparent"}`}>
+                          {count > 0 ? count : "·"}
+                        </span>
+
+                        {/* Bar */}
+                        {count > 0 ? (
+                          <div
+                            className={`w-full rounded-t transition-all duration-300 ${
+                              isPeak
+                                ? "bg-gradient-to-t from-amber-500/80 to-amber-300 shadow-[0_0_12px_rgba(251,191,36,0.3)]"
+                                : isRecent
+                                ? "bg-gradient-to-t from-cyan-500/80 to-cyan-300/90 group-hover:to-white/80"
+                                : "bg-gradient-to-t from-slate-600/60 to-slate-400/60 group-hover:from-cyan-500/60 group-hover:to-cyan-300/80"
+                            }`}
+                            style={{ height: `${pct}%` }}
+                          />
+                        ) : (
+                          <div className="w-full flex-1 flex items-end pb-0.5">
+                            <div className="w-full h-px border-t border-dashed border-slate-800" />
+                          </div>
+                        )}
+
+                        {/* Month label */}
+                        <span className={`text-[9px] hidden sm:block transition-colors ${isPeak ? "text-amber-400 font-semibold" : isRecent ? "text-slate-400" : "text-slate-700 group-hover:text-slate-500"}`}>
+                          {label}
+                        </span>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Legend */}
+              <div className="flex items-center gap-6 mt-5 pt-4 border-t border-slate-800/50 text-[10px] text-slate-600">
+                <span className="flex items-center gap-1.5">
+                  <span className="w-3 h-3 rounded-sm bg-gradient-to-t from-amber-500 to-amber-300 inline-block" />
+                  Pico de produção
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <span className="w-3 h-3 rounded-sm bg-gradient-to-t from-cyan-500/80 to-cyan-300 inline-block" />
+                  Últimos 3 meses
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <span className="w-3 h-3 rounded-sm bg-gradient-to-t from-slate-600/60 to-slate-400/60 inline-block" />
+                  Histórico
+                </span>
               </div>
             </motion.div>
 
