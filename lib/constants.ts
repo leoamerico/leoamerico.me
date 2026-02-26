@@ -127,6 +127,23 @@ export const PROJECTS = {
       link: "https://www.youtube.com/watch?v=Egp92Tqmdok",
       linkLabel: "Ver vídeo do projeto",
       badge: "Case de Sucesso",
+      evidence: [
+        {
+          label: "Vídeo institucional — Amparo Digital",
+          href: "https://www.youtube.com/watch?v=Egp92Tqmdok",
+          icon: "Youtube",
+        },
+        {
+          label: "Segundo vídeo — Amparo Digital",
+          href: "https://www.youtube.com/watch?v=7L_t_aBcR-w",
+          icon: "Youtube",
+        },
+        {
+          label: "Post Sonner Sistemas no LinkedIn",
+          href: "https://www.linkedin.com/posts/sonner-sistemas_sonner-transformaaexaetodigital-caseamparo-activity-7378549132732469248-ek0Y",
+          icon: "Linkedin",
+        },
+      ],
     },
     {
       category: "Plataforma própria · Em operação",

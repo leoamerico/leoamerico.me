@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Youtube, Linkedin } from "lucide-react";
 import { PROJECTS } from "@/lib/constants";
 
 export default function Projects() {
@@ -68,6 +68,28 @@ export default function Projects() {
                   </div>
                 )}
                 <div className="flex-1" />
+                {/* Evidence links */}
+                {(project as { evidence?: { label: string; href: string; icon: string }[] }).evidence && (
+                  <div className="mb-4">
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Evidências externas</p>
+                    <div className="flex flex-col gap-1.5">
+                      {(project as { evidence: { label: string; href: string; icon: string }[] }).evidence.map((ev, k) => (
+                        <a
+                          key={k}
+                          href={ev.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 text-xs text-slate-400 hover:text-white transition-colors group/ev"
+                        >
+                          {ev.icon === "Youtube" && <Youtube size={13} className="text-red-400 shrink-0" />}
+                          {ev.icon === "Linkedin" && <Linkedin size={13} className="text-blue-400 shrink-0" />}
+                          {ev.icon !== "Youtube" && ev.icon !== "Linkedin" && <ExternalLink size={13} className="text-slate-500 shrink-0" />}
+                          <span className="truncate group-hover/ev:underline">{ev.label}</span>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )}
                 {project.link && (
                   <a
                     href={project.link}
