@@ -278,7 +278,7 @@ export const CONTACT = {
     },
     {
       label: "Govevia",
-      href: "https://govevia.com",
+      href: "https://govevia.com.br",
       icon: "Globe",
     },
     {
