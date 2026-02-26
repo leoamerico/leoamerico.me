@@ -6,9 +6,9 @@
 export const SITE = {
   name: "Leonardo Américo",
   shortName: "Leo Américo",
-  title: "Leonardo Américo — Cloud Solutions Architect & Transformação Digital",
+  title: "Leonardo Américo — Arquiteto de Soluções para Gestão Pública",
   description:
-    "15 anos transformando gestão pública com tecnologia. Especialista em arquitetura cloud, sistemas GRP e transformação digital para o setor público.",
+    "15 anos ajudando municípios a sair do papel, do retrabalho e da insegurança jurídica. Implantação de sistemas GRP, conformidade com Tribunais de Contas e transformação digital para o setor público.",
   url: "https://leoamerico.me",
   locale: "pt-BR",
   email: "sou@leoamerico.me",
@@ -17,135 +17,143 @@ export const SITE = {
 
 export const NAV_LINKS = [
   { label: "Sobre", href: "#sobre" },
-  { label: "Expertise", href: "#expertise" },
-  { label: "Projetos", href: "#projetos" },
+  { label: "O que eu faço", href: "#servicos" },
+  { label: "Resultados", href: "#resultados" },
+  { label: "Produção", href: "#audit" },
+  { label: "Govevia", href: "https://govevia.com" },
   { label: "Contato", href: "#contato" },
 ];
 
 export const HERO = {
-  badge: "Disponível para projetos",
+  badge: "Disponível para novos municípios",
   heading: "Leonardo Américo",
   roles: [
-    "Cloud Solutions Architect",
+    "Arquiteto de Soluções para Gestão Pública",
     "Especialista em Transformação Digital",
-    "Gerente de Projetos · PMP",
+    "Implantação de Sistemas GRP",
   ],
   paragraph:
-    "15 anos transformando gestão pública com tecnologia. Especialista em arquitetura cloud, sistemas GRP e transformação digital para o setor público.",
-  ctaPrimary: { label: "Ver Projetos", href: "#projetos" },
+    "15 anos ajudando municípios a sair do papel, do retrabalho e da insegurança jurídica. Implanto sistemas que funcionam no dia a dia da prefeitura — não só na apresentação do fornecedor.",
+  ctaPrimary: { label: "Ver Resultados", href: "#resultados" },
   ctaSecondary: {
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/in/leoamericojr",
+    label: "Falar no WhatsApp",
+    href: "https://wa.me/5534984228457",
   },
   metrics: [
-    { value: "15+", label: "Anos de Experiência" },
-    { value: "+40", label: "Municípios Atendidos" },
-    { value: "+30", label: "Serviços Digitalizados" },
+    { value: "15+", label: "anos em gestão pública digital" },
+    { value: "40+", label: "prefeituras, câmaras e autarquias" },
+    { value: "70%", label: "menos papel — Projeto Amparo Digital" },
   ],
 };
 
 export const ABOUT = {
-  title: "Quem é o Leo Américo",
+  title: "Quem é o Leo",
   photo: "/photo.svg",
-  text: "Profissional com 15 anos de experiência em implantação de sistemas de Gestão de Recursos Públicos (GRP) e transformação digital em municípios, câmaras e autarquias. Fundador da Envneo e Govevia, atua como Cloud Solutions Architect especializado em migração de dados, arquitetura de soluções e gestão de mudança organizacional.",
+  paragraphs: [
+    "Trabalho com gestão pública desde 2010. Já implantei sistemas de gestão (GRP) em mais de 40 municípios entre Minas Gerais e São Paulo — de cidades com 5 mil habitantes até municípios com mais de 300 mil.",
+    "Minha especialidade é o ponto onde tecnologia encontra a realidade da prefeitura: migração de dados legados, adequação a exigências do TCE e TCU, capacitação de equipes e sistemas que os servidores realmente conseguem usar.",
+    "Sou fundador da Govevia, uma plataforma de gestão pública construída a partir dessa experiência de campo. Bacharel em Sistemas de Informação, membro do PMI e com formação complementar em gestão de projetos (PMP em andamento).",
+  ],
   location: "Uberlândia, MG · Brasil",
-  remote: "Remoto",
+  remote: "Atendimento remoto em todo o Brasil",
   education: [
     "Bacharel em Sistemas de Informação — Faculdade CNEC Unaí (2010)",
-    "Publicidade e Propaganda — IESB (2004)",
   ],
 };
 
 export const EXPERTISE = {
-  title: "Especialidades",
+  title: "O que eu faço",
   cards: [
     {
-      icon: "Cloud",
-      title: "Cloud Architecture",
-      description:
-        "AWS, GCP, Oracle Cloud, OpenShift. Migração e otimização de bancos de dados em escala enterprise.",
-    },
-    {
       icon: "Building2",
-      title: "Transformação Digital Pública",
+      title: "Implantação de Sistemas GRP",
       description:
-        "Implantação de sistemas GRP em prefeituras, câmaras e autarquias. +40 clientes no setor público.",
+        "Implantação completa de sistemas de Gestão de Recursos Públicos — do levantamento de processos à migração de dados e capacitação da equipe. Foco em continuidade: o sistema funciona depois que o consultor vai embora.",
     },
     {
-      icon: "ClipboardCheck",
-      title: "Gestão de Projetos (PMP)",
+      icon: "ShieldCheck",
+      title: "Conformidade e Segurança",
       description:
-        "Metodologias ágeis e tradicionais. BPMN 2.0, automação de processos e gestão de mudança.",
+        "Arquitetura pensada para atender exigências dos Tribunais de Contas, LGPD e normas de transparência. Trilhas de auditoria, controle de acesso por perfil e isolamento de dados por município.",
     },
     {
-      icon: "Layers",
-      title: "Arquitetura de Software",
+      icon: "Monitor",
+      title: "Transformação Digital de Serviços",
       description:
-        "Hexagonal Architecture, DDD, Microservices, APIs REST.",
+        "Digitalização de serviços ao cidadão com redução real de papel e tempo de atendimento. Do protocolo ao alvará, do IPTU à nota fiscal — processos que hoje levam dias passam a levar minutos.",
     },
     {
-      icon: "Code2",
-      title: "Desenvolvimento Web",
-      description: "React, Next.js, Python, Java, Node.js.",
-    },
-    {
-      icon: "Cpu",
-      title: "IoT & Wearables",
+      icon: "Database",
+      title: "Migração e Integração de Dados",
       description:
-        "Prototipagem com Arduino, firmware embarcado e integração de sensores.",
+        "Migração segura de bases legadas (Oracle, SQL Server, sistemas próprios) para ambientes modernos em nuvem. Sem perda de histórico, sem interrupção de operação.",
     },
   ],
 };
 
 export const STACK = {
   title: "Tecnologias",
-  techs: [
-    "AWS",
-    "GCP",
-    "Oracle Cloud",
-    "Docker",
-    "Kubernetes",
-    "Python",
-    "Java",
-    "React",
-    "Next.js",
-    "PostgreSQL",
-    "Oracle DB",
-    "Linux",
-    "Git",
-    "BPMN 2.0",
+  groups: [
+    {
+      title: "Infraestrutura & Cloud",
+      techs: ["AWS", "GCP", "Oracle Cloud", "Docker", "Kubernetes", "Linux"],
+    },
+    {
+      title: "Banco de Dados",
+      techs: ["PostgreSQL", "Oracle DB"],
+    },
+    {
+      title: "Desenvolvimento",
+      techs: ["Java", "Python", "React", "Next.js", "Node.js"],
+    },
+    {
+      title: "Processos & Gestão",
+      techs: ["BPMN 2.0", "Git"],
+    },
   ],
 };
 
 export const PROJECTS = {
-  title: "Projetos",
+  title: "Resultados",
   cards: [
     {
-      category: "Gestão Pública",
+      category: "Caso real · 2020–2025",
       title: "Projeto Amparo Digital",
       description:
-        "Digitalização de mais de 30 serviços públicos municipais, implementação de app cidadão premiado regionalmente e automação de processos com BPMN 2.0.",
+        "Digitalização de mais de 30 serviços públicos municipais com redução de 70% no uso de papel. Implantação de aplicativo cidadão premiado regionalmente e automação de processos internos com BPMN 2.0.",
+      impact:
+        "Redução de tempo médio de atendimento, eliminação de filas para serviços básicos e rastreabilidade completa de processos.",
+      features: null,
       link: "https://www.youtube.com/watch?v=Egp92Tqmdok",
+      linkLabel: "Ver vídeo do projeto",
       badge: "Case de Sucesso",
-      image: "/projects/amparo-digital.svg",
     },
     {
-      category: "Plataforma SaaS",
-      title: "Govevia — Plataforma GRP",
+      category: "Plataforma própria · Em operação",
+      title: "Govevia — Plataforma de Gestão Pública",
       description:
-        "Plataforma de Gestão de Recursos Públicos implementada em mais de 40 municípios, câmaras e autarquias brasileiras.",
+        "Plataforma de Gestão de Recursos Públicos desenvolvida a partir de 15 anos de experiência em campo. Construída para resolver os problemas reais que encontrei em dezenas de implantações: dados fragmentados, falta de rastreabilidade, dependência de planilhas e risco de não-conformidade.",
+      impact: null,
+      features: [
+        "Isolamento de dados por município (multi-tenant com Row-Level Security)",
+        "Trilhas de auditoria com verificação criptográfica",
+        "Conformidade nativa com exigências de Tribunais de Contas",
+        "Arquitetura em nuvem com alta disponibilidade",
+      ],
       link: "https://govevia.com",
-      badge: "+40 clientes",
-      image: "/projects/govevia.svg",
+      linkLabel: "Conhecer a Govevia",
+      badge: "Em operação",
     },
     {
-      category: "Cloud & Data",
-      title: "Arquitetura Cloud para Setor Público",
+      category: "Serviço de consultoria",
+      title: "Arquitetura Cloud para o Setor Público",
       description:
-        "Migração e otimização de bancos de dados Oracle/PostgreSQL para cloud (GCP/AWS), com foco em alta disponibilidade e segurança.",
+        "Migração e modernização de infraestrutura de TI para prefeituras que precisam sair de servidores locais, reduzir custos com licenciamento e ganhar segurança. Trabalho com AWS, GCP e Oracle Cloud.",
+      impact: null,
+      features: null,
       link: null,
-      badge: "Em desenvolvimento",
-      image: "/projects/cloud-architecture.svg",
+      linkLabel: null,
+      badge: "Consultoria",
     },
   ],
 };
@@ -155,7 +163,8 @@ export const CERTIFICATIONS = {
   items: [
     {
       title: "PMP — Project Management Professional",
-      org: "PMI · Member ID: Ativo",
+      org: "PMI · Membro ativo · Certificação em andamento",
+      detail: "2.610 horas documentadas em 19 projetos municipais",
       link: "https://community.pmi.org/profile/leoamericojr",
       status: "active",
       docs: [
@@ -164,46 +173,27 @@ export const CERTIFICATIONS = {
       ],
     },
     {
-      title: "AWS Solutions Architect Professional",
-      org: "Amazon Web Services",
-      link: null,
-      status: "Em andamento",
-    },
-    {
       title: "Bacharel em Sistemas de Informação",
-      org: "Faculdade CNEC Unaí (2010)",
+      org: "Faculdade CNEC Unaí · Concluído em 2010",
+      detail: "Diploma digital verificável — MEC/ICP-Brasil",
       link: "#diploma",
       status: "Concluído",
     },
     {
-      title: "Publicidade e Propaganda",
-      org: "IESB (2004)",
+      title: "AWS Solutions Architect Professional",
+      org: "Amazon Web Services · Em preparação",
+      detail: null,
       link: null,
-      status: "Concluído",
+      status: "Em andamento",
     },
   ],
 };
 
 export const CONTACT = {
-  title: "Vamos construir algo juntos?",
+  title: "Seu município precisa modernizar a gestão?",
   subtitle:
-    "Aberto a projetos de transformação digital, arquitetura cloud e consultoria em gestão pública.",
+    "Posso ajudar com implantação de sistemas, migração de dados, conformidade com Tribunais de Contas ou digitalização de serviços ao cidadão. 15 anos de experiência prática — sem PowerPoint bonito que não funciona na segunda-feira.",
   links: [
-    {
-      label: "GitHub",
-      href: "https://github.com/leoamerico",
-      icon: "Github",
-    },
-    {
-      label: "LinkedIn",
-      href: "https://www.linkedin.com/in/leoamericojr",
-      icon: "Linkedin",
-    },
-    {
-      label: "Substack",
-      href: "https://substack.com/@leoamericojr",
-      icon: "BookOpen",
-    },
     {
       label: "WhatsApp",
       href: "https://wa.me/5534984228457",
@@ -215,9 +205,24 @@ export const CONTACT = {
       icon: "Mail",
     },
     {
-      label: "Envneo",
-      href: "https://envneo.com",
+      label: "LinkedIn",
+      href: "https://www.linkedin.com/in/leoamericojr",
+      icon: "Linkedin",
+    },
+    {
+      label: "Govevia",
+      href: "https://govevia.com",
       icon: "Globe",
+    },
+    {
+      label: "GitHub",
+      href: "https://github.com/leoamerico",
+      icon: "Github",
+    },
+    {
+      label: "Substack",
+      href: "https://substack.com/@leoamericojr",
+      icon: "BookOpen",
     },
   ],
 };

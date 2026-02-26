@@ -6,6 +6,7 @@ import Stack from "@/components/Stack";
 import Projects from "@/components/Projects";
 import Certifications from "@/components/Certifications";
 import Diploma from "@/components/Diploma";
+import Audit from "@/components/Audit";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
@@ -21,6 +22,7 @@ export default function Home() {
         <Projects />
         <Certifications />
         <Diploma />
+        <Audit />
         <Contact />
       </main>
       <Footer />
