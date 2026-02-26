@@ -203,6 +203,11 @@ export default function GoveiaStats() {
             </motion.div>
           ))}
         </div>
+
+        {/* Curated data footnote */}
+        <p className="mt-6 text-center text-[11px] text-slate-700">
+          Dados editoriais — escopo da plataforma definido pela equipe · última revisão {GOVEVIA_STATS.lastUpdated}
+        </p>
       </div>
     </section>
   );

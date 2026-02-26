@@ -5,6 +5,12 @@ import { motion } from "framer-motion";
 import { BookOpen, ExternalLink, Terminal } from "lucide-react";
 import { HERO } from "@/lib/constants";
 
+interface LiveMetrics {
+  entityCount: number;
+  useCaseCount: number;
+  generatedAt: string;
+}
+
 function Typewriter({ words }: { words: string[] }) {
   const [index, setIndex] = useState(0);
   const [text, setText] = useState("");
@@ -43,6 +49,27 @@ function Typewriter({ words }: { words: string[] }) {
 }
 
 export default function Hero() {
+  const [live, setLive] = useState<LiveMetrics | null>(null);
+
+  useEffect(() => {
+    fetch("/api/audit")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (d && typeof d.entityCount === "number") {
+          setLive({ entityCount: d.entityCount, useCaseCount: d.useCaseCount, generatedAt: d.generatedAt });
+        }
+      })
+      .catch(() => {/* fallback to static */});
+  }, []);
+
+  // Overlay live values on top of the static HERO.metrics array:
+  // index 1 = entidades JPA, index 2 = casos de uso
+  const metrics = HERO.metrics.map((m, i) => {
+    if (i === 1 && live) return { ...m, value: String(live.entityCount), _live: true };
+    if (i === 2 && live) return { ...m, value: String(live.useCaseCount), _live: true };
+    return { ...m, _live: false };
+  });
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       {/* Background grid */}
@@ -133,13 +160,14 @@ export default function Hero() {
           transition={{ delay: 0.7 }}
           className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl mx-auto"
         >
-          {HERO.metrics.map((metric, i) => {
+          {metrics.map((metric, i) => {
             const m = metric as {
               value: string;
               label: string;
               source?: string;
               href?: string;
               external?: boolean;
+              _live: boolean;
             };
             const inner = (
               <>
@@ -147,12 +175,20 @@ export default function Hero() {
                   {m.value}
                 </div>
                 <div className="text-sm text-slate-300 font-medium mb-1">{m.label}</div>
-                {m.source && (
-                  <div className="flex items-center justify-center gap-1 text-[11px] text-slate-500">
-                    {m.source}
-                    {m.href && <ExternalLink size={9} className="text-cyan-500/60" />}
-                  </div>
-                )}
+                <div className="flex items-center justify-center gap-1 text-[11px] text-slate-500">
+                  {m._live ? (
+                    <span className="inline-flex items-center gap-1 text-emerald-500/80">
+                      <span className="relative flex h-1.5 w-1.5">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                        <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
+                      </span>
+                      ao vivo
+                    </span>
+                  ) : (
+                    m.source && <span>{m.source}</span>
+                  )}
+                  {m.href && <ExternalLink size={9} className="text-cyan-500/60" />}
+                </div>
               </>
             );
             return m.href ? (

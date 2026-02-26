@@ -245,6 +245,10 @@ export interface AuditReport {
   totalTests: number;
   totalPortsAdapters: number;
   totalGuards: number;
+  /** Arquivos *Entity.java — contagem ao vivo via GitHub tree API */
+  entityCount: number;
+  /** Arquivos *UseCase.java — contagem ao vivo via GitHub tree API */
+  useCaseCount: number;
   repos: RepoAuditData[];
   monthlyActivity: Record<string, number>;
   goveiaheatmap: Array<{ week: number; days: number[] }>;
@@ -274,6 +278,8 @@ export async function generateAuditReport(): Promise<AuditReport | null> {
     totalFiles,
     goveiaheatmap,
     modules,
+    entityCount,
+    useCaseCount,
   ] = await Promise.all([
     countCommitsWithMonthly(REPO, since, until, token),
     getLastActivity(REPO, token),
@@ -285,6 +291,10 @@ export async function generateAuditReport(): Promise<AuditReport | null> {
     countFilesByPattern(REPO, branch, /./i, token),
     getGoveiaHeatmap(token),
     getGoveiaModules(REPO, branch, token),
+    // Entidades JPA: arquivos *Entity.java no tree
+    countFilesByPattern(REPO, branch, /Entity\.java$/i, token),
+    // Casos de uso: arquivos *UseCase.java no tree
+    countFilesByPattern(REPO, branch, /UseCase\.java$/i, token),
   ]);
 
   // Pre-build 12-month keys so chart always has all months (even zeros)
@@ -327,6 +337,8 @@ export async function generateAuditReport(): Promise<AuditReport | null> {
     totalTests: testCount,
     totalPortsAdapters: portAdapterCount,
     totalGuards: guardCount,
+    entityCount,
+    useCaseCount,
     repos: [repo],
     monthlyActivity,
     goveiaheatmap,

@@ -186,6 +186,8 @@ export const PROJECTS: { title: string; cards: ProjectCard[] } = {
 
 export const GOVEVIA_STATS = {
   title: "Govevia em números",
+  /** Dados editoriais — escopo da plataforma definido pela equipe. Não são métricas de código. */
+  lastUpdated: "2026-02",
   subtitle:
     "Capacidades da plataforma GRP verificáveis no repositório privado.",
   compliance: [
