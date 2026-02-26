@@ -52,6 +52,22 @@ const jsonLd = {
   worksFor: {
     "@type": "Organization",
     name: "ENV-NEO LTDA",
+    url: "https://envneo.com.br",
+    makesOffer: {
+      "@type": "Offer",
+      itemOffered: {
+        "@type": "SoftwareApplication",
+        name: "ENV-NEO Govevia",
+        applicationCategory: "BusinessApplication",
+        description:
+          "Plataforma de governança executável para administração municipal brasileira",
+        url: "https://govevia.com.br",
+        creator: {
+          "@type": "Organization",
+          name: "ENV-NEO LTDA",
+        },
+      },
+    },
   },
   alumniOf: {
     "@type": "CollegeOrUniversity",

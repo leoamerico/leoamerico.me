@@ -51,7 +51,7 @@ export const ABOUT = {
   paragraphs: [
     "Trabalho com gestão pública desde 2010. Participei de implantações de sistemas de gestão pública em municípios de Minas Gerais e São Paulo, incluindo migração de dados e capacitação de equipes.",
     "Minha especialidade é o ponto onde tecnologia encontra a realidade da prefeitura: migração de dados legados, adequação a exigências do TCE e TCU, e sistemas que os servidores conseguem usar no dia a dia.",
-    "Sou fundador da ENV-NEO LTDA, empresa de tecnologia que desenvolve a Govevia — plataforma de governança executável para administração municipal. Bacharel em Sistemas de Informação e membro do PMI.",
+    "Sou fundador da ENV-NEO LTDA, empresa de tecnologia para o setor público. Nosso principal produto é a Govevia — plataforma de governança executável para administração municipal. Bacharel em Sistemas de Informação e membro do PMI.",
   ],
   location: "Uberlândia, MG · Brasil",
   remote: "Atendimento remoto em todo o Brasil",
@@ -159,8 +159,8 @@ export const PROJECTS: { title: string; cards: ProjectCard[] } = {
       ],
     },
     {
-      category: "Plataforma própria · Em desenvolvimento",
-      title: "Govevia — Plataforma de governança executável para administração municipal brasileira",
+      category: "Produto ENV-NEO · Em desenvolvimento",
+      title: "ENV-NEO Govevia — Plataforma de governança executável para administração municipal brasileira",
       description:
         "Plataforma de governança executável desenvolvida a partir de experiência prática em gestão pública municipal. Construída para resolver problemas reais: dados fragmentados, falta de rastreabilidade, dependência de planilhas e risco de não-conformidade.",
       impact: null,
@@ -171,7 +171,7 @@ export const PROJECTS: { title: string; cards: ProjectCard[] } = {
         "Arquitetura em nuvem com alta disponibilidade",
       ],
       link: "https://govevia.com.br",
-      linkLabel: "Conhecer a Govevia",
+      linkLabel: "Conhecer a ENV-NEO Govevia",
       badge: "Em desenvolvimento",
       company: "Desenvolvido pela ENV-NEO LTDA",
     },
@@ -237,7 +237,7 @@ export const CONTACT = {
       icon: "Linkedin",
     },
     {
-      label: "Govevia",
+      label: "Govevia · ENV-NEO",
       href: "https://govevia.com.br",
       icon: "Globe",
     },
