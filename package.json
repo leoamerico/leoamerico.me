@@ -21,8 +21,8 @@
     "audit:infra": "node scripts/audit/infra-audit.mjs",
     "audit": "bun run audit:repo && bun run audit:runtime",
     "audit:full": "bun run audit:repo && bun run audit:lexicon && bun run audit:opsec && bun run audit:teardown && bun run audit:infra && bun run audit:runtime && bun run audit:visual",
-    "visual:test": "npx playwright test --grep palette",
-    "visual:update": "npx playwright test --grep palette --update-snapshots"
+    "visual:test": "bunx playwright test --grep palette",
+    "visual:update": "bunx playwright test --grep palette --update-snapshots"
   },
   "dependencies": {
     "framer-motion": "^12.34.3",
