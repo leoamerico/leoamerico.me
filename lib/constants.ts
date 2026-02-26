@@ -136,9 +136,9 @@ export const PROJECTS = {
       category: "Implantação consultiva · 2020–2025",
       title: "Amparo Digital — Sonner Sistemas",
       description:
-        "Atuei como consultor técnico responsável pela implantação do Projeto Amparo Digital, conduzido pela Sonner Sistemas junto ao município. A implantação abrangeu mais de 30 serviços públicos digitalizados, redução de 70% no uso de papel e automação de processos internos com BPMN 2.0.",
+        "Atuei como consultor técnico na implantação do Projeto Amparo Digital, conduzido pela Sonner Sistemas. Segundo os dados divulgados pela Sonner Sistemas, o projeto abrangeu mais de 30 serviços públicos digitalizados e reduziu em 70% o uso de papel, com automação de processos internos via BPMN 2.0.",
       impact:
-        "Redução do tempo médio de atendimento, eliminação de filas para serviços básicos e rastreabilidade completa de processos — resultados documentados e divulgados pelo cliente.",
+        "Redução do tempo médio de atendimento e eliminação de filas para serviços básicos — resultados documentados e publicados pela Sonner Sistemas nos vídeos e post abaixo.",
       features: null,
       link: "https://www.youtube.com/watch?v=Egp92Tqmdok",
       linkLabel: "Ver vídeo institucional (Sonner Sistemas)",
