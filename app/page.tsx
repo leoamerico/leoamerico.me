@@ -22,7 +22,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main>
+      <main data-seo-root="true">
         <Hero />
         <About />
         <Expertise />

@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 // scripts/seo/seo-v3-coverage.mjs — V3 Content Coverage (Persona/Intent)
+import { classify as canonicalClassify } from "./canonical.mjs";
 // ─────────────────────────────────────────────────────────────────────────────
 // Análise ao vivo contra servidor local ou URL remota.
 // Faz fetch do HTML real — detecta thin content, canibalização, heading drift.
@@ -89,8 +90,10 @@ function getTagText(html, tag) {
   return out;
 }
 function extractBodyText(html) {
-  // Remove <nav>, <header>, <footer>, <script>, <style>, <noscript>
-  return html
+  // Prefer data-seo-root node (stable, avoids nav/footer noise)
+  const rootMatch = /<main[^>]*data-seo-root="true"[^>]*>([\s\S]*)<\/main>/i.exec(html);
+  const source = rootMatch ? rootMatch[1] : html;
+  return source
     .replace(/<(nav|header|footer|script|style|noscript|aside)[^>]*>[\s\S]*?<\/\1>/gi, " ")
     .replace(/<[^>]+>/g, " ")
     .replace(/&[a-z]+;/g, " ")
@@ -109,56 +112,9 @@ function signature(...parts) {
   return (h >>> 0).toString(16).padStart(8, "0");
 }
 
-// ─── Persona/intent classifier ────────────────────────────────────────────────
-const URL_PERSONA_MAP = [
-  { pattern: /\/plataforma\/prefeito/,    personas: ["prefeito"],            intent: "produto-grp" },
-  { pattern: /\/plataforma\/procurador/,  personas: ["procurador"],          intent: "compliance"  },
-  { pattern: /\/plataforma\/auditor/,     personas: ["auditor"],             intent: "compliance"  },
-  { pattern: /\/plataforma\/secretar/,    personas: ["secretario"],          intent: "produto-grp" },
-  { pattern: /\/plataforma\/controlador/, personas: ["controlador"],         intent: "compliance"  },
-  { pattern: /\/plataforma\/fiscal/,      personas: ["fiscal"],              intent: "produto-grp" },
-  { pattern: /\/plataforma\/cidadao/,     personas: ["cidadao"],             intent: "overview"    },
-  { pattern: /\/erp|\/envneo|\/env-neo/,  personas: ["empresario", "gestor"],intent: "produto-erp" },
-  { pattern: /\/sobre|\/about/,           personas: ["geral"],               intent: "sobre"       },
-  { pattern: /\/seguranca|\/security/,    personas: ["tech"],                intent: "stack"       },
-  { pattern: /\/compliance|\/lgpd/,       personas: ["procurador", "auditor"],intent: "compliance" },
-  { pattern: /\/contato|\/contact/,       personas: ["geral"],               intent: "contato"     },
-  { pattern: /\/preco|\/pricing/,         personas: ["empresario"],          intent: "overview"    },
-  { pattern: /\/#sobre/,                  personas: ["geral"],               intent: "sobre"       },
-  { pattern: /\/#resultados/,             personas: ["prefeito", "empresario"],intent: "overview"  },
-  { pattern: /\/#audit/,                  personas: ["tech"],                intent: "governanca"  },
-  { pattern: /\/#contato/,               personas: ["geral"],               intent: "contato"     },
-];
-const H1_PERSONA_KEYWORDS = {
-  prefeito:    ["prefeito", "município", "gestão pública", "municipal"],
-  secretario:  ["secretário", "secretaria", "pasta"],
-  procurador:  ["procurador", "jurídico", "legal"],
-  auditor:     ["auditor", "auditoria", "fiscalização", "controle interno"],
-  controlador: ["controlador", "controladoria", "CGM"],
-  fiscal:      ["fiscal", "tributário", "receita"],
-  cidadao:     ["cidadão", "cidadã", "transparência pública"],
-  empresario:  ["empresário", "empresa", "ERP", "Env Neo"],
-  gestor:      ["gestor", "gestão empresarial"],
-  tech:        ["arquitetura", "código", "ArchUnit", "API", "hexagonal"],
-};
-
+// ─── Persona/intent classifier — via canonical.mjs ───────────────────────────
 function classify(url, h1Text, title) {
-  // Try URL first
-  for (const { pattern, personas, intent } of URL_PERSONA_MAP) {
-    if (pattern.test(url)) return { personas, intent };
-  }
-  // Fallback: H1/title keywords
-  const combined = (h1Text + " " + title).toLowerCase();
-  const personas = [];
-  for (const [persona, keywords] of Object.entries(H1_PERSONA_KEYWORDS)) {
-    if (keywords.some(kw => combined.includes(kw.toLowerCase()))) {
-      personas.push(persona);
-    }
-  }
-  return {
-    personas: personas.length > 0 ? personas : ["geral"],
-    intent: url.includes("#") ? url.split("#")[1] || "overview" : "overview",
-  };
+  return canonicalClassify(url, h1Text, title);
 }
 
 // ─── Sitemap parsing ──────────────────────────────────────────────────────────
@@ -230,40 +186,53 @@ async function analysePage(url) {
 }
 
 // ─── Findings ────────────────────────────────────────────────────────────────
+// P0: H1 ausente OU wc < 120 OU múltiplo H1
+// P1: 120 ≤ wc < THIN_THRESHOLD (250)
+// P2: wc ≥ THIN_THRESHOLD E sem H2 (hierarquia fraca)
 function detectThin(units) {
   const out = [];
   let i = 0;
   for (const u of units) {
+    // P0: H1 ausente
     if (!u.hasH1) {
       out.push({
-        id: `thin-noh1-${i++}`, type: "thin-content", severity: "P1",
+        id: `thin-noh1-${i++}`, type: "thin-content", severity: "P0",
         units: [u.id],
         evidence: `H1 ausente em "${u.path}${u.anchor ?? ""}" · word_count=${u.wordCount}`,
-        recommendation: "Adicionar H1 único e descritivo à página.",
-      });
-    } else if (u.h1.length > 1) {
-      out.push({
-        id: `thin-multih1-${i++}`, type: "thin-content", severity: "P1",
-        units: [u.id],
-        evidence: `Múltiplos H1 (${u.h1.length}) em "${u.path}" — ${u.h1.map(h => `"${h}"`).join(", ")}`,
-        recommendation: "Cada página deve ter exatamente 1 H1. Rebaixar demais para H2/H3.",
+        recommendation: "Adicionar H1 único e descritivo à seção.",
       });
     }
-    if (u.wordCount < THIN_THRESHOLD) {
+    // P0: múltiplos H1
+    if (u.h1.length > 1) {
       out.push({
-        id: `thin-wc-${i++}`, type: "thin-content",
-        severity: u.wordCount < THIN_THRESHOLD * 0.5 ? "P0" : "P1",
+        id: `thin-multih1-${i++}`, type: "thin-content", severity: "P0",
         units: [u.id],
-        evidence: `word_count=${u.wordCount} < threshold=${THIN_THRESHOLD} · title="${u.title}"`,
-        recommendation: u.wordCount < 100
-          ? `Conteúdo muito escasso em "${u.path}". Adicionar no mínimo 3 seções H2 com 2–3 parágrafos cada.`
-          : `Ampliar conteúdo de "${u.path}" com casos de uso, prova (links internos/externos) ou FAQ estruturado.`,
+        evidence: `Múltiplos H1 (${u.h1.length}) em "${u.path}" — ${u.h1.map(h => `"${h}"`).join(", ")}`,
+        recommendation: "Cada página deve ter exatamente 1 H1. Rebaixar os demais para H2/H3.",
+      });
+    }
+    // P0: conteúdo crítico (< 120 palavras full HTML)
+    if (u.wordCount < 120) {
+      out.push({
+        id: `thin-wc-p0-${i++}`, type: "thin-content", severity: "P0",
+        units: [u.id],
+        evidence: `word_count=${u.wordCount} < 120 (crítico) · title="${u.title}"`,
+        recommendation: `Conteúdo muito escasso. Adicionar no mínimo 3 seções H2 com 2–3 parágrafos cada.`,
+      });
+    } else if (u.wordCount < THIN_THRESHOLD) {
+      // P1: thin moderado
+      out.push({
+        id: `thin-wc-p1-${i++}`, type: "thin-content", severity: "P1",
+        units: [u.id],
+        evidence: `word_count=${u.wordCount} (120–${THIN_THRESHOLD}) · title="${u.title}"`,
+        recommendation: `Ampliar conteúdo com casos de uso, prova (links internos/externos) ou FAQ estruturado.`,
       });
     } else if (!u.hasH2) {
+      // P2: words ok mas sem hierarquia de headings
       out.push({
         id: `thin-noh2-${i++}`, type: "thin-content", severity: "P2",
         units: [u.id],
-        evidence: `word_count=${u.wordCount} (ok) mas sem nenhum H2 em "${u.path}"`,
+        evidence: `word_count=${u.wordCount} (ok) · sem H2 em "${u.path}"`,
         recommendation: "Adicionar pelo menos 1 H2 para estruturar o conteúdo e melhorar crawlability.",
       });
     }

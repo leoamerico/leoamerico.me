@@ -515,6 +515,8 @@ function V3SevBadge({ sev }: { sev: string }) {
 }
 
 function V3Content({ v3 }: { v3: V3CoverageReport | undefined }) {
+  const [view, setView] = useState<"list" | "heatmap">("list");
+
   if (!v3) return (
     <div className="text-slate-500 text-sm py-12 text-center">
       V3 não disponível — recarregue o Atlas.
@@ -522,6 +524,50 @@ function V3Content({ v3 }: { v3: V3CoverageReport | undefined }) {
   );
 
   const { units, findings, personaCoverage, summary } = v3;
+
+  // Pre-compute finding severity per unit for heatmap signals
+  const thinSev   = new Map<string, string>();
+  const canniSev  = new Map<string, string>();
+  for (const f of findings) {
+    for (const uid of f.units) {
+      if (f.type === "thin-content") {
+        const cur = thinSev.get(uid);
+        if (!cur || cur > f.severity) thinSev.set(uid, f.severity);
+      }
+      if (f.type === "cannibalization") {
+        const cur = canniSev.get(uid);
+        if (!cur || cur > f.severity) canniSev.set(uid, f.severity);
+      }
+    }
+  }
+
+  function sigWc(wc: number) {
+    if (wc >= 180) return { icon: "✅", title: `${wc}w (ok)` };
+    if (wc >= 60)  return { icon: "⚠️", title: `${wc}w (leve)` };
+    return               { icon: "❌", title: `${wc}w (crítico)` };
+  }
+  function sigH1(u: { h1: string[]; hasH1: boolean }) {
+    if (!u.hasH1)      return { icon: "❌", title: "H1 ausente" };
+    if (u.h1.length>1) return { icon: "⚠️", title: `${u.h1.length} H1 (múltiplos)` };
+    return                    { icon: "✅", title: u.h1[0] };
+  }
+  function sigH2(u: { h2: string[]; hasH2: boolean }) {
+    return u.hasH2
+      ? { icon: "✅", title: u.h2.slice(0, 3).join(" / ") }
+      : { icon: "❌", title: "sem H2" };
+  }
+  function sigThin(uid: string) {
+    const s = thinSev.get(uid);
+    if (!s)        return { icon: "✅", title: "ok" };
+    if (s === "P2") return { icon: "⚠️", title: "P2 thin" };
+    return               { icon: "❌", title: `${s} thin` };
+  }
+  function sigCannibal(uid: string) {
+    const s = canniSev.get(uid);
+    if (!s)        return { icon: "✅", title: "ok" };
+    if (s === "P1") return { icon: "⚠️", title: "P1 canibal" };
+    return               { icon: "❌", title: `${s} canibal` };
+  }
 
   return (
     <div className="space-y-8">
@@ -591,35 +637,96 @@ function V3Content({ v3 }: { v3: V3CoverageReport | undefined }) {
         </div>
       </div>
 
-      {/* Content units */}
+      {/* Content units — togglable list / heatmap */}
       <div>
-        <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Unidades de Conteúdo</h3>
-        <div className="overflow-x-auto">
-          <table className="w-full text-xs border-collapse">
-            <thead>
-              <tr className="border-b border-slate-800 text-left text-[10px] text-slate-500">
-                <th className="py-2 pr-4">ID</th>
-                <th className="py-2 pr-4">Palavras</th>
-                <th className="py-2 pr-4">H1</th>
-                <th className="py-2 pr-4">H2s</th>
-                <th className="py-2 pr-4">Persona(s)</th>
-                <th className="py-2">Intent</th>
-              </tr>
-            </thead>
-            <tbody>
-              {units.map(u => (
-                <tr key={u.id} className="border-b border-slate-800/50">
-                  <td className="py-2 pr-4 font-mono text-slate-300">{u.id}</td>
-                  <td className={`py-2 pr-4 ${u.wordCount < 60 ? "text-amber-400" : "text-slate-400"}`}>{u.wordCount}</td>
-                  <td className="py-2 pr-4 text-slate-500 text-[10px] max-w-[160px] truncate" title={u.h1[0]}>{u.h1[0] ?? "—"}</td>
-                  <td className="py-2 pr-4 text-slate-600">{u.h2.length}</td>
-                  <td className="py-2 pr-4 text-slate-500 text-[10px]">{u.persona.join(" · ")}</td>
-                  <td className="py-2 text-slate-500 font-mono text-[10px]">{u.intent}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Unidades de Conteúdo</h3>
+          <div className="flex gap-1">
+            {(["list", "heatmap"] as const).map(v => (
+              <button
+                key={v}
+                onClick={() => setView(v)}
+                className={`px-3 py-1 text-[10px] rounded border transition-colors ${
+                  view === v
+                    ? "border-slate-500 text-slate-200 bg-slate-800"
+                    : "border-slate-800 text-slate-600 hover:text-slate-400"
+                }`}
+              >
+                {v === "list" ? "Lista" : "Heatmap"}
+              </button>
+            ))}
+          </div>
         </div>
+
+        {view === "list" ? (
+          <div className="overflow-x-auto">
+            <table className="w-full text-xs border-collapse">
+              <thead>
+                <tr className="border-b border-slate-800 text-left text-[10px] text-slate-500">
+                  <th className="py-2 pr-4">ID</th>
+                  <th className="py-2 pr-4">Palavras</th>
+                  <th className="py-2 pr-4">H1</th>
+                  <th className="py-2 pr-4">H2s</th>
+                  <th className="py-2 pr-4">Persona(s)</th>
+                  <th className="py-2">Intent</th>
+                </tr>
+              </thead>
+              <tbody>
+                {units.map(u => (
+                  <tr key={u.id} className="border-b border-slate-800/50">
+                    <td className="py-2 pr-4 font-mono text-slate-300">{u.id}</td>
+                    <td className={`py-2 pr-4 ${u.wordCount < 60 ? "text-amber-400" : "text-slate-400"}`}>{u.wordCount}</td>
+                    <td className="py-2 pr-4 text-slate-500 text-[10px] max-w-[160px] truncate" title={u.h1[0]}>{u.h1[0] ?? "—"}</td>
+                    <td className="py-2 pr-4 text-slate-600">{u.h2.length}</td>
+                    <td className="py-2 pr-4 text-slate-500 text-[10px]">{u.persona.join(" · ")}</td>
+                    <td className="py-2 text-slate-500 font-mono text-[10px]">{u.intent}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          /* ── Heatmap: linhas = unidades, colunas = signals ── */
+          <div className="overflow-x-auto">
+            <table className="text-xs border-collapse">
+              <thead>
+                <tr className="border-b border-slate-800 text-[10px] text-slate-500">
+                  <th className="py-2 pr-4 text-left">Unidade</th>
+                  <th className="py-2 px-3 text-center">wc</th>
+                  <th className="py-2 px-3 text-center">H1</th>
+                  <th className="py-2 px-3 text-center">H2</th>
+                  <th className="py-2 px-3 text-center">thin</th>
+                  <th className="py-2 px-3 text-center">canibal</th>
+                  <th className="py-2 pl-4 text-left text-slate-700">H1 text</th>
+                </tr>
+              </thead>
+              <tbody>
+                {units.map(u => {
+                  const wc  = sigWc(u.wordCount);
+                  const h1s = sigH1(u);
+                  const h2s = sigH2(u);
+                  const th  = sigThin(u.id);
+                  const cn  = sigCannibal(u.id);
+                  return (
+                    <tr key={u.id} className="border-b border-slate-800/40 hover:bg-slate-900/50 transition-colors">
+                      <td className="py-1.5 pr-4 font-mono text-slate-400 text-[11px]">{u.id}</td>
+                      <td className="py-1.5 px-3 text-center text-base" title={wc.title}>{wc.icon}</td>
+                      <td className="py-1.5 px-3 text-center text-base" title={h1s.title}>{h1s.icon}</td>
+                      <td className="py-1.5 px-3 text-center text-base" title={h2s.title}>{h2s.icon}</td>
+                      <td className="py-1.5 px-3 text-center text-base" title={th.title}>{th.icon}</td>
+                      <td className="py-1.5 px-3 text-center text-base" title={cn.title}>{cn.icon}</td>
+                      <td className="py-1.5 pl-4 text-slate-700 text-[10px] max-w-[200px] truncate">{u.h1[0] ?? ""}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+            <div className="mt-2 text-[10px] text-slate-700 flex gap-3">
+              <span>✅ ok</span><span>⚠️ atenção</span><span>❌ crítico</span>
+              <span className="ml-2">wc = word count · H1/H2 = headings · thin/canibal = findings</span>
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="text-[10px] text-slate-700 pt-2">

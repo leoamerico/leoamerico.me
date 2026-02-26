@@ -310,33 +310,61 @@ function toUnit(r: RawUnit): ContentUnit {
 }
 
 // ─── Thresholds ───────────────────────────────────────────────────────────────
-const THIN_WORD_THRESHOLD   = 60;   // Static analysis counts fragments, not full HTML — lower threshold
-const WARN_WORD_THRESHOLD   = 120;
+// P0 — H1 ausente OU conteúdo crítico (< P0_WORD_THRESHOLD palavras)
+// P1 — Thin moderado (P0 ≤ wc < P1_WORD_THRESHOLD)
+// P2 — Aviso (P1 ≤ wc < P2_WORD_THRESHOLD, sem H2)
+const P0_WORD_THRESHOLD = 60;  // fragmentos estáticos: crítico
+const P1_WORD_THRESHOLD = 120; // thin moderado
+const P2_WORD_THRESHOLD = 180; // aviso de comprimento
 
 // ─── Detecção de thin content ─────────────────────────────────────────────────
 function detectThin(units: ContentUnit[]): V3Finding[] {
   const findings: V3Finding[] = [];
   let i = 0;
   for (const u of units) {
-    if (u.wordCount < THIN_WORD_THRESHOLD) {
+    // P0: H1 ausente — sinal mais alto de thin estrutural
+    if (!u.hasH1) {
       findings.push({
-        id: `thin-${i++}`,
+        id: `thin-noh1-${i++}`,
+        type: "thin-content",
+        severity: "P0",
+        units: [u.id],
+        evidence: `H1 ausente em "${u.label}" · word_count=${u.wordCount}`,
+        recommendation: `Adicionar H1 único e descritivo à seção "${u.label}".`,
+      });
+    }
+    // P0: conteúdo crítico
+    if (u.wordCount < P0_WORD_THRESHOLD) {
+      findings.push({
+        id: `thin-p0-${i++}`,
+        type: "thin-content",
+        severity: "P0",
+        units: [u.id],
+        evidence: `word_count=${u.wordCount} < ${P0_WORD_THRESHOLD} · H1=${u.h1.length} · H2=${u.h2.length}`,
+        recommendation:
+          `Conteúdo crítico em "${u.label}": expandir para ≥${P1_WORD_THRESHOLD} palavras com 2+ H2 e parágrafos de substância.`,
+      });
+    } else if (u.wordCount < P1_WORD_THRESHOLD) {
+      // P1: thin moderado
+      findings.push({
+        id: `thin-p1-${i++}`,
         type: "thin-content",
         severity: "P1",
         units: [u.id],
-        evidence: `word_count=${u.wordCount} (threshold=${THIN_WORD_THRESHOLD}) · H1=${u.h1.length} · H2=${u.h2.length}`,
+        evidence: `word_count=${u.wordCount} (${P0_WORD_THRESHOLD}–${P1_WORD_THRESHOLD}) · H2=${u.h2.length}`,
         recommendation:
-          `Expandir seção "${u.label}": adicionar 2–3 H2 com parágrafos de substância, casos de uso ou prova (links internos/externos) para atingir ≥${THIN_WORD_THRESHOLD} palavras úteis.`,
+          `Ampliar "${u.label}": adicionar 1–2 H2 com parágrafos de casos de uso ou prova para atingir ≥${P1_WORD_THRESHOLD} palavras.`,
       });
-    } else if (u.wordCount < WARN_WORD_THRESHOLD && !u.hasH2) {
+    } else if (u.wordCount < P2_WORD_THRESHOLD && !u.hasH2) {
+      // P2: aviso de comprimento
       findings.push({
-        id: `thin-warn-${i++}`,
+        id: `thin-p2-${i++}`,
         type: "thin-content",
         severity: "P2",
         units: [u.id],
-        evidence: `word_count=${u.wordCount} · sem H2 (heading hierarchy fraca)`,
+        evidence: `word_count=${u.wordCount} · sem H2 (hierarquia de headings fraca)`,
         recommendation:
-          `Adicionar pelo menos um H2 de suporte em "${u.label}" para melhorar hierarquia de headings e crawlability.`,
+          `Adicionar pelo menos 1 H2 em "${u.label}" para estruturar o conteúdo e melhorar crawlability.`,
       });
     }
   }
