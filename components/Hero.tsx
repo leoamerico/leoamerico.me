@@ -104,7 +104,7 @@ export default function Hero() {
         >
           <a
             href={HERO.ctaPrimary.href}
-            className="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold transition-all hover:shadow-lg hover:shadow-cyan-500/25"
+            className="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold transition-all hover:shadow-lg hover:shadow-amber-500/25"
             aria-label={HERO.ctaPrimary.label}
           >
             {HERO.ctaPrimary.label}

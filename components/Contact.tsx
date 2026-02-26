@@ -111,7 +111,7 @@ export default function Contact() {
             </div>
             <button
               type="submit"
-              className="w-full inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold transition-all hover:shadow-lg hover:shadow-cyan-500/25"
+              className="w-full inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold transition-all hover:shadow-lg hover:shadow-amber-500/25"
               aria-label="Enviar mensagem"
             >
               <Send size={18} />

@@ -50,7 +50,7 @@ export default function Navbar() {
             ))}
             <a
               href="#contato"
-              className="text-sm font-medium px-5 py-2 rounded-full border border-cyan-400 text-cyan-400 hover:bg-cyan-400/10 transition-all"
+              className="text-sm font-medium px-5 py-2 rounded-full border border-amber-400 text-amber-400 hover:bg-amber-400/10 transition-all"
               aria-label="Fale comigo"
             >
               Fale comigo
@@ -91,7 +91,7 @@ export default function Navbar() {
               <a
                 href="#contato"
                 onClick={() => setMobileOpen(false)}
-                className="block text-center font-medium px-5 py-2 rounded-full border border-cyan-400 text-cyan-400 hover:bg-cyan-400/10 transition-all"
+                className="block text-center font-medium px-5 py-2 rounded-full border border-amber-400 text-amber-400 hover:bg-amber-400/10 transition-all"
               >
                 Fale comigo
               </a>
