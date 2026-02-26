@@ -286,9 +286,12 @@ for (const [repoName, repoRoot] of Object.entries(REPOS)) {
     repo: repoName,
     severity: "INFO",
     mitre: "ISO-27001-A.5.12",
-    title: `[${repoName}] Methodology IP — ${termFiles.length} term files públicos sem sign-off formal`,
-    countermeasure: 'Decisão consciente: criar "content/terms/.opsec-ip-accepted" com data + justificativa para silenciar.',
+    title: hasSignoff
+      ? `[${repoName}] Methodology IP — ${termFiles.length} term files públicos · sign-off registrado ✓`
+      : `[${repoName}] Methodology IP — ${termFiles.length} term files públicos · sign-off PENDENTE`,
+    countermeasure: 'Decisão consciente: criar "content/terms/.opsec-ip-accepted" com data + justificativa para documentar a escolha de open methodology.',
     evidence: { termFiles: termFiles.map((f) => path.relative(repoRoot, f)), hasSignoff },
+    signoffAcknowledged: hasSignoff,
     pass: true, // INFO only — never blocks
   });
 }
@@ -351,8 +354,12 @@ if (failing.length) {
   process.exit(1);
 }
 
-console.log(`OPSEC OK — ${checks.filter((c) => c.pass).length} checks passed, ${infos.length} info items`);
-if (infos.length) {
-  for (const i of infos) console.log(`  [INFO][${i.repo}] ${i.title}`);
+console.log(`OPSEC OK — ${checks.filter((c) => c.pass).length} checks passed`);
+const pendingInfos = infos.filter((i) => !i.signoffAcknowledged);
+if (pendingInfos.length) {
+  console.log(`  ${pendingInfos.length} info item(s) require owner sign-off:`);
+  for (const i of pendingInfos) console.log(`  [INFO][${i.repo}] ${i.title}`);
+} else if (infos.length) {
+  console.log(`  ${infos.length} info item(s) acknowledged ✓`);
 }
 console.log(`Report: ${jsonPath} + ${mdPath}`);
