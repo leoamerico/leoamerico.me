@@ -292,6 +292,7 @@ export const CONTROL_PLANE = {
 };
 
 export const CERTIFICATIONS = {
+  title: "Certificações e Formação",
   items: [
     {
       title: "Membro PMI — Project Management Institute",
