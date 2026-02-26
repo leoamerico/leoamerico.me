@@ -1,6 +1,6 @@
 # leoamerico.me
 
-Landing page pessoal e profissional de **Leonardo Américo José Ribeiro** — Cloud Solutions Architect, especialista em Transformação Digital e Gerente de Projetos PMP.
+Landing page pessoal e profissional de **Leo Américo** — Arquiteto de Software AI-First, ERP · GRP.
 
 ## Stack
 
@@ -82,5 +82,5 @@ Todos os textos, links e métricas estão centralizados em `lib/constants.ts`. P
 
 ## Licença
 
-MIT © Leonardo Américo
+MIT © Leo Américo
 Site Pessoal

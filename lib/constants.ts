@@ -1,6 +1,10 @@
 // ============================================================================
-// lib/constants.ts — Dados centralizados do site Leonardo Américo
+// lib/constants.ts — Dados centralizados do site Leo Américo
 // Edite este arquivo para atualizar conteúdo sem mexer nos componentes.
+//
+// ENFORCEMENT — Nome canônico: "Leo Américo"
+// Nunca usar "Leonardo Américo" ou "Leonardo" isolado em textos visíveis,
+// labels, alt text, metadata, schema.org ou qualquer ponto de contato.
 // ============================================================================
 
 export interface ProjectCard {
@@ -16,9 +20,9 @@ export interface ProjectCard {
 }
 
 export const SITE = {
-  name: "Leonardo Américo",
+  name: "Leo Américo",
   shortName: "Leo Américo",
-  title: "Leonardo Américo — ERP · GRP",
+  title: "Leo Américo — ERP · GRP",
   description:
     "Arquitetura modular AI-first em dois domínios: Env Neo (ERP) e Govevia (GRP). Um núcleo. Dois domínios. Produzido por quem opera o sistema.",
   url: "https://leoamerico.me",
@@ -37,7 +41,7 @@ export const NAV_LINKS = [
 
 export const HERO = {
   badge: "Uberlândia, MG · Brasil",
-  heading: "Leonardo Américo",
+  heading: "Leo Américo",
   roles: [
     "ERP · Env Neo — gestão empresarial",
     "GRP · Govevia — gestão pública",
@@ -311,6 +315,6 @@ export const DIPLOMA = {
 };
 
 export const FOOTER = {
-  copy: `© ${new Date().getFullYear()} Leonardo Américo · leoamerico.me`,
+  copy: `© ${new Date().getFullYear()} Leo Américo · leoamerico.me`,
   builtWith: "Feito com Next.js · Hosted on Vercel",
 };

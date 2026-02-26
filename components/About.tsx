@@ -21,7 +21,7 @@ export default function About() {
             <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-2 border-cyan-400/20 shadow-2xl shadow-cyan-500/10">
               <Image
                 src={ABOUT.photo}
-                alt="Leonardo Américo José Ribeiro"
+                alt="Leo Américo"
                 fill
                 className="object-cover object-top"
                 sizes="(max-width: 768px) 256px, 320px"

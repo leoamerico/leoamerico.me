@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Leonardo Américo — ERP · GRP";
+export const alt = "Leo Américo — ERP · GRP";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -38,7 +38,7 @@ export default async function Image() {
               letterSpacing: "-0.02em",
             }}
           >
-            Leonardo Américo
+            Leo Américo
           </div>
           <div
             style={{

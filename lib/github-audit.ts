@@ -318,7 +318,7 @@ export async function generateAuditReport(): Promise<AuditReport | null> {
   return {
     generatedAt: new Date().toISOString(),
     period: label,
-    author: "Leonardo Américo José Ribeiro",
+    author: "Leo Américo",
     totalRepos: 1,
     activeRepos: 1,
     totalCommits: commits,

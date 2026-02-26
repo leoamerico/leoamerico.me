@@ -43,7 +43,7 @@ export const metadata: Metadata = {
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
-  name: "Leonardo Américo José Ribeiro",
+  name: "Leo Américo",
   url: SITE.url,
   jobTitle: "Arquiteto de Software AI-First",
   worksFor: {
