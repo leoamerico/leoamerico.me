@@ -211,6 +211,62 @@ checks.push({
   })(),
 });
 
+// D. Brand enforcement — tokens e nome canônico
+checks.push({
+  id: "D1",
+  severity: "MODERATE",
+  title: "Token --en-void (Rembrandt, invariante da holding) declarado em globals.css",
+  evidence: (() => {
+    const p = "app/globals.css";
+    if (!exists(p)) return { file: p, exists: false };
+    const hits = linesWith(p, /--en-void/);
+    return { file: p, exists: true, hits: hits.slice(0, 5) };
+  })(),
+  pass: (() => {
+    const p = "app/globals.css";
+    if (!exists(p)) return false;
+    return linesWith(p, /--en-void/).length > 0;
+  })(),
+});
+
+checks.push({
+  id: "D2",
+  severity: "MODERATE",
+  title: "Token --en-arc (Rembrandt, arco elétrico, invariante da holding) declarado em globals.css",
+  evidence: (() => {
+    const p = "app/globals.css";
+    if (!exists(p)) return { file: p, exists: false };
+    const hits = linesWith(p, /--en-arc[^-]/);
+    return { file: p, exists: true, hits: hits.slice(0, 5) };
+  })(),
+  pass: (() => {
+    const p = "app/globals.css";
+    if (!exists(p)) return false;
+    return linesWith(p, /--en-arc[^-]/).length > 0;
+  })(),
+});
+
+checks.push({
+  id: "D3",
+  severity: "MODERATE",
+  title: 'Nome canônico R8 — nenhum display name isolado "Leonardo" em constants.ts (usar sempre "Leo Américo")',
+  evidence: (() => {
+    const p = "lib/constants.ts";
+    if (!exists(p)) return { file: p, exists: false };
+    // Detecta "Leonardo" isolado em string de texto visível — exclui linhas de comentário
+    const hits = linesWith(p, /["'`]\s*Leonardo\s*["'`]|:\s*"Leonardo[^\s]/)
+      .filter(({ text }) => !text.trimStart().startsWith("//") && !text.trimStart().startsWith("*"));
+    return { file: p, exists: true, hits: hits.slice(0, 10), total: hits.length };
+  })(),
+  pass: (() => {
+    const p = "lib/constants.ts";
+    if (!exists(p)) return true;
+    return linesWith(p, /["'`]\s*Leonardo\s*["'`]|:\s*"Leonardo[^\s]/)
+      .filter(({ text }) => !text.trimStart().startsWith("//") && !text.trimStart().startsWith("*"))
+      .length === 0;
+  })(),
+});
+
 function toMarkdown(report) {
   const lines = [];
   lines.push(`# Repo Audit — ${report.meta.repo}`);

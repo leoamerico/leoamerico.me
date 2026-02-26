@@ -2,9 +2,56 @@
 @tailwind components;
 @tailwind utilities;
 
+/**
+ * ENV NEO — Design Tokens
+ * Cada token tem arqueologia. Nenhum hex entra sem nome semântico e pintor fundador.
+ * Machina custodit. Homo gubernat.
+ *
+ * INVARIANTES DA HOLDING — proibido sobrescrever nos produtos filhos:
+ *   --en-void, --en-arc, --en-authority
+ */
 :root {
-  --background: #020617;
-  --foreground: #f1f5f9;
+  /* ── REMBRANDT VAN RIJN (1606–1669) — Env Neo / holding ─────────────────
+     Chiaroscuro: a luz emerge do escuro profundo. A profundidade sustenta.
+     Ref: A Ronda Noturna (1642), O Filósofo em Meditação (1632)
+     -------------------------------------------------------------------- */
+  --en-void:      #020617; /* negro de marfim — fundo de ateliê sem vela     [INVARIANTE] */
+  --en-depth:     #0f172a; /* preto de Marte — camada de imprimação          */
+  --en-surface:   #1e293b; /* terra de Cassel — o que o usuário toca         */
+  --en-arc:       #22d3ee; /* toque final de luz — Rembrandt's highlight      [INVARIANTE] */
+  --en-arc-dim:   #0891b2; /* amarelo ocre em veladura fina                  */
+  --en-authority: #f8fafc; /* branco de chumbo puro — reservado para o focal [INVARIANTE] */
+  --en-muted:     #94a3b8; /* cinza de borracha — o meio-tom que conecta     */
+
+  /* ── JACQUES-LOUIS DAVID (1748–1825) — Govevia ──────────────────────────
+     Neoclassicismo cívico: virtude pública com peso físico. Obrigação como beleza.
+     Ref: O Juramento dos Horácios (1784), A Morte de Marat (1793)
+     -------------------------------------------------------------------- */
+  --gv-civic:     #0d3b5e; /* azul prussiano — o céu do Estado, frio e permanente */
+  --gv-signal:    #10b981; /* esmeralda — conformidade cumprida, lei satisfeita   */
+  --gv-signal-dim:#059669; /* esmeralda envelhecida — arquivo, protocolo anterior */
+  --gv-alert:     #f59e0b; /* âmbar — vela de Marat, prazo normativo vivo         */
+  --gv-stone:     #64748b; /* cinza de mármore — material neutro da república     */
+  --gv-trust:     #6366f1; /* violeta — tinta de decreto, cera de lacre           */
+
+  /* ── VINCENT VAN GOGH (1853–1890) — Env Live / badge ao vivo ────────────
+     Presença como método: cada pincelada data o instante. A Noite Estrelada (1889).
+     -------------------------------------------------------------------- */
+  --el-ultra:     #1d4ed8; /* azul ultramar — o céu de A Noite Estrelada          */
+  --el-pulse:     #a855f7; /* violeta elétrico — entre azul e vermelho            */
+  --el-now:       #ec4899; /* rosa de amendoeireiro — o que floresce antes de cair*/
+  --el-signal:    #eab308; /* amarelo cádmio — o ● ao vivo, os girassóis          */
+  --el-heat:      #f97316; /* laranja — o centro de cada star em Van Gogh         */
+
+  /* ── CARAVAGGIO (1571–1610) — Leo Américo / presença humana ─────────────
+     A Vocação de São Mateus: a pessoa ordinária no centro, sem idealização.
+     -------------------------------------------------------------------- */
+  --la-flesh:     #d97706; /* âmbar quente — a carne iluminada por vela           */
+  --la-stone:     #475569; /* cinza de pedra — o que suporta o peso do real       */
+
+  /* ── Aliases de conveniência (apontam para os tokens canônicos) ───────── */
+  --background: var(--en-void);
+  --foreground: var(--en-authority);
 }
 
 body {

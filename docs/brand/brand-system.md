@@ -1,5 +1,8 @@
 # Env Neo · Brand System
-### Versão 1.0 · Fevereiro 2026 · Confidencial
+### Versão 2.0 · Fevereiro 2026 · Confidencial
+
+> **Tokens implementados em `app/globals.css` + `tailwind.config.ts`. Gates D1/D2/D3 ativos em `repo-audit.mjs`.**
+> Consulte `docs/brand/atlas-humano.md` para arqueologia completa de pintores e axiomas éticos.
 
 > *Machina custodit. Homo gubernat.*
 > *A máquina guarda. O humano governa.*
