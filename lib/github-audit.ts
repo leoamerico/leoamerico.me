@@ -155,7 +155,6 @@ export interface AuditReport {
   generatedAt: string;
   period: string;
   author: string;
-  cpf: string;
   totalRepos: number;
   activeRepos: number;
   totalCommits: number;
@@ -250,31 +249,32 @@ export async function generateAuditReport(): Promise<AuditReport | null> {
     repos.push(repo);
   }
 
-  // 3. Monthly activity for the primary repo (govevia)
-  const monthlyActivity: Record<string, number> = {};
+  // 3. Monthly activity across all repos (parallelized)
   const now = new Date();
-  for (let i = 11; i >= 0; i--) {
-    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
-    const monthKey = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
-    const mStart = new Date(d.getFullYear(), d.getMonth(), 1).toISOString();
-    const mEnd = new Date(d.getFullYear(), d.getMonth() + 1, 1).toISOString();
+  const monthEntries = await Promise.all(
+    Array.from({ length: 12 }, (_, idx) => 11 - idx).map(async (i) => {
+      const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+      const monthKey = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+      const mStart = new Date(d.getFullYear(), d.getMonth(), 1).toISOString();
+      const mEnd = new Date(d.getFullYear(), d.getMonth() + 1, 1).toISOString();
 
-    let monthTotal = 0;
-    for (const repo of repos) {
-      const data = await ghFetch(
-        `/repos/${USERNAME}/${repo.name}/commits?since=${mStart}&until=${mEnd}&per_page=1`,
-        token
+      const repoCounts = await Promise.all(
+        repos.map(async (repo) => {
+          const data = await ghFetch(
+            `/repos/${USERNAME}/${repo.name}/commits?since=${mStart}&until=${mEnd}&per_page=100`,
+            token
+          );
+          return data && Array.isArray(data) ? data.length : 0;
+        })
       );
-      // Quick count: just check if page 1 has data, then count
-      if (data && Array.isArray(data) && data.length > 0) {
-        const fullData = await ghFetch(
-          `/repos/${USERNAME}/${repo.name}/commits?since=${mStart}&until=${mEnd}&per_page=100`,
-          token
-        );
-        monthTotal += fullData?.length || 0;
-      }
-    }
-    monthlyActivity[monthKey] = monthTotal;
+
+      return [monthKey, repoCounts.reduce((a, b) => a + b, 0)] as const;
+    })
+  );
+
+  const monthlyActivity: Record<string, number> = {};
+  for (const [key, count] of monthEntries) {
+    monthlyActivity[key] = count;
   }
 
   // Sort repos by commits desc
@@ -284,7 +284,6 @@ export async function generateAuditReport(): Promise<AuditReport | null> {
     generatedAt: new Date().toISOString(),
     period: label,
     author: "Leonardo Américo José Ribeiro",
-    cpf: "703.380.511-04",
     totalRepos: reposRaw.length,
     activeRepos: repos.length,
     totalCommits,

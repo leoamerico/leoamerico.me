@@ -20,7 +20,7 @@ export const NAV_LINKS = [
   { label: "O que eu faço", href: "#servicos" },
   { label: "Resultados", href: "#resultados" },
   { label: "Produção", href: "#audit" },
-  { label: "Govevia", href: "https://govevia.com" },
+  { label: "Govevia", href: "https://govevia.com.br" },
   { label: "Contato", href: "#contato" },
 ];
 
@@ -41,7 +41,7 @@ export const HERO = {
   },
   metrics: [
     { value: "15+", label: "anos em gestão pública digital" },
-    { value: "40+", label: "prefeituras, câmaras e autarquias" },
+    { value: "40+", label: "municípios atendidos ao longo da carreira" },
     { value: "70%", label: "menos papel — implantação Amparo Digital (Sonner Sistemas)" },
   ],
 };
@@ -113,7 +113,26 @@ export const STACK = {
   ],
 };
 
-export const PROJECTS = {
+interface ProjectEvidence {
+  label: string;
+  href: string;
+  icon: string;
+}
+
+interface ProjectCard {
+  category: string;
+  title: string;
+  description: string;
+  impact: string | null;
+  features: string[] | null;
+  link: string | null;
+  linkLabel: string | null;
+  badge: string;
+  evidence?: ProjectEvidence[];
+  company?: string;
+}
+
+export const PROJECTS: { title: string; cards: ProjectCard[] } = {
   title: "Resultados",
   cards: [
     {
@@ -147,9 +166,9 @@ export const PROJECTS = {
     },
     {
       category: "Plataforma própria · Em operação",
-      title: "Govevia — Plataforma de Gestão Pública",
+      title: "Govevia — Plataforma de governança executável para administração municipal brasileira",
       description:
-        "Plataforma de Gestão de Recursos Públicos desenvolvida a partir de 15 anos de experiência em campo. Construída para resolver os problemas reais que encontrei em dezenas de implantações: dados fragmentados, falta de rastreabilidade, dependência de planilhas e risco de não-conformidade.",
+        "Plataforma de governança executável desenvolvida a partir de experiência prática em gestão pública municipal. Construída para resolver problemas reais: dados fragmentados, falta de rastreabilidade, dependência de planilhas e risco de não-conformidade.",
       impact: null,
       features: [
         "Isolamento de dados por município (multi-tenant com Row-Level Security)",
@@ -157,9 +176,10 @@ export const PROJECTS = {
         "Conformidade nativa com exigências de Tribunais de Contas",
         "Arquitetura em nuvem com alta disponibilidade",
       ],
-      link: "https://govevia.com",
+      link: "https://govevia.com.br",
       linkLabel: "Conhecer a Govevia",
       badge: "Em operação",
+      company: "Desenvolvido pela ENV-NEO LTDA",
     },
     {
       category: "Serviço de consultoria",
@@ -184,10 +204,6 @@ export const CERTIFICATIONS = {
       detail: "2.610 horas documentadas em 19 projetos municipais",
       link: "https://community.pmi.org/profile/leoamericojr",
       status: "active",
-      docs: [
-        { label: "Certificado PMI", href: "/pmi/pmi-member-certificate.pdf" },
-        { label: "Cartão Membro", href: "/pmi/pmi-member-card.pdf" },
-      ],
     },
     {
       title: "Bacharel em Sistemas de Informação",
@@ -228,7 +244,7 @@ export const CONTACT = {
     },
     {
       label: "Govevia",
-      href: "https://govevia.com",
+      href: "https://govevia.com.br",
       icon: "Globe",
     },
     {
@@ -258,10 +274,7 @@ export const DIPLOMA = {
   registrationDate: "04 de dezembro de 2023",
   bookNumber: "3",
   registrationNumber: "10554",
-  validationCode: "1070.355.640eebc868a1",
   verifyUrl: "https://diplomadigital.mec.gov.br/",
-  pdfUrl: "/diploma/diploma-sistemas-informacao.pdf",
-  xmlUrl: "/diploma/diploma-sistemas-informacao.xml",
 };
 
 export const FOOTER = {

@@ -36,7 +36,6 @@ interface AuditData {
   generatedAt: string;
   period: string;
   author: string;
-  cpf: string;
   totalRepos: number;
   activeRepos: number;
   totalCommits: number;

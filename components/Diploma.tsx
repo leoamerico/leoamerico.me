@@ -6,10 +6,8 @@ import {
   ShieldCheck,
   Building2,
   Calendar,
-  FileDown,
   ExternalLink,
   BookOpen,
-  Hash,
 } from "lucide-react";
 import { DIPLOMA } from "@/lib/constants";
 
@@ -135,20 +133,10 @@ export default function Diploma() {
               </div>
             </div>
 
-            {/* Verification code */}
+            {/* Verification note */}
             <div className="bg-slate-900/60 rounded-xl p-4 mb-8 border border-slate-700/30">
-              <div className="flex items-center gap-2 mb-2">
-                <Hash size={14} className="text-emerald-400" />
-                <p className="text-xs text-slate-500 uppercase tracking-wider">
-                  Código de Validação
-                </p>
-              </div>
-              <p className="font-mono text-emerald-400 text-lg tracking-wider">
-                {DIPLOMA.validationCode}
-              </p>
-              <p className="text-slate-500 text-xs mt-2">
-                Assinado digitalmente com certificado ICP-Brasil · Verificável no
-                portal do MEC
+              <p className="text-slate-400 text-sm">
+                Diploma digital assinado com certificado ICP-Brasil. Para verificação, acesse o portal do MEC.
               </p>
             </div>
 
@@ -161,26 +149,8 @@ export default function Diploma() {
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 text-sm font-medium hover:bg-emerald-500/20 border border-emerald-500/20 hover:border-emerald-500/40 transition-all"
               >
                 <ShieldCheck size={16} />
-                Verificar no MEC
+                Verificar no portal do MEC
                 <ExternalLink size={14} />
-              </a>
-              <a
-                href={DIPLOMA.pdfUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-800 text-slate-300 text-sm font-medium hover:bg-slate-700 border border-slate-700 hover:border-slate-600 transition-all"
-              >
-                <FileDown size={16} />
-                Download PDF
-              </a>
-              <a
-                href={DIPLOMA.xmlUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-800 text-slate-300 text-sm font-medium hover:bg-slate-700 border border-slate-700 hover:border-slate-600 transition-all"
-              >
-                <FileDown size={16} />
-                XML Assinado
               </a>
             </div>
           </div>

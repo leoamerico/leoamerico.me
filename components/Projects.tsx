@@ -67,13 +67,16 @@ export default function Projects() {
                     </ul>
                   </div>
                 )}
+                {project.company && (
+                  <p className="text-xs text-slate-500 mb-4">{project.company}</p>
+                )}
                 <div className="flex-1" />
                 {/* Evidence links */}
-                {(project as { evidence?: { label: string; href: string; icon: string }[] }).evidence && (
+                {project.evidence && (
                   <div className="mb-4">
                     <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Evidências externas</p>
                     <div className="flex flex-col gap-1.5">
-                      {(project as { evidence: { label: string; href: string; icon: string }[] }).evidence.map((ev, k) => (
+                      {project.evidence.map((ev, k) => (
                         <a
                           key={k}
                           href={ev.href}
