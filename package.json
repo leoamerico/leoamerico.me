@@ -2,14 +2,19 @@
   "name": "leoamerico.me",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "bun@1.3.3",
+  "engines": {
+    "bun": ">=1.0.0"
+  },
   "scripts": {
+    "preinstall": "node -e \"const ua=process.env.npm_config_user_agent||'';if(!ua.startsWith('bun')){process.stderr.write('\\n\u274c Use bun, not npm/yarn/pnpm.\\n Run: bun install\\n\\n');process.exit(1)}\"",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "audit:repo": "node scripts/audit/repo-audit.mjs",
     "audit:runtime": "node scripts/audit/runtime-audit.mjs",
-    "audit": "npm run audit:repo && npm run audit:runtime"
+    "audit": "bun run audit:repo && bun run audit:runtime"
   },
   "dependencies": {
     "framer-motion": "^12.34.3",

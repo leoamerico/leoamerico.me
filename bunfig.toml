@@ -1,0 +1,4 @@
+[install]
+# Bun is the only allowed package manager for this project.
+# See: package.json "packageManager" + "preinstall" gate.
+frozenLockfile = false  # set to true in CI via BUN_CONFIG_FROZEN_LOCKFILE=true
