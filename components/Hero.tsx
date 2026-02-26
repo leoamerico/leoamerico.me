@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, MessageCircle, ExternalLink } from "lucide-react";
+import { Linkedin, BookOpen, ExternalLink } from "lucide-react";
 import { HERO } from "@/lib/constants";
 
 function Typewriter({ words }: { words: string[] }) {
@@ -104,11 +104,13 @@ export default function Hero() {
         >
           <a
             href={HERO.ctaPrimary.href}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold transition-all hover:shadow-lg hover:shadow-amber-500/25"
             aria-label={HERO.ctaPrimary.label}
           >
+            <BookOpen size={18} />
             {HERO.ctaPrimary.label}
-            <ArrowRight size={18} />
           </a>
           <a
             href={HERO.ctaSecondary.href}
@@ -117,7 +119,7 @@ export default function Hero() {
             className="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-slate-700 text-slate-300 hover:border-cyan-400 hover:text-cyan-400 transition-all"
             aria-label={HERO.ctaSecondary.label}
           >
-            <MessageCircle size={18} />
+            <Linkedin size={18} />
             {HERO.ctaSecondary.label}
           </a>
         </motion.div>

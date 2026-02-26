@@ -8,7 +8,7 @@ export const SITE = {
   shortName: "Leo Américo",
   title: "Leonardo Américo — Gestão Pública Digital",
   description:
-    "15 anos implantando sistemas em prefeituras, câmaras e autarquias. Fundador da Govevia. Para clientes e parceiros que querem saber com quem estão negociando.",
+    "Gestão pública digital em prática desde 2010. 60+ municípios, 2.610 horas documentadas no PMI, fundador da Govevia. Escreve no Substack sobre o que aprende em campo.",
   url: "https://leoamerico.me",
   locale: "pt-BR",
   email: "sou@leoamerico.me",
@@ -17,27 +17,27 @@ export const SITE = {
 
 export const NAV_LINKS = [
   { label: "Sobre", href: "#sobre" },
-  { label: "O que faço", href: "#servicos" },
-  { label: "Resultados", href: "#resultados" },
+  { label: "Prática", href: "#servicos" },
+  { label: "Trabalho", href: "#resultados" },
   { label: "Produção técnica", href: "#audit" },
   { label: "Govevia", href: "https://govevia.com" },
   { label: "Contato", href: "#contato" },
 ];
 
 export const HERO = {
-  badge: "Uberlândia, MG · Atendimento em todo o Brasil",
+  badge: "Uberlândia, MG · Brasil",
   heading: "Leonardo Américo",
   roles: [
-    "Especialista em Gestão Pública Digital",
+    "Gestão pública digital em prática desde 2010",
     "Fundador da Govevia",
-    "15 anos implantando sistemas em prefeituras",
+    "Escreve sobre o que aprende em campo",
   ],
   paragraph:
-    "Trabalho com transformação digital no setor público desde 2010. Este site existe para que clientes e parceiros possam conhecer minha trajetória, os projetos em que estive envolvido e verificar as informações antes de qualquer conversa.",
-  ctaPrimary: { label: "Ver Resultados", href: "#resultados" },
+    "60+ municípios em MG, SP, RS e BA. 2.610 horas documentadas no PMI. O que aprendo está publicado no Substack e no GitHub.",
+  ctaPrimary: { label: "Substack", href: "https://substack.com/@leoamericojr" },
   ctaSecondary: {
-    label: "Falar no WhatsApp",
-    href: "https://wa.me/5534984228457",
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/leoamericojr",
   },
   metrics: [
     {
@@ -66,43 +66,43 @@ export const ABOUT = {
   title: "Quem é Leo Américo",
   photo: "/photo.svg",
   paragraphs: [
-    "Trabalho com a realidade das prefeituras desde 2010. Já atuei em mais de 60 municípios entre MG, SP, RS e BA — implantando sistemas, migrando bases legadas, adequando processos ao TCE e apoiando equipes na transição.",
-    "Em 2024 fundei a Govevia, uma plataforma de gestão pública desenvolvida com base nessa experiência acumulada em campo.",
+    "Trabalho com prefeituras desde 2010. Implantei sistemas em mais de 60 municípios entre MG, SP, RS e BA — migrando bases legadas, adequando processos ao TCE, documentando o que funcionou e o que não funcionou.",
+    "Em 2024 fundei a Govevia, uma plataforma de gestão pública construída a partir dessa experiência de campo.",
     "Bacharel em Sistemas de Informação e membro ativo do PMI, com 2.610 horas documentadas em 19 projetos municipais.",
   ],
   location: "Uberlândia, MG · Brasil",
-  remote: "Atendimento remoto em todo o Brasil",
+  remote: "Brasil",
   education: [
     "Bacharel em Sistemas de Informação — Faculdade CNEC Unaí (2010)",
   ],
 };
 
 export const EXPERTISE = {
-  title: "O que faço",
+  title: "Prática",
   cards: [
     {
       icon: "Building2",
       title: "Implantação de sistemas GRP",
       description:
-        "Condução do processo completo de implantação — levantamento, migração de dados, adequação ao TCE e capacitação da equipe. O objetivo é que o município opere de forma autônoma após a entrega.",
+        "Atuei em mais de 60 implantações de sistemas de gestão pública. O padrão encontrado: dados fragmentados, bases legadas sem documentação, equipes sem treinamento formal. O que aprendi nesse ciclo está publicado.",
     },
     {
       icon: "ShieldCheck",
-      title: "Conformidade e controle",
+      title: "Conformidade com Tribunais de Contas",
       description:
-        "Trilhas de auditoria, controle de acesso por perfil e adequação a LGPD e Tribunais de Contas. Estrutura que suporta fiscalização sem depender de ajustes emergenciais.",
+        "Adequação de processos às exigências do TCE em múltiplos estados — MG, SP, RS e BA. Cada estado tem suas próprias regras. O acerto aqui vem de conhecer as diferenças na prática, não no papel.",
     },
     {
       icon: "Monitor",
-      title: "Digitalização de serviços ao cidadão",
+      title: "Digitalização de serviços públicos",
       description:
-        "Implantação de serviços online com redução mensurável de prazo e papel. Protocolo, alvará, IPTU, nota fiscal — processos que passam a funcionar de forma integrada e rastreável.",
+        "Protocolo, alvará, IPTU, nota fiscal eletrônica — processos que na maioria das prefeituras ainda dependem de papel e fila. A experiência mais documentada nessa área é o Projeto Amparo Digital (Sonner Sistemas).",
     },
     {
       icon: "Database",
-      title: "Migração de dados legados",
+      title: "Migração de bases legadas",
       description:
-        "Transferência de bases históricas (Oracle, SQL Server, sistemas próprios) para ambientes modernos, sem interrupção da operação e preservando o histórico que os órgãos de controle podem solicitar.",
+        "Oracle, SQL Server, sistemas proprietários sem documentação — esse é o estado real da maioria das prefeituras ao trocar de sistema. Trabalhei com esse tipo de migração em dezenas de municípios.",
     },
   ],
 };
@@ -130,7 +130,7 @@ export const STACK = {
 };
 
 export const PROJECTS = {
-  title: "Resultados",
+  title: "Trabalho",
   cards: [
     {
       category: "Implantação consultiva · 2020–2025",
@@ -216,9 +216,9 @@ export const CERTIFICATIONS = {
 };
 
 export const CONTACT = {
-  title: "Entre em contato",
+  title: "Contato",
   subtitle:
-    "Para projetos, parcerias ou dúvidas sobre a Govevia — estou disponível pelos canais abaixo.",
+    "Canais diretos.",
   links: [
     {
       label: "WhatsApp",
