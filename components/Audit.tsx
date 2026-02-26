@@ -36,7 +36,7 @@ interface AuditData {
   generatedAt: string;
   period: string;
   author: string;
-  cpf: string;
+  // cpf removed — PII never exposed in public API
   totalRepos: number;
   activeRepos: number;
   totalCommits: number;

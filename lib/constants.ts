@@ -6,9 +6,9 @@
 export const SITE = {
   name: "Leonardo Américo",
   shortName: "Leo Américo",
-  title: "Leonardo Américo — Arquiteto de Soluções para Gestão Pública",
+  title: "Leonardo Américo — Gestão Pública Digital",
   description:
-    "15 anos ajudando municípios a sair do papel, do retrabalho e da insegurança jurídica. Implantação de sistemas GRP, conformidade com Tribunais de Contas e transformação digital para o setor público.",
+    "15 anos implantando sistemas em prefeituras, câmaras e autarquias. Fundador da Govevia. Para clientes e parceiros que querem saber com quem estão negociando.",
   url: "https://leoamerico.me",
   locale: "pt-BR",
   email: "sou@leoamerico.me",
@@ -17,23 +17,23 @@ export const SITE = {
 
 export const NAV_LINKS = [
   { label: "Sobre", href: "#sobre" },
-  { label: "O que eu faço", href: "#servicos" },
+  { label: "O que resolvo", href: "#servicos" },
   { label: "Resultados", href: "#resultados" },
-  { label: "Produção", href: "#audit" },
+  { label: "Produção técnica", href: "#audit" },
   { label: "Govevia", href: "https://govevia.com" },
   { label: "Contato", href: "#contato" },
 ];
 
 export const HERO = {
-  badge: "Disponível para novos municípios",
+  badge: "Uberlândia, MG · Atendimento em todo o Brasil",
   heading: "Leonardo Américo",
   roles: [
-    "Arquiteto de Soluções para Gestão Pública",
-    "Especialista em Transformação Digital",
-    "Implantação de Sistemas GRP",
+    "Especialista em Gestão Pública Digital",
+    "Fundador da Govevia",
+    "15 anos implantando sistemas em prefeituras",
   ],
   paragraph:
-    "15 anos ajudando municípios a sair do papel, do retrabalho e da insegurança jurídica. Implanto sistemas que funcionam no dia a dia da prefeitura — não só na apresentação do fornecedor.",
+    "Trabalho com transformação digital no setor público desde 2010. Se você precisa saber com quem está negociando antes de fechar qualquer contrato — este site existe para isso.",
   ctaPrimary: { label: "Ver Resultados", href: "#resultados" },
   ctaSecondary: {
     label: "Falar no WhatsApp",
@@ -41,18 +41,18 @@ export const HERO = {
   },
   metrics: [
     { value: "15+", label: "anos em gestão pública digital" },
-    { value: "40+", label: "prefeituras, câmaras e autarquias" },
-    { value: "70%", label: "menos papel — implantação Amparo Digital (Sonner Sistemas)" },
+    { value: "60+", label: "municípios, câmaras e autarquias atendidos" },
+    { value: "70%", label: "redução de papel — Amparo Digital (Sonner Sistemas)" },
   ],
 };
 
 export const ABOUT = {
-  title: "Quem é o Leo",
+  title: "Quem é Leo Américo",
   photo: "/photo.svg",
   paragraphs: [
-    "Trabalho com gestão pública desde 2010. Já implantei sistemas de gestão (GRP) em mais de 40 municípios entre Minas Gerais e São Paulo — de cidades com 5 mil habitantes até municípios com mais de 300 mil.",
-    "Minha especialidade é o ponto onde tecnologia encontra a realidade da prefeitura: migração de dados legados, adequação a exigências do TCE e TCU, capacitação de equipes e sistemas que os servidores realmente conseguem usar.",
-    "Sou fundador da Govevia, uma plataforma de gestão pública construída a partir dessa experiência de campo. Bacharel em Sistemas de Informação, membro do PMI e com formação complementar em gestão de projetos (PMP em andamento).",
+    "Desde 2010 trabalho com a realidade das prefeituras — não com a versão de apresentação. Já estive em mais de 60 municípios entre MG, SP, RS e BA, implantando sistemas onde o problema real era migração de dados legados, adequação ao TCE, resistência das equipes e dependência de planilhas.",
+    "Em 2024 fundei a Govevia, uma plataforma de gestão pública construída a partir dessa vivência. Não é mais uma solução genérica adaptada para o setor público — é construída de dentro para fora, para os problemas que eu vi se repetir em dezenas de implantações.",
+    "Bacharel em Sistemas de Informação e membro ativo do PMI, com 2.610 horas documentadas em 19 projetos municipais.",
   ],
   location: "Uberlândia, MG · Brasil",
   remote: "Atendimento remoto em todo o Brasil",
@@ -62,53 +62,53 @@ export const ABOUT = {
 };
 
 export const EXPERTISE = {
-  title: "O que eu faço",
+  title: "O que resolvo",
   cards: [
     {
       icon: "Building2",
-      title: "Implantação de Sistemas GRP",
+      title: "Sistemas que funcionam depois que o consultor vai embora",
       description:
-        "Implantação completa de sistemas de Gestão de Recursos Públicos — do levantamento de processos à migração de dados e capacitação da equipe. Foco em continuidade: o sistema funciona depois que o consultor vai embora.",
+        "Implantação de sistemas GRP com transferência real de conhecimento para a equipe. Migração de dados legados, adequação ao TCE e acompanhamento pós-implantação — não só a entrega do acesso.",
     },
     {
       icon: "ShieldCheck",
-      title: "Conformidade e Segurança",
+      title: "Conformidade que não é só no papel",
       description:
-        "Arquitetura pensada para atender exigências dos Tribunais de Contas, LGPD e normas de transparência. Trilhas de auditoria, controle de acesso por perfil e isolamento de dados por município.",
+        "Trilhas de auditoria, controle de acesso por perfil, isolamento de dados por município e adequação a LGPD e Tribunais de Contas. Arquitetura que sobrevive à fiscalização.",
     },
     {
       icon: "Monitor",
-      title: "Transformação Digital de Serviços",
+      title: "Serviços digitais que o cidadão consegue usar",
       description:
-        "Digitalização de serviços ao cidadão com redução real de papel e tempo de atendimento. Do protocolo ao alvará, do IPTU à nota fiscal — processos que hoje levam dias passam a levar minutos.",
+        "Digitalização do atendimento com redução mensurável de prazo e papel. Protocolo, alvará, IPTU, nota fiscal — processos que hoje dependem de fila e papel passam a funcionar online.",
     },
     {
       icon: "Database",
-      title: "Migração e Integração de Dados",
+      title: "Migração sem perder histórico",
       description:
-        "Migração segura de bases legadas (Oracle, SQL Server, sistemas próprios) para ambientes modernos em nuvem. Sem perda de histórico, sem interrupção de operação.",
+        "Transferência de bases legadas (Oracle, SQL Server, sistemas próprios) para ambientes modernos, sem interrupção da operação municipal e sem apagar o histórico que o TCE pode pedir amanhã.",
     },
   ],
 };
 
 export const STACK = {
-  title: "Tecnologias",
+  title: "Como construo",
   groups: [
     {
-      title: "Infraestrutura & Cloud",
-      techs: ["AWS", "GCP", "Oracle Cloud", "Docker", "Kubernetes", "Linux"],
+      title: "Infraestrutura",
+      techs: ["AWS", "GCP", "Oracle Cloud", "Docker", "Linux"],
     },
     {
-      title: "Banco de Dados",
+      title: "Dados",
       techs: ["PostgreSQL", "Oracle DB"],
     },
     {
-      title: "Desenvolvimento",
-      techs: ["Java", "Python", "React", "Next.js", "Node.js"],
+      title: "Plataforma",
+      techs: ["Java", "React", "Next.js", "Node.js"],
     },
     {
-      title: "Processos & Gestão",
-      techs: ["BPMN 2.0", "Git"],
+      title: "Processos",
+      techs: ["BPMN 2.0"],
     },
   ],
 };
@@ -176,40 +176,33 @@ export const PROJECTS = {
 };
 
 export const CERTIFICATIONS = {
-  title: "Certificações & Formação",
+  title: "Formação & Credenciais",
   items: [
     {
-      title: "PMP — Project Management Professional",
-      org: "PMI · Membro ativo · Certificação em andamento",
-      detail: "2.610 horas documentadas em 19 projetos municipais",
+      title: "Membro PMI — Project Management Institute",
+      org: "PMI · Membro ativo verificável",
+      detail: "2.610 horas documentadas em 19 projetos municipais — base para elegibilidade PMP",
       link: "https://community.pmi.org/profile/leoamericojr",
       status: "active",
       docs: [
-        { label: "Certificado PMI", href: "/pmi/pmi-member-certificate.pdf" },
+        { label: "Certificado de Membro", href: "/pmi/pmi-member-certificate.pdf" },
         { label: "Cartão Membro", href: "/pmi/pmi-member-card.pdf" },
       ],
     },
     {
       title: "Bacharel em Sistemas de Informação",
-      org: "Faculdade CNEC Unaí · Concluído em 2010",
-      detail: "Diploma digital verificável — MEC/ICP-Brasil",
+      org: "Faculdade CNEC Unaí · 2010",
+      detail: "Diploma digital com verificação MEC/ICP-Brasil",
       link: "#diploma",
       status: "Concluído",
-    },
-    {
-      title: "AWS Solutions Architect Professional",
-      org: "Amazon Web Services · Em preparação",
-      detail: null,
-      link: null,
-      status: "Em andamento",
     },
   ],
 };
 
 export const CONTACT = {
-  title: "Seu município precisa modernizar a gestão?",
+  title: "Vamos conversar?",
   subtitle:
-    "Posso ajudar com implantação de sistemas, migração de dados, conformidade com Tribunais de Contas ou digitalização de serviços ao cidadão. 15 anos de experiência prática — sem PowerPoint bonito que não funciona na segunda-feira.",
+    "Se você chegou até aqui querendo entender com quem está negociando — espero ter respondido. Para qualquer conversa sobre projetos, parcerias ou a Govevia, estou nos canais abaixo.",
   links: [
     {
       label: "WhatsApp",

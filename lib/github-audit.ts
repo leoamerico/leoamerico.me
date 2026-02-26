@@ -145,12 +145,15 @@ interface RawRepo {
 
 export interface RepoAuditData {
   name: string;
+  // description and adrFiles only exposed for public repos
   description: string;
   isPrivate: boolean;
   commits: number;
   lastActivity: string | null;
+  // recentMessages only for public repos — never expose private repo commit messages
   recentMessages: string[];
   adrCount: number;
+  // adrFiles only for public repos — never expose private repo file paths
   adrFiles: string[];
   policyCount: number;
   testCount: number;
@@ -163,7 +166,7 @@ export interface AuditReport {
   generatedAt: string;
   period: string;
   author: string;
-  cpf: string;
+  // cpf intentionally removed — PII must never be in a public API response
   totalRepos: number;
   activeRepos: number;
   totalCommits: number;
@@ -246,15 +249,19 @@ export async function generateAuditReport(): Promise<AuditReport | null> {
         countFilesByPattern(r.name, branch, /./i, token),
       ]);
 
+    const isPrivate = r.private as boolean;
     const repo: RepoAuditData = {
       name: r.name as string,
-      description: (r.description as string) || "",
-      isPrivate: r.private as boolean,
+      // Never expose description or file paths of private repos
+      description: isPrivate ? "" : ((r.description as string) || ""),
+      isPrivate,
       commits,
       lastActivity,
-      recentMessages,
+      // Never expose commit messages of private repos (may contain sensitive info)
+      recentMessages: isPrivate ? [] : recentMessages,
       adrCount: adrFiles.length,
-      adrFiles: adrFiles.map((f: string) => f.split("/").pop() || f),
+      // Never expose internal file paths of private repos
+      adrFiles: isPrivate ? [] : adrFiles.map((f: string) => f.split("/").pop() || f),
       policyCount: policyFiles.length,
       testCount,
       portAdapterCount,
@@ -279,7 +286,7 @@ export async function generateAuditReport(): Promise<AuditReport | null> {
     generatedAt: new Date().toISOString(),
     period: label,
     author: "Leonardo Américo José Ribeiro",
-    cpf: "703.380.511-04",
+    // CPF is NEVER returned in the API response — PII must not be exposed publicly
     totalRepos: reposRaw.length,
     activeRepos: repos.length,
     totalCommits,
