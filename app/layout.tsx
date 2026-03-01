@@ -1,19 +1,21 @@
 import type { Metadata } from "next";
-import { Inter, Sora } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { SITE } from "@/lib/constants";
 import { PERSON_JSON_LD } from "@/lib/structured-data";
 
-const inter = Inter({
-  subsets: ["latin"],
+const inter = localFont({
+  src: "../public/fonts/inter-latin-var.woff2",
   variable: "--font-inter",
   display: "swap",
+  weight: "100 900",
 });
 
-const sora = Sora({
-  subsets: ["latin"],
+const sora = localFont({
+  src: "../public/fonts/sora-latin-var.woff2",
   variable: "--font-sora",
   display: "swap",
+  weight: "100 800",
 });
 
 export const metadata: Metadata = {
