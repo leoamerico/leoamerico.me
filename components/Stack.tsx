@@ -38,7 +38,8 @@ const techIcons: Record<string, React.ElementType | null> = {
 
 export default function Stack() {
   return (
-    <section id="stack" className="py-24 md:py-32 border-t border-slate-800/50">
+    <section id="stack" className="py-24 md:py-32">
+      <div className="section-divider mb-24 md:mb-32" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -67,7 +68,7 @@ export default function Stack() {
                   return (
                     <span
                       key={tech}
-                      className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-800/80 border border-slate-700/50 text-slate-300 text-sm hover:border-cyan-400/40 hover:text-cyan-400 transition-all"
+                      className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-800/50 border border-slate-700/30 text-slate-300 text-sm hover:border-cyan-400/30 hover:text-cyan-400 transition-all duration-300"
                     >
                       {Icon && <Icon className="text-base" />}
                       {tech}

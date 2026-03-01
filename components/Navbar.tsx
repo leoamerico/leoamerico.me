@@ -20,12 +20,17 @@ export default function Navbar() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "glass shadow-lg shadow-cyan-500/5"
+          ? "glass shadow-lg shadow-black/10"
           : "bg-transparent"
       }`}
     >
+      {/* Gradient bottom border when scrolled */}
+      {scrolled && (
+        <div className="absolute bottom-0 left-0 right-0 section-divider" />
+      )}
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
@@ -44,14 +49,14 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 {...(link.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                className="text-sm text-slate-300 hover:text-cyan-400 transition-colors"
+                className="text-sm text-slate-400 hover:text-white transition-colors duration-300"
               >
                 {link.label}
               </a>
             ))}
             <a
               href="#contato"
-              className="text-sm font-medium px-5 py-2 rounded-full border border-amber-400 text-amber-400 hover:bg-amber-400/10 transition-all"
+              className="text-sm font-medium px-5 py-2 rounded-full bg-gradient-to-r from-amber-500 to-amber-400 text-slate-950 hover:shadow-lg hover:shadow-amber-500/20 transition-all"
               aria-label="Fale comigo"
             >
               Fale comigo
@@ -76,8 +81,9 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden glass border-t border-slate-800"
+            className="md:hidden glass"
           >
+            <div className="section-divider" />
             <div className="px-4 py-4 space-y-3">
               {NAV_LINKS.map((link) => (
                 <a
@@ -93,7 +99,7 @@ export default function Navbar() {
               <a
                 href="#contato"
                 onClick={() => setMobileOpen(false)}
-                className="block text-center font-medium px-5 py-2 rounded-full border border-amber-400 text-amber-400 hover:bg-amber-400/10 transition-all"
+                className="block text-center font-medium px-5 py-2 rounded-full bg-gradient-to-r from-amber-500 to-amber-400 text-slate-950 transition-all"
               >
                 Fale comigo
               </a>

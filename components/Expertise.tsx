@@ -19,6 +19,7 @@ const iconMap: Record<string, React.ElementType> = {
 export default function Expertise() {
   return (
     <section id="servicos" className="py-24 md:py-32">
+      <div className="section-divider mb-24 md:mb-32" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -39,7 +40,7 @@ export default function Expertise() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="glass rounded-2xl p-6 hover:border-cyan-400/30 transition-all group"
+                className="glass rounded-2xl p-6 card-glow group"
               >
                 <div className="w-12 h-12 rounded-xl bg-cyan-400/10 flex items-center justify-center mb-4 group-hover:bg-cyan-400/20 transition-colors">
                   <Icon size={24} className="text-cyan-400" />

@@ -62,8 +62,6 @@ export default function Hero() {
       .catch(() => {/* fallback to static */});
   }, []);
 
-  // Overlay live values on top of the static HERO.metrics array:
-  // index 1 = entidades JPA, index 2 = casos de uso
   const metrics = HERO.metrics.map((m, i) => {
     if (i === 1 && live) return { ...m, value: String(live.entityCount), _live: true };
     if (i === 2 && live) return { ...m, value: String(live.useCaseCount), _live: true };
@@ -72,10 +70,12 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+      {/* Aurora gradient mesh */}
+      <div className="aurora" />
       {/* Background grid */}
       <div className="absolute inset-0 bg-grid opacity-40" />
-      {/* Radial gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-radial from-cyan-500/5 via-transparent to-transparent" />
+      {/* Bottom fade to slate-950 */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-950" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 text-center">
         {/* Badge */}
@@ -83,7 +83,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-400/30 bg-cyan-400/5 text-cyan-400 text-sm mb-8"
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-400/20 bg-cyan-400/5 text-cyan-400 text-sm mb-8"
         >
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
@@ -92,12 +92,12 @@ export default function Hero() {
           {HERO.badge}
         </motion.div>
 
-        {/* Name */}
+        {/* Name — gradient text for premium feel */}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="font-heading font-bold text-4xl sm:text-5xl md:text-7xl text-white mb-4"
+          className="font-heading font-bold text-5xl sm:text-6xl md:text-8xl text-gradient mb-6 tracking-tight"
         >
           {HERO.heading}
         </motion.h1>
@@ -107,7 +107,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="text-xl sm:text-2xl md:text-3xl font-heading font-medium mb-6 h-10"
+          className="text-xl sm:text-2xl md:text-3xl font-heading font-medium mb-8 h-10"
         >
           <Typewriter words={HERO.roles} />
         </motion.h2>
@@ -117,7 +117,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="max-w-2xl mx-auto text-slate-400 text-base md:text-lg mb-10 leading-relaxed"
+          className="max-w-2xl mx-auto text-slate-400 text-base md:text-lg mb-12 leading-relaxed"
         >
           {HERO.paragraph}
         </motion.p>
@@ -127,13 +127,13 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20"
         >
           <motion.a
             href={HERO.ctaPrimary.href}
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.97 }}
-            className="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold transition-colors hover:shadow-lg hover:shadow-amber-500/25"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-gradient-to-r from-amber-500 to-amber-400 text-slate-950 font-semibold transition-all hover:shadow-lg hover:shadow-amber-500/25"
             aria-label={HERO.ctaPrimary.label}
           >
             <Terminal size={18} />
@@ -145,7 +145,7 @@ export default function Hero() {
             rel="noopener noreferrer"
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.97 }}
-            className="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-slate-700 text-slate-300 hover:border-cyan-400 hover:text-cyan-400 transition-colors"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full border border-slate-700/60 text-slate-300 hover:border-cyan-400/50 hover:text-cyan-400 transition-all hover:shadow-lg hover:shadow-cyan-500/5"
             aria-label={HERO.ctaSecondary.label}
           >
             <BookOpen size={18} />
@@ -158,7 +158,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7 }}
-          className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl mx-auto"
+          className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto"
         >
           {metrics.map((metric, i) => {
             const m = metric as {
@@ -197,7 +197,7 @@ export default function Hero() {
                 href={m.href}
                 target={m.external ? "_blank" : "_self"}
                 rel={m.external ? "noopener noreferrer" : undefined}
-                className="glass rounded-2xl p-6 text-center hover:border-cyan-400/40 hover:bg-cyan-400/5 transition-all cursor-pointer group"
+                className="glass rounded-2xl p-6 text-center card-glow cursor-pointer group"
               >
                 {inner}
               </a>

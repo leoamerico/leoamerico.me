@@ -55,7 +55,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.variable} ${sora.variable} font-sans antialiased bg-slate-950 text-slate-100`}
+        className={`${inter.variable} ${sora.variable} font-sans antialiased bg-slate-950 text-slate-100 noise-overlay`}
       >
         {children}
       </body>

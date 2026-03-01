@@ -5,11 +5,13 @@ import Expertise from "@/components/Expertise";
 import Stack from "@/components/Stack";
 import Projects from "@/components/Projects";
 import GoveiaStats from "@/components/GoveiaStats";
+import PersonaPicker from "@/components/PersonaPicker";
+import EcosystemBanner from "@/components/EcosystemBanner";
 import dynamic from "next/dynamic";
 const ControlPlane = dynamic(() => import("@/components/ControlPlane"), {
   ssr: false,
   loading: () => (
-    <section className="py-24 md:py-32 border-t border-slate-800/50 min-h-[600px]" aria-label="Carregando Control Plane…" />
+    <section className="py-24 md:py-32 min-h-[600px]" aria-label="Carregando Control Plane…" />
   ),
 });
 import Certifications from "@/components/Certifications";
@@ -22,6 +24,8 @@ export default function Home() {
   return (
     <>
       <Navbar />
+      <EcosystemBanner />
+      <PersonaPicker />
       <main data-seo-root="true">
         <Hero />
         <About />

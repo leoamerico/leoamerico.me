@@ -12,7 +12,8 @@ const statusIcon: Record<string, React.ElementType> = {
 
 export default function Certifications() {
   return (
-    <section id="credenciais" className="py-24 md:py-32 border-t border-slate-800/50">
+    <section id="credenciais" className="py-24 md:py-32">
+      <div className="section-divider mb-24 md:mb-32" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -33,7 +34,7 @@ export default function Certifications() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="glass rounded-2xl p-6 text-center hover:border-cyan-400/30 transition-all"
+                className="glass rounded-2xl p-6 text-center card-glow"
               >
                 <div className="w-12 h-12 rounded-full bg-cyan-400/10 flex items-center justify-center mx-auto mb-4">
                   <Icon size={22} className="text-cyan-400" />

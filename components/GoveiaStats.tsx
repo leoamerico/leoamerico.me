@@ -131,7 +131,8 @@ const metricColor: Record<string, string> = {
 
 export default function GoveiaStats() {
   return (
-    <section className="py-24 md:py-32 border-t border-slate-800/50">
+    <section className="py-24 md:py-32">
+      <div className="section-divider mb-24 md:mb-32" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -158,7 +159,7 @@ export default function GoveiaStats() {
           {GOVEVIA_STATS.compliance.map((c, i) => (
             <div
               key={i}
-              className="glass rounded-xl px-5 py-4 flex items-start gap-3 max-w-xs"
+              className="glass rounded-xl px-5 py-4 flex items-start gap-3 max-w-xs card-glow"
             >
               <div className="mt-0.5">
                 {i === 0 ? (
@@ -169,7 +170,7 @@ export default function GoveiaStats() {
               </div>
               <div>
                 <p className="text-white text-sm font-semibold">{c.label}</p>
-                <p className="text-slate-500 text-xs mt-0.5">{c.year}</p>
+                <p className="text-slate-500 text-xs mb-1">{c.year}</p>
                 <p className="text-slate-400 text-xs mt-1 leading-relaxed">{c.note}</p>
               </div>
             </div>
@@ -185,7 +186,7 @@ export default function GoveiaStats() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="glass rounded-2xl p-6 flex flex-col gap-4"
+              className="glass rounded-2xl p-6 flex flex-col gap-4 card-glow"
             >
               {/* Visual */}
               <div className="flex items-center justify-start min-h-[48px]">

@@ -15,7 +15,8 @@ import { DIPLOMA } from "@/lib/constants";
 
 export default function Diploma() {
   return (
-    <section id="diploma" className="py-24 md:py-32 border-t border-slate-800/50">
+    <section id="diploma" className="py-24 md:py-32">
+      <div className="section-divider mb-24 md:mb-32" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -40,7 +41,7 @@ export default function Diploma() {
           className="max-w-4xl mx-auto"
         >
           {/* Main diploma card */}
-          <div className="glass rounded-2xl p-8 md:p-10 border border-slate-700/50 hover:border-emerald-400/20 transition-all relative overflow-hidden">
+          <div className="glass rounded-2xl p-8 md:p-10 card-glow relative overflow-hidden">
             {/* Decorative accent */}
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 via-cyan-400 to-emerald-500" />
 
@@ -168,7 +169,7 @@ export default function Diploma() {
                 href={DIPLOMA.pdfUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-800 text-slate-300 text-sm font-medium hover:bg-slate-700 border border-slate-700 hover:border-slate-600 transition-all"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-800/80 text-slate-300 text-sm font-medium hover:bg-slate-700/80 border border-slate-700/50 hover:border-slate-600 transition-all"
               >
                 <FileDown size={16} />
                 Download PDF
@@ -177,7 +178,7 @@ export default function Diploma() {
                 href={DIPLOMA.xmlUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-800 text-slate-300 text-sm font-medium hover:bg-slate-700 border border-slate-700 hover:border-slate-600 transition-all"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-800/80 text-slate-300 text-sm font-medium hover:bg-slate-700/80 border border-slate-700/50 hover:border-slate-600 transition-all"
               >
                 <FileDown size={16} />
                 XML Assinado
