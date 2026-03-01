@@ -7,6 +7,7 @@ import { PROJECTS, type ProjectCard } from "@/lib/constants";
 export default function Projects() {
   return (
     <section id="resultados" className="py-24 md:py-32">
+      <div className="section-divider mb-24 md:mb-32" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -25,10 +26,10 @@ export default function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.15 }}
-              className="glass rounded-2xl overflow-hidden group hover:border-cyan-400/30 transition-all flex flex-col"
+              className="glass rounded-2xl overflow-hidden group card-glow flex flex-col"
             >
               {/* Image placeholder */}
-              <div className="relative h-48 bg-gradient-to-br from-cyan-500/10 to-blue-600/10 flex items-center justify-center">
+              <div className="relative h-48 bg-gradient-to-br from-cyan-500/10 to-violet-600/10 flex items-center justify-center">
                 <div className="text-6xl font-heading font-bold text-cyan-400/20">
                   {i + 1}
                 </div>

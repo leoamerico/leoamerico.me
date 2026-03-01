@@ -28,7 +28,6 @@ export const SITE = {
   url: "https://leoamerico.me",
   locale: "pt-BR",
   email: "sou@leoamerico.me",
-  ogImage: "/og-image.png",
 };
 
 export const NAV_LINKS = [

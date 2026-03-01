@@ -25,9 +25,14 @@ export default function Contact() {
   return (
     <section
       id="contato"
-      className="py-24 md:py-32 bg-gradient-to-b from-slate-950 via-slate-900/50 to-slate-950"
+      className="relative py-24 md:py-32 overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Subtle gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900/30 to-slate-950" />
+
+      <div className="section-divider" />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-32">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -54,7 +59,7 @@ export default function Contact() {
             href={CONTACT.links.find((l) => l.icon === "MessageCircle")?.href ?? "https://wa.me/5534984228457"}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold transition-all hover:shadow-lg hover:shadow-amber-500/25"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-gradient-to-r from-amber-500 to-amber-400 text-slate-950 font-semibold transition-all hover:shadow-lg hover:shadow-amber-500/25"
           >
             <MessageCircle size={18} />
             Falar no WhatsApp
@@ -62,7 +67,7 @@ export default function Contact() {
           </a>
           <a
             href="mailto:sou@leoamerico.me"
-            className="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-slate-700 text-slate-300 hover:border-cyan-400 hover:text-cyan-400 transition-all"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full border border-slate-700/60 text-slate-300 hover:border-cyan-400/50 hover:text-cyan-400 transition-all hover:shadow-lg hover:shadow-cyan-500/5"
           >
             <Mail size={18} />
             Enviar e-mail
@@ -85,7 +90,7 @@ export default function Contact() {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-4 p-4 rounded-xl bg-slate-800/40 border border-slate-700/30 hover:border-cyan-400/30 hover:bg-slate-800/60 transition-all group"
+                className="flex items-center gap-4 p-4 rounded-xl glass card-glow group"
                 aria-label={link.label}
               >
                 <div className="w-10 h-10 rounded-lg bg-cyan-400/10 flex items-center justify-center group-hover:bg-cyan-400/20 transition-colors">

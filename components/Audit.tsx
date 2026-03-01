@@ -230,7 +230,7 @@ function GoveiaHeatmap({ weeks }: { weeks: Array<{ week: number; days: number[] 
       </div>
 
       {/* Legend */}
-      <div className="flex items-center gap-2 mt-4 pt-4 border-t border-slate-800/50 text-[10px] text-slate-600">
+      <div className="flex items-center gap-2 mt-4 pt-4 relative text-[10px] text-slate-600">
         <span>Menos</span>
         {["bg-slate-800/60", "bg-emerald-900/70", "bg-emerald-700/80", "bg-emerald-500", "bg-emerald-400"].map((cls, i) => (
           <span key={i} className={`w-3 h-3 rounded-[2px] inline-block ${cls}`} />
@@ -286,8 +286,9 @@ export default function Audit() {
   void maxCommits; // used by legacy chart, suppressed lint warning
 
   return (
-    <section id="audit" className="py-24 md:py-32 border-t border-slate-800/50">
+    <section id="audit" className="py-24 md:py-32 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="section-divider mb-24 md:mb-32" />
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

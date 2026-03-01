@@ -1,19 +1,21 @@
 import type { Metadata } from "next";
-import { Inter, Sora } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { SITE } from "@/lib/constants";
 import { PERSON_JSON_LD } from "@/lib/structured-data";
 
-const inter = Inter({
-  subsets: ["latin"],
+const inter = localFont({
+  src: "../public/fonts/inter-latin-var.woff2",
   variable: "--font-inter",
   display: "swap",
+  weight: "100 900",
 });
 
-const sora = Sora({
-  subsets: ["latin"],
+const sora = localFont({
+  src: "../public/fonts/sora-latin-var.woff2",
   variable: "--font-sora",
   display: "swap",
+  weight: "100 800",
 });
 
 export const metadata: Metadata = {
@@ -25,7 +27,6 @@ export const metadata: Metadata = {
     description: SITE.description,
     url: SITE.url,
     siteName: SITE.name,
-    images: [{ url: SITE.ogImage, width: 1200, height: 630 }],
     locale: SITE.locale,
     type: "website",
   },
@@ -33,7 +34,6 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: SITE.title,
     description: SITE.description,
-    images: [SITE.ogImage],
   },
   icons: {
     icon: "/favicon.ico",
@@ -55,7 +55,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.variable} ${sora.variable} font-sans antialiased bg-slate-950 text-slate-100`}
+        className={`${inter.variable} ${sora.variable} font-sans antialiased bg-slate-950 text-slate-100 noise-overlay`}
       >
         {children}
       </body>

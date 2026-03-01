@@ -16,17 +16,19 @@ export default function About() {
           transition={{ duration: 0.6 }}
           className="grid md:grid-cols-2 gap-12 md:gap-16 items-center"
         >
-          {/* Photo */}
+          {/* Photo with animated gradient ring */}
           <div className="flex justify-center">
-            <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-2 border-cyan-400/20 shadow-2xl shadow-cyan-500/10">
-              <Image
-                src={ABOUT.photo}
-                alt="Leo Américo"
-                fill
-                className="object-cover object-top"
-                sizes="(max-width: 768px) 256px, 320px"
-                priority
-              />
+            <div className="photo-ring rounded-full">
+              <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden shadow-2xl shadow-cyan-500/10">
+                <Image
+                  src={ABOUT.photo}
+                  alt="Leo Américo"
+                  fill
+                  className="object-cover object-top"
+                  sizes="(max-width: 768px) 256px, 320px"
+                  priority
+                />
+              </div>
             </div>
           </div>
 
@@ -47,11 +49,11 @@ export default function About() {
 
             {/* Tags */}
             <div className="flex flex-wrap gap-3 mb-6">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-800 text-slate-300 text-sm">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-800/60 border border-slate-700/30 text-slate-300 text-sm">
                 <MapPin size={14} className="text-cyan-400" />
                 {ABOUT.location}
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-800 text-slate-300 text-sm">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-800/60 border border-slate-700/30 text-slate-300 text-sm">
                 <Wifi size={14} className="text-cyan-400" />
                 {ABOUT.remote}
               </span>

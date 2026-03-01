@@ -24,7 +24,7 @@ function SkeletonPulse({ className }: { className?: string }) {
 
 function ControlPlaneSkeleton() {
   return (
-    <section className="py-24 md:py-32 border-t border-slate-800/50" aria-label="Carregando dados do Control Plane…">
+    <section className="py-24 md:py-32" aria-label="Carregando dados do Control Plane…">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 space-y-3">
           <SkeletonPulse className="h-9 w-72 mx-auto" />
@@ -282,10 +282,11 @@ export default function ControlPlane() {
   return (
     <MotionConfig reducedMotion="user">
       <section
-        className="py-24 md:py-32 border-t border-slate-800/50"
+        className="py-24 md:py-32 relative"
         aria-labelledby="control-plane-heading"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="section-divider mb-24 md:mb-32" />
 
           {/* Header */}
           <motion.div
