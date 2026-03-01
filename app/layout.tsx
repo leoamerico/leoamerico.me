@@ -25,7 +25,6 @@ export const metadata: Metadata = {
     description: SITE.description,
     url: SITE.url,
     siteName: SITE.name,
-    images: [{ url: SITE.ogImage, width: 1200, height: 630 }],
     locale: SITE.locale,
     type: "website",
   },
@@ -33,7 +32,6 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: SITE.title,
     description: SITE.description,
-    images: [SITE.ogImage],
   },
   icons: {
     icon: "/favicon.ico",

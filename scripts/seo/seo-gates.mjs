@@ -122,9 +122,11 @@ async function checkE1() {
   const hasSitemapRef = robots.text.toLowerCase().includes("sitemap:");
   if (!hasSitemapRef) violations.push("robots.txt não referencia Sitemap");
 
-  // Extract sitemap URL from robots.txt
+  // Extract sitemap URL from robots.txt, rewriting domain to BASE for local testing
   const sitemapM = robots.text.match(/Sitemap:\s*(\S+)/i);
-  const sitemapUrl = sitemapM?.[1] ?? `${BASE}/sitemap.xml`;
+  const sitemapUrl = sitemapM
+    ? `${BASE}${(() => { try { return new URL(sitemapM[1]).pathname; } catch { return sitemapM[1]; } })()}`
+    : `${BASE}/sitemap.xml`;
 
   const sitemap = await fetchText(sitemapUrl);
   if (!sitemap.ok) {
@@ -157,7 +159,7 @@ async function checkE2E3() {
   // Discover indexable routes from sitemap
   const sitemapRes = await fetchHtml("/sitemap.xml");
   const urls = sitemapRes.ok ? parseSitemapUrls(sitemapRes.text) : [`${BASE}/`];
-  const paths = urls.map(u => u.replace(new RegExp(`^${BASE.replace(/[.*+?^]/g, "\\$&")}`), "") || "/");
+  const paths = urls.map(u => { try { return new URL(u).pathname; } catch { return u; } });
   // Only check real pages (not anchors)
   const pages = paths.filter(p => !p.includes("#") && !p.includes("/api/"));
 
@@ -186,12 +188,13 @@ async function checkE2E3() {
     if (title && title.length < 30) v2.push(`${p}: title curto (${title.length} chars, ideal 30-60)`);
     if (title && title.length > 60) v2.push(`${p}: title longo (${title.length} chars, ideal ≤60)`);
 
-    // Canonical E-SEO-3
+    // Canonical E-SEO-3: compare only the path, since canonical uses the production domain
     if (canonical) {
-      const expected = `${BASE}${p === "/" ? "" : p}`;
-      const expectedSlash = expected + "/";
-      if (canonical !== expected && canonical !== expectedSlash) {
-        v3.push(`${p}: canonical (${canonical}) ≠ URL esperada (${expected})`);
+      const canonicalPath = (() => { try { return new URL(canonical).pathname; } catch { return canonical; } })();
+      const normalised = p === "/" ? "/" : p.replace(/\/$/, "");
+      const canonicalNorm = canonicalPath === "/" ? "/" : canonicalPath.replace(/\/$/, "");
+      if (canonicalNorm !== normalised) {
+        v3.push(`${p}: canonical path (${canonicalPath}) ≠ expected (${p})`);
       }
     }
   }
@@ -209,7 +212,7 @@ async function checkE4() {
   const G = gate("E-SEO-4", "Nenhuma thin page em produção indexável");
   const sitemapRes = await fetchHtml("/sitemap.xml");
   const urls = sitemapRes.ok ? parseSitemapUrls(sitemapRes.text) : [`${BASE}/`];
-  const paths = urls.map(u => u.replace(new RegExp(`^${BASE.replace(/[.*+?^]/g, "\\$&")}`), "") || "/");
+  const paths = urls.map(u => { try { return new URL(u).pathname; } catch { return u; } });
   const pages = paths.filter(p => !p.includes("#") && !p.includes("/api/"));
 
   const violations = [];

@@ -34,7 +34,7 @@ components/
 lib/
   constants.ts        # Todos os dados centralizados
 public/
-  photo.svg           # Placeholder da foto (substituir)
+  photo.jpg           # Foto pessoal
   projects/           # Imagens dos projetos
 ```
 
@@ -69,7 +69,7 @@ O projeto é compatível com deploy direto na Vercel sem configuração adiciona
 
 Todos os textos, links e métricas estão centralizados em `lib/constants.ts`. Para atualizar:
 
-1. **Foto**: Substitua `public/photo.svg` por sua foto real (JPG/PNG) e atualize o path em `lib/constants.ts`
+1. **Foto**: Substitua `public/photo.jpg` pela foto desejada e atualize o path em `lib/constants.ts`
 2. **Textos**: Edite `lib/constants.ts`
 3. **Cores**: Edite `tailwind.config.ts` e `app/globals.css`
 
