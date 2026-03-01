@@ -68,7 +68,9 @@ jobs:
           done
 
       - name: Run SEO gates (E-SEO-1..4)
-        run: node scripts/seo/seo-gates.mjs --url http://localhost:3000 --json > reports/seo/seo-gates.json
+        run: |
+          mkdir -p reports/seo
+          node scripts/seo/seo-gates.mjs --url http://localhost:3000 --json > reports/seo/seo-gates.json
         continue-on-error: false
 
       - name: Upload SEO gate report
